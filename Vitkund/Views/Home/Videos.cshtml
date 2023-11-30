@@ -1,9 +1,9 @@
-﻿
-<!DOCTYPE html>
-<html lang="en">
-
-
-
+﻿@model List<Vitkund.Models.tblVideo>
+@{
+    int counter = 1; // Initialize the counter for append some divs only one time
+    int counter1 = 1; // Initialize the counter for append some divs only one time
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <body class="rbt-header-sticky">
 
     <!-- Start Header Area -->
@@ -99,157 +99,191 @@
         <div class="container">
             <div class="row row row--30">
 
+
                 <div class="col-lg-12 mt_md--40 mt_sm--40 order-2 order-lg-1">
                     <div class="advance-tab-button">
-                        <ul class="nav nav-tabs tab-button-style-2" id="myTab-4" role="tablist">
-                            <li role="presentation">
-                                <a href="#" class="tab-button active" id="home-tab-4" data-bs-toggle="tab" data-bs-target="#home-4" role="tab" aria-controls="home-4" aria-selected="false">
-                                    <span class="title">Chapter 1</span>
-                                </a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#" class="tab-button" id="profile-tab-4" data-bs-toggle="tab" data-bs-target="#profile-4" role="tab" aria-controls="profile-4" aria-selected="false">
-                                    <span class="title">Chapter 2</span>
-                                </a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#" class="tab-button" id="contact-tab-4" data-bs-toggle="tab" data-bs-target="#contact-4" role="tab" aria-controls="contact-4" aria-selected="true">
-                                    <span class="title">Chapter 3</span>
-                                </a>
-                            </li>
+                        <ul class="nav nav-tabs tab-button-style-2 lisul" id="myTab-4" role="tablist">
+                            @if (ViewBag.tblchapters != null)
+                            {
+
+                                foreach (var item in ViewBag.tblchapters)
+                                {
+                                    <li role="presentation">
+                                        <a href="#" class="tab-button" id="home-tab-@item.Id" data-bs-toggle="tab" data-bs-target="#home-@item.Id" role="tab" aria-controls="home-4" aria-selected="false">
+                                            <span class="title"> @item.Name</span>
+                                        </a>
+                                    </li>
+                                }
+                            }
+
                         </ul>
                     </div>
+
                     <div class="tab-content advance-tab-content-style-2">
-                        <div class="tab-pane  active show fade" id="home-4" role="tabpanel" aria-labelledby="home-tab-4">
-                            <div class="content">
+                        @if (ViewBag.tblchapters != null)
+                        {
+                            foreach (var item in ViewBag.tblchapters)
+                            {
+                                <div class="tab-pane" id="home-@item.Id" role="tabpanel" aria-labelledby="home-tab-@item.Id">
+                                    <div class="content">
 
-                                <div class="row g-5 align-items-center" style="padding-top:30px; padding-bottom:50px;">
-                                    <div class="col-lg-3">
-                                        <div class="video-popup-wrapper">
-                                            <img class="w-100 rbt-radius" src="~/Content/assets/images/videos/vit1.png" alt="Video Images">
-                                            <a class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="~/Content/assets/images/videos/vit1.mp4" style="max-width:50px; max-height:50px;">
-                                                <span><i class="feather-play"></i></span>
-                                            </a>
-                                            <h6 class="title" style="padding-top:10px;">Education</h6>
+                                        <div class="row g-5 align-items-center" style="padding-top:30px; padding-bottom:50px;">
+                                            @if (Model != null)
+                                            {
+                                                foreach (var item2 in Model.Where(x => x.fK_Chapter == @item.Id))
+                                                {
+                                                    <div class="col-lg-3">
+                                                        <div class="video-popup-wrapper">
+                                                            <img class="w-100 rbt-radius" src="@item2.VideoImage" alt="Video Images">
+                                                            <a class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="@item2.VideoFile" style="max-width:50px; max-height:50px;">
+                                                                <span><i class="feather-play"></i></span>
+                                                            </a>
+                                                            <h6 class="title" style="padding-top:10px;">@item2.FileTitle</h6>
+                                                        </div>
+                                                    </div>
+
+                                                }
+                                            }
                                         </div>
+
+
                                     </div>
-                                    <div class="col-lg-3">
-                                        <div class="video-popup-wrapper">
-                                            <img class="w-100 rbt-radius" src="~/Content/assets/images/videos/vit2.png" alt="Video Images">
-                                            <a class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="~/Content/assets/images/videos/vit2.mp4" style="max-width:50px; max-height:50px;">
-                                                <span><i class="feather-play"></i></span>
-                                            </a>
-                                            <h6 class="title" style="padding-top:10px;">E Rupee</h6>
+                                </div>
+
+                            }
+                        }
+                        @*<div class="tab-pane  active show fade" id="home-4" role="tabpanel" aria-labelledby="home-tab-4">
+                                <div class="content">
+
+                                    <div class="row g-5 align-items-center" style="padding-top:30px; padding-bottom:50px;">
+                                        <div class="col-lg-3">
+                                            <div class="video-popup-wrapper">
+                                                <img class="w-100 rbt-radius" src="~/Content/assets/images/videos/vit1.png" alt="Video Images">
+                                                <a class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="~/Content/assets/images/videos/vit1.mp4" style="max-width:50px; max-height:50px;">
+                                                    <span><i class="feather-play"></i></span>
+                                                </a>
+                                                <h6 class="title" style="padding-top:10px;">Education</h6>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="video-popup-wrapper">
-                                            <img class="w-100 rbt-radius" src="~/Content/assets/images/videos/vit3.png" alt="Video Images">
-                                            <a class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="~/Content/assets/images/videos/vit3.mp4" style="max-width:50px; max-height:50px;">
-                                                <span><i class="feather-play"></i></span>
-                                            </a>
-                                            <h6 class="title" style="padding-top:10px;">App Uses</h6>
+                                        <div class="col-lg-3">
+                                            <div class="video-popup-wrapper">
+                                                <img class="w-100 rbt-radius" src="~/Content/assets/images/videos/vit2.png" alt="Video Images">
+                                                <a class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="~/Content/assets/images/videos/vit2.mp4" style="max-width:50px; max-height:50px;">
+                                                    <span><i class="feather-play"></i></span>
+                                                </a>
+                                                <h6 class="title" style="padding-top:10px;">E Rupee</h6>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="video-popup-wrapper">
-                                            <img class="w-100 rbt-radius" src="~/Content/assets/images/videos/vit4.png" alt="Video Images">
-                                            <a class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="~/Content/assets/images/videos/vit4.mp4" style="max-width:50px; max-height:50px;">
-                                                <span><i class="feather-play"></i></span>
-                                            </a>
-                                            <h6 class="title" style="padding-top:10px;">Vit Kund</h6>
+                                        <div class="col-lg-3">
+                                            <div class="video-popup-wrapper">
+                                                <img class="w-100 rbt-radius" src="~/Content/assets/images/videos/vit3.png" alt="Video Images">
+                                                <a class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="~/Content/assets/images/videos/vit3.mp4" style="max-width:50px; max-height:50px;">
+                                                    <span><i class="feather-play"></i></span>
+                                                </a>
+                                                <h6 class="title" style="padding-top:10px;">App Uses</h6>
+                                            </div>
                                         </div>
+                                        <div class="col-lg-3">
+                                            <div class="video-popup-wrapper">
+                                                <img class="w-100 rbt-radius" src="~/Content/assets/images/videos/vit4.png" alt="Video Images">
+                                                <a class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="~/Content/assets/images/videos/vit4.mp4" style="max-width:50px; max-height:50px;">
+                                                    <span><i class="feather-play"></i></span>
+                                                </a>
+                                                <h6 class="title" style="padding-top:10px;">Vit Kund</h6>
+                                            </div>
+                                        </div>
+
+
                                     </div>
 
 
                                 </div>
-
-
                             </div>
-                        </div>
 
 
 
-                        <div class="tab-pane fade" id="profile-4" role="tabpanel" aria-labelledby="profile-tab-4">
-                            <div class="content">
+                            <div class="tab-pane fade" id="profile-4" role="tabpanel" aria-labelledby="profile-tab-4">
+                                <div class="content">
 
-                                <div class="row g-5 align-items-center" style="padding-top:30px; padding-bottom:50px;">
-                                    <div class="col-lg-3">
-                                        <div class="video-popup-wrapper">
-                                            <img class="w-100 rbt-radius" src="~/Content/assets/images/videos/vit5.png" alt="Video Images">
-                                            <a class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="~/Content/assets/images/videos/vit5.mp4" style="max-width:50px; max-height:50px;">
-                                                <span><i class="feather-play"></i></span>
-                                            </a>
-                                            <h6 class="title" style="padding-top:10px;">Vit Kund</h6>
+                                    <div class="row g-5 align-items-center" style="padding-top:30px; padding-bottom:50px;">
+                                        <div class="col-lg-3">
+                                            <div class="video-popup-wrapper">
+                                                <img class="w-100 rbt-radius" src="~/Content/assets/images/videos/vit5.png" alt="Video Images">
+                                                <a class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="~/Content/assets/images/videos/vit5.mp4" style="max-width:50px; max-height:50px;">
+                                                    <span><i class="feather-play"></i></span>
+                                                </a>
+                                                <h6 class="title" style="padding-top:10px;">Vit Kund</h6>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="video-popup-wrapper">
-                                            <img class="w-100 rbt-radius" src="~/Content/assets/images/videos/vit6.png" alt="Video Images">
-                                            <a class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="~/Content/assets/images/videos/vit6.mp4" style="max-width:50px; max-height:50px;">
-                                                <span><i class="feather-play"></i></span>
-                                            </a>
-                                            <h6 class="title" style="padding-top:10px;">Vit Kund</h6>
+                                        <div class="col-lg-3">
+                                            <div class="video-popup-wrapper">
+                                                <img class="w-100 rbt-radius" src="~/Content/assets/images/videos/vit6.png" alt="Video Images">
+                                                <a class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="~/Content/assets/images/videos/vit6.mp4" style="max-width:50px; max-height:50px;">
+                                                    <span><i class="feather-play"></i></span>
+                                                </a>
+                                                <h6 class="title" style="padding-top:10px;">Vit Kund</h6>
+                                            </div>
                                         </div>
+
+
+
                                     </div>
-
-
 
                                 </div>
-
                             </div>
-                        </div>
 
 
 
 
-                        <div class="tab-pane fade" id="contact-4" role="tabpanel" aria-labelledby="contact-tab-4">
-                            <div class="content">
-                                <div class="row g-5 align-items-center" style="padding-top:30px; padding-bottom:50px;">
-                                    <div class="col-lg-3">
-                                        <div class="video-popup-wrapper">
-                                            <img class="w-100 rbt-radius" src="~/Content/assets/images/videos/vit1.png" alt="Video Images">
-                                            <a class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="~/Content/assets/images/videos/vit1.mp4" style="max-width:50px; max-height:50px;">
-                                                <span><i class="feather-play"></i></span>
-                                            </a>
-                                            <h6 class="title" style="padding-top:10px;">Education</h6>
+                            <div class="tab-pane fade" id="contact-4" role="tabpanel" aria-labelledby="contact-tab-4">
+                                <div class="content">
+                                    <div class="row g-5 align-items-center" style="padding-top:30px; padding-bottom:50px;">
+                                        <div class="col-lg-3">
+                                            <div class="video-popup-wrapper">
+                                                <img class="w-100 rbt-radius" src="~/Content/assets/images/videos/vit1.png" alt="Video Images">
+                                                <a class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="~/Content/assets/images/videos/vit1.mp4" style="max-width:50px; max-height:50px;">
+                                                    <span><i class="feather-play"></i></span>
+                                                </a>
+                                                <h6 class="title" style="padding-top:10px;">Education</h6>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="video-popup-wrapper">
-                                            <img class="w-100 rbt-radius" src="~/Content/assets/images/videos/vit2.png" alt="Video Images">
-                                            <a class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="~/Content/assets/images/videos/vit2.mp4" style="max-width:50px; max-height:50px;">
-                                                <span><i class="feather-play"></i></span>
-                                            </a>
-                                            <h6 class="title" style="padding-top:10px;">E Rupee</h6>
+                                        <div class="col-lg-3">
+                                            <div class="video-popup-wrapper">
+                                                <img class="w-100 rbt-radius" src="~/Content/assets/images/videos/vit2.png" alt="Video Images">
+                                                <a class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="~/Content/assets/images/videos/vit2.mp4" style="max-width:50px; max-height:50px;">
+                                                    <span><i class="feather-play"></i></span>
+                                                </a>
+                                                <h6 class="title" style="padding-top:10px;">E Rupee</h6>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="video-popup-wrapper">
-                                            <img class="w-100 rbt-radius" src="~/Content/assets/images/videos/vit3.png" alt="Video Images">
-                                            <a class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="~/Content/assets/images/videos/vit3.mp4" style="max-width:50px; max-height:50px;">
-                                                <span><i class="feather-play"></i></span>
-                                            </a>
-                                            <h6 class="title" style="padding-top:10px;">App Uses</h6>
+                                        <div class="col-lg-3">
+                                            <div class="video-popup-wrapper">
+                                                <img class="w-100 rbt-radius" src="~/Content/assets/images/videos/vit3.png" alt="Video Images">
+                                                <a class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="~/Content/assets/images/videos/vit3.mp4" style="max-width:50px; max-height:50px;">
+                                                    <span><i class="feather-play"></i></span>
+                                                </a>
+                                                <h6 class="title" style="padding-top:10px;">App Uses</h6>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <div class="video-popup-wrapper">
-                                            <img class="w-100 rbt-radius" src="~/Content/assets/images/videos/vit4.png" alt="Video Images">
-                                            <a class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="~/Content/assets/images/videos/vit4.mp4" style="max-width:50px; max-height:50px;">
-                                                <span><i class="feather-play"></i></span>
-                                            </a>
-                                            <h6 class="title" style="padding-top:10px;">Vit Kund</h6>
+                                        <div class="col-lg-3">
+                                            <div class="video-popup-wrapper">
+                                                <img class="w-100 rbt-radius" src="~/Content/assets/images/videos/vit4.png" alt="Video Images">
+                                                <a class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="~/Content/assets/images/videos/vit4.mp4" style="max-width:50px; max-height:50px;">
+                                                    <span><i class="feather-play"></i></span>
+                                                </a>
+                                                <h6 class="title" style="padding-top:10px;">Vit Kund</h6>
+                                            </div>
                                         </div>
-                                    </div>
 
+
+                                    </div>
 
                                 </div>
-
-                            </div>
-                        </div>
+                            </div>*@
                     </div>
                 </div>
+
+
             </div>
 
         </div>
@@ -260,7 +294,11 @@
             <hr class="rbt-separator m-0">
         </div>
     </div>
-
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".lisul li").eq(0).children().children().click();
+        });
+    </script>
     <!-- JS
     ============================================ -->
     <!-- Modernizer JS -->
@@ -295,4 +333,4 @@
     <script src="~/Content/assets/js/main.js"></script>
 </body>
 
-</html>
+

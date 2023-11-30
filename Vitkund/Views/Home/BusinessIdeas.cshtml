@@ -234,59 +234,62 @@
         <div class="inner">
             <div class="container">
                 <div class="rbt-course-grid-column">
-                    @foreach (var item in Model)
-                    {<!-- Start Single Card  -->
-                                        <div class="course-grid-3">
-                                            <div class="rbt-card variation-01 rbt-hover">
-                                                <div class="rbt-card-img">
-                                                    <a href="#">
-                                                        <img src="@item.Image" alt="Card image">
-                                                        <div class="rbt-badge-3 bg-white">
-                                                            <span>-40%</span>
-                                                            <span>Off</span>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <div class="rbt-card-body">
-                                                    <div class="rbt-card-top">
-                                                        <div class="rbt-review">
-                                                            <div class="rating">
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                                <i class="fas fa-star"></i>
-                                                            </div>
-                                                            <span class="rating-count"> (15 Reviews)</span>
-                                                        </div>
-                                                        <div class="rbt-bookmark-btn">
-                                                            <a class="rbt-round-btn" title="Bookmark" href="#">
-                                                                <i class="feather-bookmark"></i>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-
-                                                    <h4 class="rbt-card-title">
-                                                        <a href="#">@item.Title</a>
-                                                    </h4>
-                                                    <p class="rbt-card-text">
-                                                        @item.ShortDescription
-                                                    </p>
-
-                                                    <div class="rbt-card-bottom">
-                                                        <!-- <div class="rbt-price"> -->
-                                                        <!-- <span class="current-price">$60</span> -->
-                                                        <!-- <span class="off-price">$120</span> -->
-                                                        <!-- </div> -->
-                                                        <a class="rbt-btn-link" href="#">
-                                                            Learn
-                                                            More<i class="feather-arrow-right"></i>
-                                                        </a>
-                                                    </div>
-
-                                                </div>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {<!-- Start Single Card  -->
+                            <div class="course-grid-3">
+                                <div class="rbt-card variation-01 rbt-hover">
+                                    <div class="rbt-card-img">
+                                        <a href="#">
+                                            <img src="@item.Image" alt="Card image">
+                                            <div class="rbt-badge-3 bg-white">
+                                                <span>-40%</span>
+                                                <span>Off</span>
                                             </div>
-                                        </div>}
+                                        </a>
+                                    </div>
+                                    <div class="rbt-card-body">
+                                        <div class="rbt-card-top">
+                                            <div class="rbt-review">
+                                                <div class="rating">
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                                <span class="rating-count"> (15 Reviews)</span>
+                                            </div>
+                                            <div class="rbt-bookmark-btn">
+                                                <a class="rbt-round-btn" title="Bookmark" href="#">
+                                                    <i class="feather-bookmark"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <h4 class="rbt-card-title">
+                                            <a href="#">@item.Title</a>
+                                        </h4>
+                                        <p class="rbt-card-text">
+                                            @item.ShortDescription
+                                        </p>
+
+                                        <div class="rbt-card-bottom">
+                                            <!-- <div class="rbt-price"> -->
+                                            <!-- <span class="current-price">$60</span> -->
+                                            <!-- <span class="off-price">$120</span> -->
+                                            <!-- </div> -->
+                                            <a class="rbt-btn-link" href="#">
+                                                Learn
+                                                More<i class="feather-arrow-right"></i>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>}
+                    }
                     <!-- End Single Card  -->
 
 

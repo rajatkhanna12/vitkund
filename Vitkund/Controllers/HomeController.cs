@@ -132,9 +132,11 @@ namespace Vitkund.Controllers
         [Route("Videos")]
         public ActionResult Videos()
         {
+            VitkundEntities db = new VitkundEntities();
+            ViewBag.tblchapters = db.tblChapters.ToList();
             ViewBag.Message = "Your contact page.";
-
-            return View();
+            var res = db.tblVideos.ToList();
+            return View(res);
         }
         [Route("Vitkund")]
         public ActionResult Vitkund()

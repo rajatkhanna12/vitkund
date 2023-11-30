@@ -7,7 +7,7 @@
       <Diagram DiagramId="d1ecfeed33184461bf3e0d0e2b085189" Name="Diagram1">
         <EntityTypeShape EntityType="VitkundModel.tblBusinessidea" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="VitkundModel.tblChapter" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="VitkundModel.tblVideo" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VitkundModel.tblVideo" Width="1.5" PointX="0.75" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

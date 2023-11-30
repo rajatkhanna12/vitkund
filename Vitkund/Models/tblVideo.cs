@@ -18,5 +18,6 @@ namespace Vitkund.Models
         public Nullable<int> fK_Chapter { get; set; }
         public string FileTitle { get; set; }
         public string VideoFile { get; set; }
+        public string VideoImage { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="VitkundModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="VitkundModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tblBusinessideas">
           <Key>
             <PropertyRef Name="Id" />
@@ -30,14 +30,14 @@
           <Property Name="fK_Chapter" Type="int" />
           <Property Name="FileTitle" Type="nvarchar" MaxLength="50" />
           <Property Name="VideoFile" Type="nvarchar(max)" />
+          <Property Name="VideoImage" Type="nvarchar(max)" />
         </EntityType>
         <EntityContainer Name="VitkundModelStoreContainer">
           <EntitySet Name="tblBusinessideas" EntityType="Self.tblBusinessideas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblChapter" EntityType="Self.tblChapter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblVideos" EntityType="Self.tblVideos" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="VitkundModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -58,6 +58,11 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityContainer Name="VitkundEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblBusinessideas" EntityType="Self.tblBusinessidea" />
+          <EntitySet Name="tblChapters" EntityType="Self.tblChapter" />
+          <EntitySet Name="tblVideos" EntityType="VitkundModel.tblVideo" />
+        </EntityContainer>
         <EntityType Name="tblVideo">
           <Key>
             <PropertyRef Name="Id" />
@@ -66,12 +71,8 @@
           <Property Name="fK_Chapter" Type="Int32" />
           <Property Name="FileTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="VideoFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="VideoImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="VitkundEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tblBusinessideas" EntityType="Self.tblBusinessidea" />
-          <EntitySet Name="tblChapters" EntityType="Self.tblChapter" />
-          <EntitySet Name="tblVideos" EntityType="Self.tblVideo" />
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -100,10 +101,11 @@
           <EntitySetMapping Name="tblVideos">
             <EntityTypeMapping TypeName="VitkundModel.tblVideo">
               <MappingFragment StoreEntitySet="tblVideos">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="fK_Chapter" ColumnName="fK_Chapter" />
-                <ScalarProperty Name="FileTitle" ColumnName="FileTitle" />
+                <ScalarProperty Name="VideoImage" ColumnName="VideoImage" />
                 <ScalarProperty Name="VideoFile" ColumnName="VideoFile" />
+                <ScalarProperty Name="FileTitle" ColumnName="FileTitle" />
+                <ScalarProperty Name="fK_Chapter" ColumnName="fK_Chapter" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
