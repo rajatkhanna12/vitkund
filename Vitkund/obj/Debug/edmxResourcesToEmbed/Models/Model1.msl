@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="VitkundModelStoreContainer" CdmEntityContainer="VitkundEntities">
+    <EntitySetMapping Name="tblBusinessideas">
+      <EntityTypeMapping TypeName="VitkundModel.tblBusinessidea">
+        <MappingFragment StoreEntitySet="tblBusinessideas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+          <ScalarProperty Name="LongDescription" ColumnName="LongDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblChapters">
+      <EntityTypeMapping TypeName="VitkundModel.tblChapter">
+        <MappingFragment StoreEntitySet="tblChapter">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblVideos">
+      <EntityTypeMapping TypeName="VitkundModel.tblVideo">
+        <MappingFragment StoreEntitySet="tblVideos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="fK_Chapter" ColumnName="fK_Chapter" />
+          <ScalarProperty Name="FileTitle" ColumnName="FileTitle" />
+          <ScalarProperty Name="VideoFile" ColumnName="VideoFile" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="VitkundModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tblBusinessideas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Image" Type="nvarchar(max)" />
+    <Property Name="ShortDescription" Type="nvarchar" MaxLength="100" />
+    <Property Name="LongDescription" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="tblChapter">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblVideos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fK_Chapter" Type="int" />
+    <Property Name="FileTitle" Type="nvarchar" MaxLength="50" />
+    <Property Name="VideoFile" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityContainer Name="VitkundModelStoreContainer">
+    <EntitySet Name="tblBusinessideas" EntityType="Self.tblBusinessideas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblChapter" EntityType="Self.tblChapter" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblVideos" EntityType="Self.tblVideos" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>
