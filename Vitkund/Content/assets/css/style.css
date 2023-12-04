@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /*********************************************************************************
 
 	Template Name: Histudy - Online Courses & Education Bootstrap5 Template
@@ -8068,7 +8068,7 @@ textarea:-ms-input-placeholder {
 -------------------------*/
 .rbt-round-btn {
   width: 40px;
-  height: 40px;
+  /*height: 40px;*/
   line-height: 41px;
   text-align: center;
   border-radius: 100%;
@@ -8082,7 +8082,7 @@ textarea:-ms-input-placeholder {
 @media only screen and (max-width: 767px) {
   .rbt-round-btn {
     width: 30px;
-    height: 30px;
+    /*height: 30px;*/
     line-height: 30px;
   }
 }
