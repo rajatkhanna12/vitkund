@@ -1,0 +1,147 @@
+﻿
+@{
+    ViewBag.Title = "AddBusinessIdeas";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>AddBusinessIdeas</h2>
+<div class="page-body">
+    <div class="container-fluid">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <h4>Gallery</h4>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="edit-profile">
+            <div class="row">
+                <div class="col-xl-12">
+                    <form class="card">
+                        <h3 style="text-align:center;margin:0 0 12px 0;display:none" id="successaddedh3">Data Saved Successfully</h3>
+
+                        <div class="card-header pb-0">
+                            <h5 class="card-title mb-0">Add Gallery</h5>
+                            <div class="card-options"><a class="card-options-collapse" href="#" data-bs-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a><a class="card-options-remove" href="#" data-bs-toggle="card-remove"><i class="fe fe-x"></i></a></div>
+                        </div>
+                        <div class="card-body">
+                            
+                            <div class="col-sm-4">
+                                <div class="mb-3">
+                                    <label>Event Title</label>
+                                    <input class="form-control" type="text" id="EventTitletxtbox" placeholder="Event name *">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="mb-3">
+                                    <label>Short Description</label>
+                                    <input class="form-control" type="text" id="shortDescriptiontxtbox" placeholder="Event name *">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="mb-3">
+                                    <label>Long Description</label>
+                                    <input class="form-control" type="text" id="Longdescriptiontxtbox" placeholder="Event name *">
+                                </div>
+                            </div>
+                            @*@using (Html.BeginForm("UploadImage", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "myForm" }))
+            {*@
+                            <div class="col-sm-4">
+                                <div class="mb-3">
+                                    <label>Upload Image/Video</label>
+                                    <input class="form-control" id="imageuploader" type="file" accept="image/png, image/gif, image/jpeg, video/mp4">
+                                </div>
+
+                            </div>
+                            @*}*@
+                        </div>
+                        <div class="card-footer text-end">
+                            <div class="text-end"><a class="btn btn-secondary me-3" href="javascript:void(0);" onclick="AddBusinessIdeas()">Add</a><a class="btn btn-danger" href="#">Cancel</a></div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    $("#myForm").submit(function (e) {
+            e.preventDefault();
+
+            var formData = new FormData();
+
+            $.ajax({
+                url: '@Url.Action("UploadFile", "Home")',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    // Handle the response
+                    console.log(response);
+                },
+                error: function (error) {
+                    // Handle errors
+                    console.log(error);
+                }
+            });
+        });
+
+    function AddBusinessIdeas() {
+        //debugger
+
+        var title = $("#EventTitletxtbox").val();
+        var image = $("#imagetitletxtbox").val();
+        var shortdescription = $("#shortDescriptiontxtbox").val();
+        var longdescription = $("#Longdescriptiontxtbox").val();
+        var formData = new FormData();
+
+        formData.append('file', $("#imageuploader")[0].files[0]);
+
+            $.ajax({
+                url: '@Url.Action("UploadFile", "Home")',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    var tblBusinessideadata = { Title: title, Image: response, ShortDescription: shortdescription, LongDescription: longdescription };
+                    finaladdmodal(tblBusinessideadata);
+                },
+                error: function (error) {
+                    // Handle errors
+                    console.log(error);
+                }
+            });
+
+
+    }
+
+    function finaladdmodal(tblBusinessideadata) {
+        $.ajax({
+            type: 'POST',
+            url: '/Home/AddBusinessIdeas',
+            data: JSON.stringify({ tblBusinessidea:tblBusinessideadata}),
+            traditional: true,
+            contentType: 'application/json; charset=utf-8',
+            datatype: 'json',
+            success: function (result) {
+                debugger
+                if (result.message == "Data saved successfully") {
+                    $("#successaddedh3").show();
+                    setTimeout(function () { window.location.reload() }, 1000);
+                }
+            },
+            error: function (result) {
+            }
+        });
+
+    }
+</script>

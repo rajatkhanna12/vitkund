@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using Vitkund.Models;
 
 namespace Vitkund.Controllers
 {
     public class HomeController : Controller
     {
+        #region cshtml pages
+
         [Route("Index")]
         [Route("")]
         public ActionResult Index()
@@ -28,7 +35,7 @@ namespace Vitkund.Controllers
         {
             ViewBag.Message = "Your contact page.";
             VitkundEntities db = new VitkundEntities();
-           var businessIdeas=  db.tblBusinessideas.ToList();
+            var businessIdeas = db.tblBusinessideas.ToList();
             return View(businessIdeas);
         }
         [Route("Contact-us")]
@@ -152,6 +159,85 @@ namespace Vitkund.Controllers
 
             return View();
         }
+        #endregion
+
+        #region AddBusinessIdeas
+        [Route("Add-Businessideas")]
+        public ActionResult AddBusinessIdeas()
+        {
+            ViewBag.Message = "Your contact page.";
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddBusinessIdeas(tblBusinessidea tblBusinessidea)
+        {
+            VitkundEntities db = new VitkundEntities();
+            db.tblBusinessideas.Add(tblBusinessidea);
+            db.SaveChanges();
+            return Json(new { success = true, message = "Data saved successfully" });
+        }
+        [HttpPost]
+        public ActionResult UploadFile(HttpPostedFileBase file)
+        {
+            if (file != null && file.ContentLength > 0)
+            {
+                var firstfilename = string.Format(@"{0}", Guid.NewGuid());// For Create random path for prevent duplicate name.
+                var fileName = Path.GetFileName(file.FileName);
+                var filePath = Path.Combine(Server.MapPath("~/Content/Uploads"), firstfilename + fileName);
+                var imagepathforserver = firstfilename + fileName;
+                file.SaveAs(filePath);
+                return Content(imagepathforserver);
+            }
+
+            return Content("No file selected.");
+        }
+        #endregion
+
+        #region Videos
+        [Route("Add-Videos")]
+        public ActionResult AddVideos()
+        {
+            VitkundEntities db = new VitkundEntities();
+            var res = db.tblChapters.ToList();
+            return View(res);
+        }
+        [HttpPost]
+        public ActionResult AddVideos(tblVideo tblvideo)
+        {
+            VitkundEntities db = new VitkundEntities();
+            db.tblVideos.Add(tblvideo);
+            db.SaveChanges();
+            return Json(new { success = true, message = "Data saved successfully" });
+        }
+        [HttpPost]
+        public ActionResult UploadVideosFile(HttpPostedFileBase file, HttpPostedFileBase file1)
+        {
+            if ((file != null && file.ContentLength > 0) || (file1 != null && file1.ContentLength > 0))
+            {
+                var imagepathforserver = "";
+                var videopathforserver = "";
+                if (file != null && file.ContentLength > 0)
+                {
+                    var firstfilename = string.Format(@"{0}", Guid.NewGuid()); // For Create random path for prevent duplicate name.
+                    var fileName = Path.GetFileName(file.FileName);
+                    var filePath = Path.Combine(Server.MapPath("~/Content/Uploads"), firstfilename + fileName);
+                    imagepathforserver = firstfilename + fileName;
+                    file.SaveAs(filePath);
+                }
+                if (file1 != null && file1.ContentLength > 0)
+                {
+                    var firstfilename = string.Format(@"{0}", Guid.NewGuid());
+                    var fileName = Path.GetFileName(file1.FileName);
+                    var filePath = Path.Combine(Server.MapPath("~/Content/Uploads"), firstfilename + fileName);
+                    videopathforserver = firstfilename + fileName;
+                    file.SaveAs(filePath);
+                }
+                return Content(imagepathforserver + "," + videopathforserver); // return imagepath and video path with comma seprated.
+            }
+
+            return Content("No file selected.");
+        }
+        #endregion
 
     }
 }

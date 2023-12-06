@@ -1,0 +1,137 @@
+﻿@model List<Vitkund.Models.tblChapter>
+@{
+    ViewBag.Title = "Add Videos";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Add Videos</h2>
+<div class="page-body">
+    <div class="container-fluid">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <h4><b>Videos</b></h4>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="edit-profile">
+            <div class="row">
+                <div class="col-xl-12">
+                    <form class="card">
+
+                        <div class="card-body">
+                            <h3 style="text-align:center;margin:0 0 12px 0;display:none" id="successaddedh3">Data Saved Successfully</h3>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="form-label">Select Chapter</label>
+                                        <select name="Chapters" class="form-control" id="Chaptersdll">
+                                            @foreach (var item in Model)
+                                            {
+                                                if (!string.IsNullOrEmpty(item.Name))
+                                                {
+                                            <option value="@item.Id">@item.Name</option>
+                                                }
+                                            }
+
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 col-md-4">
+                                    <div class="mb-3">
+                                        <label class="form-label">Video File Title</label>
+                                        <input class="form-control" id="Videofiletitle" type="text" placeholder="Video Title">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-4">
+                                    <div class="mb-3">
+                                        <label class="form-label">Upload Image File</label>
+                                        <input class="form-control" id="imageuploader" type="file" accept="image/png, image/gif, image/jpeg, video/mp4">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 col-md-12">
+
+                                    <div class="mb-3">
+                                        <label>Upload Video File</label>
+                                        <input class="form-control" id="Videouploader" type="file" accept="video/mp4">
+                                        @*<div class="dropzone dz-clickable" id="singleFileUpload" action="/upload.php">
+                                                <div class="dz-message needsclick">
+                                                    <i class="icon-cloud-up"></i>
+                                                    <h6>Drop files here or click to upload.</h6><span class="note needsclick">(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</span>
+                                                </div>
+                                            </div>*@
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="card-footer text-end">
+                                <input type="button" class="btn btn-primary" onclick="AddVideos()" value="Upload Video" />
+                                @*<button class="btn btn-primary" id="Uploadvideobutton" onclick="AddVideos()">Upload Video</button>*@
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+
+<script>
+    function AddVideos() {
+        var formData = new FormData();
+        var FileTitle = $("#Videofiletitle").val();
+        var selectedchapterid = $("#Chaptersdll :selected").val();
+        formData.append('file', $("#imageuploader")[0].files[0]);
+        formData.append('file1', $("#Videouploader")[0].files[0]);
+
+            $.ajax({
+                url: '@Url.Action("UploadVideosFile", "Home")',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    debugger
+                    if (response.includes(",")) {
+                        var imageUploader = response.split(",")[0];
+                        var videouploader = response.split(",")[1];
+                        var tblVideodata = { fK_Chapter: selectedchapterid, FileTitle: FileTitle, VideoFile: videouploader, VideoImage: imageUploader };
+                        finaladdmodal(tblVideodata);
+                    }
+                },
+                error: function (error) {
+                    // Handle errors
+                    console.log(error);
+                }
+            });
+    }
+    function finaladdmodal(tblVideodata) {
+        $.ajax({
+            type: 'POST',
+            url: '/Home/AddVideos',
+            data: JSON.stringify({ tblvideo: tblVideodata }),
+            traditional: true,
+            contentType: 'application/json; charset=utf-8',
+            datatype: 'json',
+            success: function (result) {
+                debugger
+                if (result.message == "Data saved successfully") {
+                    $("#successaddedh3").show();
+                    setTimeout(function () { window.location.reload() }, 1000);
+                }
+            },
+            error: function (result) {
+            }
+        });
+    }
+</script>
