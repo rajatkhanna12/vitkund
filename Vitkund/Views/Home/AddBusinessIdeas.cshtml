@@ -89,7 +89,16 @@
                                         <a class="icon-wrapper" href="javascript:void(0);" onclick="DeleteVideo(@item1.Id)"><i class="icofont icofont-trash"></i></a>
                                     </div>
                                     <a href="!#">
-                                        <img src="~/Content/Uploads/@item1.Image" itemprop="thumbnail" alt="Image description">
+
+                                        @if (@item1.Image.Contains("Content"))
+                                        {
+                                            <img src="@item1.Image" itemprop="thumbnail" alt="Image description">
+                                        }
+                                        else
+                                        {
+                                            <img src="~/Content/Uploads/@item1.Image" itemprop="thumbnail" alt="Image description">
+                                        }
+
                                         <div class="caption">
                                             <h4>@item1.Title</h4>
                                             <span class="clsshortdescription">@item1.ShortDescription</span>
