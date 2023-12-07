@@ -6,16 +6,7 @@
 
 <h2>AddBusinessIdeas</h2>
 <div class="page-body">
-    <div class="container-fluid">
-        <div class="page-title">
-            <div class="row">
-                <div class="col-12 col-sm-6">
-                    <h4>Gallery</h4>
-                </div>
 
-            </div>
-        </div>
-    </div>
     <!-- Container-fluid starts-->
     <div class="container-fluid">
         <div class="edit-profile">
@@ -25,45 +16,46 @@
                         <h3 style="text-align:center;margin:0 0 12px 0;display:none" id="successaddedh3">Data Saved Successfully</h3>
 
                         <div class="card-header pb-0">
-                            <h5 class="card-title mb-0">Add Gallery</h5>
+                            <h5 class="card-title mb-0">Add Business Ideas</h5>
                             <div class="card-options"><a class="card-options-collapse" href="#" data-bs-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a><a class="card-options-remove" href="#" data-bs-toggle="card-remove"><i class="fe fe-x"></i></a></div>
                         </div>
                         <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="mb-3">
+                                        <label>Event Title</label>
+                                        <input class="form-control" type="text" id="EventTitletxtbox" placeholder="Event name *">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="mb-3">
+                                        <label>Short Description</label>
+                                        <input class="form-control" type="text" id="shortDescriptiontxtbox" placeholder="Event name *">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="mb-3">
+                                        <label>Long Description</label>
+                                        <input class="form-control" type="text" id="Longdescriptiontxtbox" placeholder="Event name *">
+                                    </div>
+                                </div>
+                                @*@using (Html.BeginForm("UploadImage", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "myForm" }))
+            {*@
+                                <div class="col-sm-4">
+                                    <div class="mb-3">
+                                        <label>Upload Image</label>
+                                        <input class="form-control" id="imageuploader" type="file" accept="image/png, image/jpeg">
+                                    </div>
 
-                            <div class="col-sm-4">
-                                <div class="mb-3">
-                                    <label>Event Title</label>
-                                    <input class="form-control" type="text" id="EventTitletxtbox" placeholder="Event name *">
                                 </div>
+                                @*}*@
                             </div>
-                            <div class="col-sm-4">
-                                <div class="mb-3">
-                                    <label>Short Description</label>
-                                    <input class="form-control" type="text" id="shortDescriptiontxtbox" placeholder="Event name *">
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="mb-3">
-                                    <label>Long Description</label>
-                                    <input class="form-control" type="text" id="Longdescriptiontxtbox" placeholder="Event name *">
-                                </div>
-                            </div>
-                            @*@using (Html.BeginForm("UploadImage", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "myForm" }))
-                                {*@
-                            <div class="col-sm-4">
-                                <div class="mb-3">
-                                    <label>Upload Image</label>
-                                    <input class="form-control" id="imageuploader" type="file" accept="image/png, image/jpeg">
-                                </div>
-
-                            </div>
-                            @*}*@
                         </div>
-                        <div class="card-footer text-end">
-                            <div class="text-end"><a class="btn btn-secondary me-3" href="javascript:void(0);" onclick="AddBusinessIdeas()">Add</a><a class="btn btn-danger" href="#">Cancel</a></div>
+                            <div class="card-footer text-end">
+                                <div class="text-end"><a class="btn btn-primary me-3" href="javascript:void(0);" onclick="AddBusinessIdeas()">Add</a><a class="btn btn-danger" href="#">Cancel</a></div>
 
-                        </div>
-                    </form>
+                            </div>
+</form>
                 </div>
             </div>
         </div>
