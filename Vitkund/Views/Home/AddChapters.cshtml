@@ -1,0 +1,163 @@
+﻿@model List<Vitkund.Models.tblChapter>
+@{
+    ViewBag.Title = "AddBusinessIdeas";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>AddBusinessIdeas</h2>
+<div class="page-body">
+    <div class="container-fluid">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <h4>Chapters</h4>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="edit-profile">
+            <div class="row">
+                <div class="col-xl-12">
+                    <form class="card">
+                        <h3 style="text-align:center;margin:0 0 12px 0;display:none" id="successaddedh3">Data Saved Successfully</h3>
+
+                        <div class="card-header pb-0">
+                            <input type="hidden" id="hiddenfieldforid" />
+                            <h5 class="card-title mb-0">Add Chapter</h5>
+                            <div class="card-options"><a class="card-options-collapse" href="#" data-bs-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a><a class="card-options-remove" href="#" data-bs-toggle="card-remove"><i class="fe fe-x"></i></a></div>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="col-sm-4">
+                                <div class="mb-3">
+                                    <label>Chapter Name</label>
+                                    <input class="form-control" type="text" id="Chapternametxtbox" placeholder="Event name *">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-end">
+                            <div class="text-end"><a class="btn btn-secondary me-3" href="javascript:void(0);" onclick="AddChapters()">Add</a><a class="btn btn-danger" href="#">Cancel</a></div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-12 col-md-12">
+        <div class="card ongoing-project recent-orders">
+            <div class="card-header card-no-border">
+                <div class="media media-dashboard">
+                    <div class="media-body">
+                        <h5 class="mb-0">Chapters List</h5>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card-body pt-0">
+                <div class="table-responsive">
+                    <table class="table table-bordernone">
+                        <thead>
+                            <tr>
+                                <th> <span>Chapter Name</span></th>
+
+                                <th> <span>Action</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="media">
+                                            <div class="media-body ps-2">
+                                                <div class="avatar-details">
+                                                    <a href="#" data-bs-original-title="" title="">
+                                                        <h6>@item.Name</h6>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <a href="javascript:void(0)" onclick="EditChapter(@item.Id,'@item.Name.Replace(" ","_")')"><i data-feather="edit-2"></i></a>
+                                        <a href="javascript:void(0)" onclick="DeleteChapter(@item.Id)"><i data-feather="trash-2"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    function AddChapters() {
+        //debugger
+        var id = $("#hiddenfieldforid").val();
+        var title = $("#Chapternametxtbox").val();
+        var tblChapterdata = { Id: id, Name: title };
+            $.ajax({
+                type: 'POST',
+                url: '/Home/AddChapters',
+                data: JSON.stringify({ tblchapter: tblChapterdata }),
+                traditional: true,
+                contentType: 'application/json; charset=utf-8',
+                datatype: 'json',
+                success: function (response) {
+                    debugger
+                    if (response.message == "Data saved successfully") {
+                        alert(response.message);
+                        window.location.reload();
+                    }
+                },
+                error: function (error) {
+                    // Handle errors
+                    console.log(error);
+                }
+            });
+    }
+    function DeleteChapter(elm) {
+
+        var result = confirm("Want to delete?");
+        if (result) {
+            debugger
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("DeleteChaptersFile", "Home")',
+                data: JSON.stringify({ Id: elm }),
+                traditional: true,
+                contentType: 'application/json; charset=utf-8',
+                datatype:'json',
+                success: function (response) {
+                    debugger
+                    if (response.message == "Data Deleted successfully") {
+                        alert(response.message);
+                        window.location.reload();
+                    }
+                },
+                error: function (error) {
+                    // Handle errors
+                    console.log(error);
+                }
+            });
+        }
+
+
+    }
+    function EditChapter(elm,name) {
+        $("#Chapternametxtbox").val("");
+        $("#hiddenfieldforid").val(elm);
+        $("#Chapternametxtbox").val(name.replaceAll("_"," "));
+    }
+</script>

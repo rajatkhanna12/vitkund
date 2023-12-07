@@ -1,4 +1,4 @@
-﻿@model List<Vitkund.Models.tblChapter>
+﻿@model List<Vitkund.Models.tblVideo>
 @{
     ViewBag.Title = "Add Videos";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -30,11 +30,11 @@
                                     <div class="mb-3">
                                         <label class="form-label">Select Chapter</label>
                                         <select name="Chapters" class="form-control" id="Chaptersdll">
-                                            @foreach (var item in Model)
+                                            @foreach (var item in ViewBag.tblchapters)
                                             {
                                                 if (!string.IsNullOrEmpty(item.Name))
                                                 {
-                                            <option value="@item.Id">@item.Name</option>
+                                                    <option value="@item.Id">@item.Name</option>
                                                 }
                                             }
 
@@ -52,7 +52,7 @@
                                 <div class="col-sm-6 col-md-4">
                                     <div class="mb-3">
                                         <label class="form-label">Upload Image File</label>
-                                        <input class="form-control" id="imageuploader" type="file" accept="image/png, image/gif, image/jpeg, video/mp4">
+                                        <input class="form-control" id="imageuploader" type="file" accept="image/png, image/jpeg,">
 
                                     </div>
                                 </div>
@@ -83,21 +83,88 @@
             </div>
         </div>
     </div>
+
+
+
+    @*Videos Listing*@
+    @foreach (var item in ViewBag.tblchapters)
+    {
+        <div class="container-fluid">
+            <div class="page-title">
+                <div class="row">
+                    <div class="col-12 col-sm-6">
+                        <h3>@item.Name</h3>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header pb-0">
+                            <h6>@item.Name (Videos)</h6>
+                        </div>
+                        <div class="my-gallery card-body" itemscope="" data-pswp-uid="1">
+                            <div class="row my-gallery gallery-with-description" itemscope="" data-pswp-uid="2">
+                                @foreach (var item1 in Model.Where(x => x.fK_Chapter == item.Id))
+                                {
+                                    <figure class="col-xl-3 col-6 xl-33" itemprop="associatedMedia" itemscope="">
+                                        <div style="float:right; margin-right:38px;">
+                                            <a class="icon-wrapper" href="javascript:void(0);" onclick="DeleteVideo(@item1.Id)"><i class="icofont icofont-trash"></i></a>
+                                        </div>
+                                        <a href="!#">
+                                            @if (item1.VideoImage != null)
+                                            {
+                                                if (item1.VideoImage.Contains("Content"))
+                                                {
+                                                    <img src="@item1.VideoImage" itemprop="thumbnail" alt="Image description">
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/Content/Uploads/@item1.VideoImage" itemprop="thumbnail" alt="Image description">
+
+                                                }
+                                            }
+                                            <div class="caption">
+                                                <h4>@item1.FileTitle</h4>
+
+
+                                            </div>
+                                        </a>
+
+                                    </figure>
+                                }
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
 </div>
 <script src="~/Scripts/jquery-3.4.1.js"></script>
 
 <script>
     function AddVideos() {
         var formData = new FormData();
+        var formData1 = new FormData();
         var FileTitle = $("#Videofiletitle").val();
-        var selectedchapterid = $("#Chaptersdll :selected").val();
+        var selectedchapterid = $("#Chaptersdll option:selected").val();
         formData.append('file', $("#imageuploader")[0].files[0]);
         formData.append('file1', $("#Videouploader")[0].files[0]);
-
-            $.ajax({
-                url: '@Url.Action("UploadVideosFile", "Home")',
-                type: 'POST',
-                data: formData,
+        $.ajax({
+            url: '@Url.Action("UploadVideosFile", "Home")',
+            type: 'POST',
+            data: formData,
                 contentType: false,
                 processData: false,
                 success: function (response) {
@@ -126,12 +193,39 @@
             success: function (result) {
                 debugger
                 if (result.message == "Data saved successfully") {
-                    $("#successaddedh3").show();
-                    setTimeout(function () { window.location.reload() }, 1000);
+                    alert(result.message);
+                    window.location.reload();
                 }
             },
             error: function (result) {
             }
         });
+    }
+    function DeleteVideo(elm) {
+        var result = confirm("Want to delete?");
+        if (result) {
+            debugger
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("DeleteVideosFile", "Home")',
+                data: JSON.stringify({ Id: elm }),
+                traditional: true,
+                contentType: 'application/json; charset=utf-8',
+                datatype:'json',
+                success: function (response) {
+                    debugger
+                    if (response.message == "Data Deleted successfully") {
+                        alert(response.message);
+                        window.location.reload();
+                    }
+                },
+                error: function (error) {
+                    // Handle errors
+                    console.log(error);
+                }
+            });
+        }
+
+
     }
 </script>
