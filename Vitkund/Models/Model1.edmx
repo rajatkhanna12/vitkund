@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="VitkundModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblAdmin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="tblBusinessideas">
           <Key>
             <PropertyRef Name="Id" />
@@ -33,6 +41,7 @@
           <Property Name="VideoImage" Type="nvarchar(max)" />
         </EntityType>
         <EntityContainer Name="VitkundModelStoreContainer">
+          <EntitySet Name="tblAdmin" EntityType="Self.tblAdmin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblBusinessideas" EntityType="Self.tblBusinessideas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblChapter" EntityType="Self.tblChapter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblVideos" EntityType="Self.tblVideos" Schema="dbo" store:Type="Tables" />
@@ -62,6 +71,7 @@
           <EntitySet Name="tblBusinessideas" EntityType="Self.tblBusinessidea" />
           <EntitySet Name="tblChapters" EntityType="Self.tblChapter" />
           <EntitySet Name="tblVideos" EntityType="VitkundModel.tblVideo" />
+          <EntitySet Name="tblAdmins" EntityType="VitkundModel.tblAdmin" />
         </EntityContainer>
         <EntityType Name="tblVideo">
           <Key>
@@ -72,6 +82,14 @@
           <Property Name="FileTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="VideoFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="VideoImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tblAdmin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -105,6 +123,15 @@
                 <ScalarProperty Name="VideoFile" ColumnName="VideoFile" />
                 <ScalarProperty Name="FileTitle" ColumnName="FileTitle" />
                 <ScalarProperty Name="fK_Chapter" ColumnName="fK_Chapter" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblAdmins">
+            <EntityTypeMapping TypeName="VitkundModel.tblAdmin">
+              <MappingFragment StoreEntitySet="tblAdmin">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

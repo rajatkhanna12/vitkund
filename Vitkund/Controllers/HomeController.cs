@@ -165,7 +165,22 @@ namespace Vitkund.Controllers
             ViewBag.Message = "Your Admin Index page.";
             return View();
         }
+
+        [Route("Business-Ideas/{Id}")]
+        public ActionResult BusinessIdeaDetail(string Id)
+        {
+            VitkundEntities db = new VitkundEntities();
+            tblBusinessidea tblbusinessidea = db.tblBusinessideas.Find(Convert.ToInt32(Id));
+            if (tblbusinessidea == null)
+                return HttpNotFound();
+            else
+            {
+                return View(tblbusinessidea);
+            }
+        }
         #endregion
+
+
 
         #region AddBusinessIdeas
         [Route("Add-Businessideas")]
@@ -179,9 +194,27 @@ namespace Vitkund.Controllers
         public ActionResult AddBusinessIdeas(tblBusinessidea tblBusinessidea)
         {
             VitkundEntities db = new VitkundEntities();
-            db.tblBusinessideas.Add(tblBusinessidea);
-            db.SaveChanges();
-            return Json(new { success = true, message = "Data saved successfully" });
+            if (tblBusinessidea.Id == null || tblBusinessidea.Id == 0)
+            {
+                db.tblBusinessideas.Add(tblBusinessidea);
+                db.SaveChanges();
+                return Json(new { success = true, message = "Data saved successfully" });
+            }
+            else
+            {
+                var data = db.tblBusinessideas.FirstOrDefault(x => x.Id == tblBusinessidea.Id);
+                if (data != null)
+                {
+                    data.Title = tblBusinessidea.Title;
+                    data.ShortDescription = tblBusinessidea.ShortDescription;
+                    if (tblBusinessidea.Image.ToLower().Contains(".png") || tblBusinessidea.Image.ToLower().Contains(".jpeg"))
+                        data.Image = tblBusinessidea.Image;
+                    data.LongDescription = tblBusinessidea.LongDescription;
+                    db.SaveChanges();
+                    return Json(new { success = true, message = "Data Updated successfully" });
+                }
+                return Json(new { success = true, message = "Something Error Found !!" });
+            }
         }
         [HttpPost]
         public ActionResult UploadFile(HttpPostedFileBase file)
@@ -199,6 +232,19 @@ namespace Vitkund.Controllers
             return Content("No file selected.");
         }
         [HttpPost]
+        public ActionResult GetBusinessIdeaById(string Id)
+        {
+            VitkundEntities db = new VitkundEntities();
+            tblBusinessidea tblbusinessidea = db.tblBusinessideas.Find(Convert.ToInt32(Id));
+            if (tblbusinessidea == null)
+                return HttpNotFound();
+            else
+            {
+                return Json(new { success = true, message = tblbusinessidea });
+            }
+
+        }
+        [HttpPost]
         public ActionResult DeleteBusinessIdea(string Id)
         {
             VitkundEntities db = new VitkundEntities();
@@ -212,7 +258,14 @@ namespace Vitkund.Controllers
             }
             return Json(new { success = true, message = "Data Deleted successfully" });
         }
+
+
+
+
+
         #endregion
+
+
 
         #region Videos
         [Route("Add-Videos")]
@@ -227,9 +280,43 @@ namespace Vitkund.Controllers
         public ActionResult AddVideos(tblVideo tblvideo)
         {
             VitkundEntities db = new VitkundEntities();
-            db.tblVideos.Add(tblvideo);
-            db.SaveChanges();
-            return Json(new { success = true, message = "Data saved successfully" });
+            if (tblvideo.Id == null || tblvideo.Id == 0)
+            {
+                db.tblVideos.Add(tblvideo);
+                db.SaveChanges();
+                return Json(new { success = true, message = "Data saved successfully" });
+            }
+            else
+            {
+                var data = db.tblVideos.FirstOrDefault(x => x.Id == tblvideo.Id);
+                if (data != null)
+                {
+                    data.FileTitle = tblvideo.FileTitle;
+                    if (tblvideo.VideoFile.ToLower().Contains(".mp4"))
+                        data.VideoFile = tblvideo.VideoFile;
+                    if (tblvideo.VideoImage.ToLower().Contains(".png") || tblvideo.VideoImage.ToLower().Contains(".jpeg"))
+                        data.VideoImage = tblvideo.VideoImage;
+                    data.fK_Chapter = tblvideo.fK_Chapter;
+                    db.SaveChanges();
+                    return Json(new { success = true, message = "Data Updated successfully" });
+                }
+
+                return Json(new { success = true, message = "Something Error Found !!" });
+            }
+
+        }
+        [HttpPost]
+        public ActionResult GetVideosFile(string Id)
+        {
+            VitkundEntities db = new VitkundEntities();
+            tblVideo tblvideo = db.tblVideos.Find(Convert.ToInt32(Id));
+            if (tblvideo == null)
+                return HttpNotFound();
+            else
+            {
+                return Json(new { success = true, message = tblvideo });
+            }
+
         }
         [HttpPost]
         public ActionResult DeleteVideosFile(string Id)
@@ -275,6 +362,8 @@ namespace Vitkund.Controllers
         }
         #endregion
 
+
+
         #region Chapters
         [Route("Add-Chapters")]
         public ActionResult AddChapters()
@@ -287,10 +376,11 @@ namespace Vitkund.Controllers
         public ActionResult AddChapters(tblChapter tblchapter)
         {
             VitkundEntities db = new VitkundEntities();
-            if (tblchapter.Id == null || tblchapter.Id==0)
+            if (tblchapter.Id == null || tblchapter.Id == 0)
             {
                 db.tblChapters.Add(tblchapter);
                 db.SaveChanges();
+                return Json(new { success = true, message = "Data saved successfully" });
             }
             else
             {
@@ -299,9 +389,11 @@ namespace Vitkund.Controllers
                 {
                     data.Name = tblchapter.Name;
                     db.SaveChanges();
+                    return Json(new { success = true, message = "Data Updated successfully" });
                 }
+
+                return Json(new { success = true, message = "Something Error Found !!" });
             }
-            return Json(new { success = true, message = "Data saved successfully" });
         }
         [HttpPost]
         public ActionResult DeleteChaptersFile(string Id)
@@ -331,6 +423,22 @@ namespace Vitkund.Controllers
             }
             return Json(new { success = true, message = "Data Deleted successfully" });
         }
+        #endregion
+
+
+        #region Admin
+        [HttpPost]
+        public ActionResult LoginAdmin(tblAdmin tbladmin)
+        {
+            VitkundEntities db = new VitkundEntities();
+            tblAdmin tblAdmin = db.tblAdmins.FirstOrDefault(x=>x.Username== tbladmin.Username && x.Password==tbladmin.Password);
+            if (tblAdmin == null)
+                return Json(new { success = true, message = "User Not Found" });
+            else
+                return Json(new { success = true, message = "Logged In" });
+
+        }
+
         #endregion
     }
 }

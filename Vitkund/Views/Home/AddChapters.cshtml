@@ -6,16 +6,7 @@
 
 <h2>AddBusinessIdeas</h2>
 <div class="page-body">
-    <div class="container-fluid">
-        <div class="page-title">
-            <div class="row">
-                <div class="col-12 col-sm-6">
-                    <h4>Chapters</h4>
-                </div>
 
-            </div>
-        </div>
-    </div>
     <!-- Container-fluid starts-->
     <div class="container-fluid">
         <div class="edit-profile">
@@ -30,74 +21,76 @@
                             <div class="card-options"><a class="card-options-collapse" href="#" data-bs-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a><a class="card-options-remove" href="#" data-bs-toggle="card-remove"><i class="fe fe-x"></i></a></div>
                         </div>
                         <div class="card-body">
-
-                            <div class="col-sm-4">
-                                <div class="mb-3">
-                                    <label>Chapter Name</label>
-                                    <input class="form-control" type="text" id="Chapternametxtbox" placeholder="Event name *">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="mb-3">
+                                        <label>Chapter Name</label>
+                                        <input class="form-control" type="text" id="Chapternametxtbox" placeholder="Event name *">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label>&nbsp;</label><br />
+                                    <div class="text-end"><a class="btn btn-primary me-3" id="btnaddupdate" href="javascript:void(0);" onclick="AddChapters()">Add</a><a class="btn btn-danger" href="#">Cancel</a></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-footer text-end">
-                            <div class="text-end"><a class="btn btn-secondary me-3" href="javascript:void(0);" onclick="AddChapters()">Add</a><a class="btn btn-danger" href="#">Cancel</a></div>
 
-                        </div>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-xl-12 col-md-12">
-        <div class="card ongoing-project recent-orders">
-            <div class="card-header card-no-border">
-                <div class="media media-dashboard">
-                    <div class="media-body">
-                        <h5 class="mb-0">Chapters List</h5>
+
+        <div class="col-xl-12 col-md-12">
+            <div class="card ongoing-project recent-orders">
+                <div class="card-header card-no-border">
+                    <div class="media media-dashboard">
+                        <div class="media-body">
+                            <h5 class="mb-0">Chapters List</h5>
+                        </div>
+
                     </div>
-
                 </div>
-            </div>
-            <div class="card-body pt-0">
-                <div class="table-responsive">
-                    <table class="table table-bordernone">
-                        <thead>
-                            <tr>
-                                <th> <span>Chapter Name</span></th>
-
-                                <th> <span>Action</span></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
+                <div class="card-body pt-0">
+                    <div class="table-responsive">
+                        <table class="table table-bordernone">
+                            <thead>
                                 <tr>
-                                    <td>
-                                        <div class="media">
-                                            <div class="media-body ps-2">
-                                                <div class="avatar-details">
-                                                    <a href="#" data-bs-original-title="" title="">
-                                                        <h6>@item.Name</h6>
-                                                    </a>
+                                    <th> <span>Chapter Name</span></th>
+
+                                    <th> <span>Action</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="media">
+                                                <div class="media-body ps-2">
+                                                    <div class="avatar-details">
+                                                        <a href="#" data-bs-original-title="" title="">
+                                                            <h6>@item.Name</h6>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
+                                        </td>
 
-                                    <td>
-                                        <a href="javascript:void(0)" onclick="EditChapter(@item.Id,'@item.Name.Replace(" ","_")')"><i data-feather="edit-2"></i></a>
-                                        <a href="javascript:void(0)" onclick="DeleteChapter(@item.Id)"><i data-feather="trash-2"></i></a>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                                        <td>
+                                            <a href="javascript:void(0)" onclick="EditChapter(@item.Id,'@item.Name.Replace(" ","_")')"><i data-feather="edit-2"></i></a>
+                                            <a href="javascript:void(0)" onclick="DeleteChapter(@item.Id)"><i data-feather="trash-2"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
-
-
 </div>
 
 <script src="~/Scripts/jquery-3.4.1.js"></script>
@@ -115,11 +108,9 @@
                 contentType: 'application/json; charset=utf-8',
                 datatype: 'json',
                 success: function (response) {
-                    debugger
-                    if (response.message == "Data saved successfully") {
                         alert(response.message);
                         window.location.reload();
-                    }
+                    
                 },
                 error: function (error) {
                     // Handle errors
@@ -158,6 +149,7 @@
     function EditChapter(elm,name) {
         $("#Chapternametxtbox").val("");
         $("#hiddenfieldforid").val(elm);
-        $("#Chapternametxtbox").val(name.replaceAll("_"," "));
+        $("#Chapternametxtbox").val(name.replaceAll("_", " "));
+        $("#btnaddupdate").text("Update");
     }
 </script>

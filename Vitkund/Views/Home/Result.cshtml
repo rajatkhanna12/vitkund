@@ -1,187 +1,175 @@
-﻿
-<!DOCTYPE html>
-<html lang="en">
+﻿<style>
+    .widget {
+        margin: 0 auto;
+        width: 350px;
+        <!-- background-color: #222D3A; -->
+        <!-- border-radius: 5px; -->
+        <!-- box-shadow: 0px 0px 1px 0px #06060d; -->
+    }
 
+    .header {
+        background-color: #29384D;
+        height: 40px;
+        color: #929DAF;
+        text-align: center;
+        line-height: 40px;
+        border-top-left-radius: 7px;
+        border-top-right-radius: 7px;
+        font-weight: 400;
+        font-size: 1.5em;
+        text-shadow: 1px 1px #06060d;
+    }
 
+    .chart-container {
+        padding: 25px;
+    }
 
-<body class="rbt-header-sticky">
+    svg.shadow {
+        box-shadow: 0 .0rem 0rem rgba(0,0,0,.15) !important;
+    }
 
-    <!-- Start Header Area -->
-    <!-- Mobile Menu Section -->
-    <div class="popup-mobile-menu">
-        <div class="inner-wrapper">
-            <div class="inner-top">
-                <div class="content">
-                    <div class="logo">
-                        <a href="index">
-                            <img src="~/Content/assets/images/logo.png" alt="Education Logo Images">
-                        </a>
-                    </div>
-                    <div class="rbt-btn-close">
-                        <button class="close-button rbt-round-btn"><i class="feather-x"></i></button>
-                    </div>
+    .shadow {
+        -webkit-filter: drop-shadow( 0px 3px 3px rgba(0,0,0,.5) );
+        filter: drop-shadow( 0px 3px 3px rgba(0,0,0,.5) );
+    }
+</style>
+<!-- Start Header Area -->
+<!-- Mobile Menu Section -->
+<div class="popup-mobile-menu">
+    <div class="inner-wrapper">
+        <div class="inner-top">
+            <div class="content">
+                <div class="logo">
+                    <a href="index">
+                        <img src="~/Content/assets/images/logo.png" alt="Education Logo Images">
+                    </a>
                 </div>
-                <ul class="navbar-top-left rbt-information-list justify-content-start" style="padding-top:30px;">
-                    <li>
-                        <a href="mailto:info@vitkund.com"><i class="feather-mail"></i>info@vitkund.com</a>
-                    </li>
-                    <li>
-                        <a href="tel:8607609898"><i class="feather-phone"></i>8607609898</a>
-                    </li>
-                </ul>
+                <div class="rbt-btn-close">
+                    <button class="close-button rbt-round-btn"><i class="feather-x"></i></button>
+                </div>
+            </div>
+            <ul class="navbar-top-left rbt-information-list justify-content-start" style="padding-top:30px;">
+                <li>
+                    <a href="mailto:info@vitkund.com"><i class="feather-mail"></i>info@vitkund.com</a>
+                </li>
+                <li>
+                    <a href="tel:8607609898"><i class="feather-phone"></i>8607609898</a>
+                </li>
+            </ul>
+        </div>
+
+        <nav class="mainmenu-nav">
+            <ul class="mainmenu">
+                <li><a href="index">Home</a></li>
+                <li><a href="about-us">About Us</a></li>
+                <li><a href="course">Courses</a></li>
+                <li><a href="our-services">Our Services</a></li>
+                <li><a href="plan">Plan</a></li>
+                <li><a href="faq">FAQ</a></li>
+                <li><a href="contact-us">Contact Us</a></li>
+            </ul>
+        </nav>
+
+        <div class="mobile-menu-bottom">
+            <div class="rbt-btn-wrapper mb--20">
+                <a class="rbt-btn blink btn-border-gradient radius-round btn-sm hover-transform-none w-100 justify-content-center text-center" href="vitkund">
+                    <span>Vitkund Gaon</span>
+                </a>
+
             </div>
 
-            <nav class="mainmenu-nav">
-                <ul class="mainmenu">
-                    <li><a href="index">Home</a></li>
-                    <li><a href="about-us">About Us</a></li>
-                    <li><a href="course">Courses</a></li>
-                    <li><a href="our-services">Our Services</a></li>
-                    <li><a href="plan">Plan</a></li>
-                    <li><a href="faq">FAQ</a></li>
-                    <li><a href="contact-us">Contact Us</a></li>
+            <div class="social-share-wrapper">
+                <span class="rbt-short-title d-block">Find With Us</span>
+                <ul class="social-icon social-default transparent-with-border justify-content-start mt--20">
+                    <li>
+                        <a href="https://m.facebook.com/profile.php?id=100087627835593&mibextid=ZbWKwL"><i class="fab fa-facebook-f"></i></a>
+                    </li>
+
+                    <li>
+                        <a href="https://instagram.com/vitkund"><i class="fab fa-instagram"></i></a>
+                    </li>
+
+                    <li>
+                        <a href="https://www.youtube.com/@("@vitkund")"><i class="fab fa-youtube"></i></a>
+                    </li>
+
                 </ul>
-            </nav>
+            </div>
+        </div>
 
-            <div class="mobile-menu-bottom">
-                <div class="rbt-btn-wrapper mb--20">
-                    <a class="rbt-btn blink btn-border-gradient radius-round btn-sm hover-transform-none w-100 justify-content-center text-center" href="vitkund">
-                        <span>Vitkund Gaon</span>
-                    </a>
+    </div>
+</div>
 
-                </div>
+<a class="close_side_menu" href="javascript:void(0);"></a>
 
-                <div class="social-share-wrapper">
-                    <span class="rbt-short-title d-block">Find With Us</span>
-                    <ul class="social-icon social-default transparent-with-border justify-content-start mt--20">
+<!-- Start breadcrumb Area -->
+<div class="rbt-breadcrumb-default ptb--50 ptb_md--50 ptb_sm--30 bg-gradient-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-inner text-center">
+                    <h2 class="title">Result</h2>
+                    <ul class="page-list">
+                        <li class="rbt-breadcrumb-item"><a href="index">Home</a></li>
                         <li>
-                            <a href="https://m.facebook.com/profile.php?id=100087627835593&mibextid=ZbWKwL"><i class="fab fa-facebook-f"></i></a>
+                            <div class="icon-right"><i class="feather-chevron-right"></i></div>
                         </li>
-
-                        <li>
-                            <a href="https://instagram.com/vitkund"><i class="fab fa-instagram"></i></a>
-                        </li>
-
-                        <li>
-                            <a href="https://www.youtube.com/@("@vitkund")"><i class="fab fa-youtube"></i></a>
-                        </li>
-
+                        <li class="rbt-breadcrumb-item active">Result</li>
                     </ul>
                 </div>
             </div>
-
         </div>
     </div>
+</div>
+<!-- End Breadcrumb Area -->
 
-    <a class="close_side_menu" href="javascript:void(0);"></a>
+<main class="rbt-main-wrapper">
 
-    <!-- Start breadcrumb Area -->
-    <div class="rbt-breadcrumb-default ptb--50 ptb_md--50 ptb_sm--30 bg-gradient-1">
+
+
+    <div class="checkout_area bg-color-white" style="padding-top:30px; padding-bottom:50px;">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="breadcrumb-inner text-center">
-                        <h2 class="title">Result</h2>
-                        <ul class="page-list">
-                            <li class="rbt-breadcrumb-item"><a href="index">Home</a></li>
-                            <li>
-                                <div class="icon-right"><i class="feather-chevron-right"></i></div>
-                            </li>
-                            <li class="rbt-breadcrumb-item active">Result</li>
-                        </ul>
+                <div class="col-lg-6">
+                    <div class="widget">
+                        <div id="chart" class="chart-container">
+                        </div>
                     </div>
+                </div>
+                <div class="col-lg-6" style="padding-top:50px;">
+                    <ol class="legend">
+                        <li class="key one">> 76 Extremly Recommended</li>
+                        <li class="key two">> 60-75 Highly Recommended</li>
+                        <li class="key three">> 50 - 69 Recommended</li>
+                        <li class="key four">> 40 - 49 Go Ahead</li>
+                        <li class="key six">> 40 - 44 Need Improvement</li>
+                        <li class="key five"> Below 39 Not to Go Ahead</li>
+
+                    </ol>
+
+                </div>
+
+
+                <div class="col-lg-12">
+                    <div class="pricing-btn-group text-center" style="margin-top:50px;">
+                        <button class="rbt-btn btn-gradient">Pay Now</button>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
-    <!-- End Breadcrumb Area -->
 
-    <main class="rbt-main-wrapper">
-
-
-
-        <div class="checkout_area bg-color-white" style="padding-top:30px; padding-bottom:50px;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="widget">
-                            <div id="chart" class="chart-container">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6" style="padding-top:50px;">
-                        <ol class="legend">
-                            <li class="key one">> 76 Extremly Recommended</li>
-                            <li class="key two">> 60-75 Highly Recommended</li>
-                            <li class="key three">> 50 - 69 Recommended</li>
-                            <li class="key four">> 40 - 49 Go Ahead</li>
-                            <li class="key six">> 40 - 44 Need Improvement</li>
-                            <li class="key five"> Below 39 Not to Go Ahead</li>
-
-                        </ol>
-
-                    </div>
-
-
-                    <div class="col-lg-12">
-                        <div class="pricing-btn-group text-center" style="margin-top:50px;">
-                            <button class="rbt-btn btn-gradient">Pay Now</button>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+    <div class="rbt-separator-mid">
+        <div class="container">
+            <hr class="rbt-separator m-0">
         </div>
-
-        <div class="rbt-separator-mid">
-            <div class="container">
-                <hr class="rbt-separator m-0">
-            </div>
-        </div>
+    </div>
 
 
-    </main>
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-    <script src="~/Content/assets/js/script.js"></script>
-
-    <!-- JS
-    ============================================ -->
-    <!-- jQuery JS -->
-    <script src="~/Content/assets/js/vendor/jquery.js"></script>
-    <!-- Modernizer JS -->
-    <script src="~/Content/assets/js/vendor/modernizr.min.js"></script>
-
-    <!-- Bootstrap JS -->
-    <script src="~/Content/assets/js/vendor/bootstrap.min.js"></script>
-    <!-- sal.js -->
-    <script src="~/Content/assets/js/vendor/sal.js"></script>
-    <script src="~/Content/assets/js/vendor/swiper.js"></script>
-    <script src="~/Content/assets/js/vendor/magnify.min.js"></script>
-    <script src="~/Content/assets/js/vendor/jquery-appear.js"></script>
-    <script src="~/Content/assets/js/vendor/odometer.js"></script>
-    <script src="~/Content/assets/js/vendor/backtotop.js"></script>
-    <script src="~/Content/assets/js/vendor/isotop.js"></script>
-    <script src="~/Content/assets/js/vendor/imageloaded.js"></script>
-
-    <script src="~/Content/assets/js/vendor/wow.js"></script>
-    <script src="~/Content/assets/js/vendor/waypoint.min.js"></script>
-    <script src="~/Content/assets/js/vendor/easypie.js"></script>
-    <script src="~/Content/assets/js/vendor/text-type.js"></script>
-    <script src="~/Content/assets/js/vendor/jquery-one-page-nav.js"></script>
-    <script src="~/Content/assets/js/vendor/bootstrap-select.min.js"></script>
-    <script src="~/Content/assets/js/vendor/jquery-ui.js"></script>
-    <script src="~/Content/assets/js/vendor/magnify-popup.min.js"></script>
-    <script src="~/Content/assets/js/vendor/paralax-scroll.js"></script>
-    <script src="~/Content/assets/js/vendor/paralax.min.js"></script>
-    <script src="~/Content/assets/js/vendor/countdown.js"></script>
-    <script src="~/Content/assets/js/vendor/plyr.js"></script>
-    <!-- Main JS -->
-    <script src="~/Content/assets/js/main.js"></script>
+</main>
 
 
 
-</body>
-
-</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<script src="~/Content/assets/js/script.js"></script>

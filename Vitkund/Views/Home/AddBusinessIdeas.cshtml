@@ -23,39 +23,42 @@
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="mb-3">
-                                        <label>Event Title</label>
-                                        <input class="form-control" type="text" id="EventTitletxtbox" placeholder="Event name *">
+                                        <label>Title</label>
+                                        <input type="hidden" id="RecordIdhidden" />
+                                        <input class="form-control" type="text" id="EventTitletxtbox" placeholder="Title *">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="mb-3">
                                         <label>Short Description</label>
-                                        <input class="form-control" type="text" id="shortDescriptiontxtbox" placeholder="Event name *">
+                                        <input class="form-control" type="text" id="shortDescriptiontxtbox" placeholder="Short Description">
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
-                                    <div class="mb-3">
-                                        <label>Long Description</label>
-                                        <input class="form-control" type="text" id="Longdescriptiontxtbox" placeholder="Event name *">
-                                    </div>
-                                </div>
-                                @*@using (Html.BeginForm("UploadImage", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "myForm" }))
-            {*@
                                 <div class="col-sm-4">
                                     <div class="mb-3">
                                         <label>Upload Image</label>
                                         <input class="form-control" id="imageuploader" type="file" accept="image/png, image/jpeg">
+                                        <span id="uplaoderimagevalue" style="display:none"></span>
                                     </div>
 
                                 </div>
+                                <div class="col-sm-12">
+                                    <div class="mb-3">
+                                        <label>Long Description</label>
+                                        <textarea class="form-control" type="text" id="Longdescriptiontxtbox" placeholder="Description"></textarea>
+                                    </div>
+                                </div>
+                                @*@using (Html.BeginForm("UploadImage", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "myForm" }))
+                                    {*@
+
                                 @*}*@
                             </div>
                         </div>
-                            <div class="card-footer text-end">
-                                <div class="text-end"><a class="btn btn-primary me-3" href="javascript:void(0);" onclick="AddBusinessIdeas()">Add</a><a class="btn btn-danger" href="#">Cancel</a></div>
+                        <div class="card-footer text-end">
+                            <div class="text-end"><a class="btn btn-primary me-3" id="buttonaddupdate" href="javascript:void(0);" onclick="AddBusinessIdeas()">Add</a><a class="btn btn-danger" href="#">Cancel</a></div>
 
-                            </div>
-</form>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -87,6 +90,9 @@
                                 <figure class="col-xl-3 col-6 xl-33" itemprop="associatedMedia" itemscope="">
                                     <div style="float:right; margin-right:38px;">
                                         <a class="icon-wrapper" href="javascript:void(0);" onclick="DeleteVideo(@item1.Id)"><i class="icofont icofont-trash"></i></a>
+                                    </div>
+                                    <div style="float:right; margin-right:76px;">
+                                        <a class="icon-wrapper" href="javascript:void(0);" onclick="EditVideo(@item1.Id)"><i class="icofont icofont-pencil"></i></a>
                                     </div>
                                     <a href="!#">
 
@@ -121,6 +127,12 @@
 
 <script src="~/Scripts/jquery-3.4.1.js"></script>
 <script>
+
+    $(document).ready(function () {
+        $("#imageuploader").on('change', function () {
+            $("#uplaoderimagevalue").hide();
+        });
+    })
     $("#myForm").submit(function (e) {
             e.preventDefault();
 
@@ -145,7 +157,7 @@
 
     function AddBusinessIdeas() {
         //debugger
-
+        var Id = $("#RecordIdhidden").val();
         var title = $("#EventTitletxtbox").val();
         var image = $("#imagetitletxtbox").val();
         var shortdescription = $("#shortDescriptiontxtbox").val();
@@ -161,7 +173,7 @@
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    var tblBusinessideadata = { Title: title, Image: response, ShortDescription: shortdescription, LongDescription: longdescription };
+                    var tblBusinessideadata = { Id: Id, Title: title, Image: response, ShortDescription: shortdescription, LongDescription: longdescription };
                     finaladdmodal(tblBusinessideadata);
                 },
                 error: function (error) {
@@ -183,10 +195,9 @@
             datatype: 'json',
             success: function (result) {
                 debugger
-                if (result.message == "Data saved successfully") {
                     alert(result.message);
                     window.location.reload();
-                }
+
             },
             error: function (result) {
             }
@@ -195,6 +206,34 @@
     }
 
 
+    function EditVideo(elm) {
+            debugger
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetBusinessIdeaById", "Home")',
+                data: JSON.stringify({ Id: elm }),
+                traditional: true,
+                contentType: 'application/json; charset=utf-8',
+                datatype:'json',
+                success: function (response) {
+                    debugger
+                    if (response.message != "") {
+                        $("#EventTitletxtbox").val(response.message.Title);
+                        $("#shortDescriptiontxtbox").val(response.message.ShortDescription);
+                        $("#Longdescriptiontxtbox").val(response.message.LongDescription);
+                        $("#RecordIdhidden").val(response.message.Id);
+                        $("#uplaoderimagevalue").text(response.message.Image);
+                        $("#uplaoderimagevalue").show();
+                        $("#buttonaddupdate").text("Update");
+                        window.scrollTo(0, 0);
+                    }
+                },
+                error: function (error) {
+                    // Handle errors
+                    console.log(error);
+                }
+            });
+    }
     function DeleteVideo(elm) {
 
         var result = confirm("Want to delete?");
