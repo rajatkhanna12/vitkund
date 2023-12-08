@@ -8068,8 +8068,8 @@ textarea:-ms-input-placeholder {
 -------------------------*/
 .rbt-round-btn {
   width: 40px;
-  height: auto;
-  line-height: 41px;
+  height: 40px;
+  line-height: 18px;
   text-align: center;
   border-radius: 100%;
   position: relative;

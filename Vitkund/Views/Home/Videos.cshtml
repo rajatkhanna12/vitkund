@@ -70,7 +70,7 @@
                                                         {
 
 
-                                                            if (item2.VideoImage.Contains("Content"))
+                                                            if (item2.VideoImage.ToLower().Contains("content"))
                                                             {
                                                                 <img class="w-100 rbt-radius" src="@item2.VideoImage" alt="Video Images">
                                                             }
@@ -79,7 +79,7 @@
                                                                 <img class="w-100 rbt-radius" src="~/Content/Uploads/@item2.VideoImage" alt="Video Images">
 
                                                             }
-                                                            if (item2.VideoFile.Contains("content"))
+                                                            if (item2.VideoFile.ToLower().Contains("content"))
                                                             {
                                                                 <a class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="@item2.VideoFile" style="max-width:50px; max-height:50px;">
 

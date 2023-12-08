@@ -108,6 +108,31 @@ namespace Vitkund.Controllers
 
             return View();
         }
+
+        [Route("Privacy-Policy")]
+        public ActionResult privacypolicy()
+        {
+            ViewBag.Message = "Privacy Policy";
+
+            return View();
+        }
+
+        [Route("Terms-and-Condition")]
+        public ActionResult termsandcondition()
+        {
+            ViewBag.Message = "Terms and Condition";
+
+            return View();
+        }
+
+        [Route("Refund-Policy")]
+        public ActionResult refundpolicy()
+        {
+            ViewBag.Message = "Refund Policy";
+
+            return View();
+        }
+
         [Route("Our-services")]
         public ActionResult OurServices()
         {
