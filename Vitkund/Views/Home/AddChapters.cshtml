@@ -24,7 +24,7 @@
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="mb-3">
-                                        <label>Chapter Name</label>
+                                        <label>Chapter Name</label>&nbsp;<span id="chapternamereq" style="color:red"></span><span id="maxvalspan" style="color:red"></span>
                                         <input class="form-control" type="text" id="Chapternametxtbox" placeholder="Event name *">
                                     </div>
                                 </div>
@@ -95,11 +95,37 @@
 
 <script src="~/Scripts/jquery-3.4.1.js"></script>
 <script>
+    $(document).ready(function () {
+        $('#Chapternametxtbox').on('input', function () {
+            var maxLength = 10; // Adjust the maximum length as needed
+            var inputValue = $(this).val();
+
+            if (inputValue.length > maxLength) {
+                // Trim the input to the maximum length
+                var trimmedValue = inputValue.substring(0, maxLength);
+                $(this).val(trimmedValue);
+                $("#maxvalspan").text("Only 10 characters allowed.");
+            }
+            else {
+                $("#maxvalspan").text("");
+            }
+        });
+    })
     function AddChapters() {
         //debugger
+        var validation = false;
         var id = $("#hiddenfieldforid").val();
         var title = $("#Chapternametxtbox").val();
+        if (title == "") {
+            $("#chapternamereq").text("Required!")
+            validation = false;
+        }
+        else {
+            $("#chapternamereq").text("");
+            validation = true;
+        }
         var tblChapterdata = { Id: id, Name: title };
+        if (validation) {
             $.ajax({
                 type: 'POST',
                 url: '/Home/AddChapters',
@@ -108,15 +134,16 @@
                 contentType: 'application/json; charset=utf-8',
                 datatype: 'json',
                 success: function (response) {
-                        alert(response.message);
-                        window.location.reload();
-                    
+                    alert(response.message);
+                    window.location.reload();
+
                 },
                 error: function (error) {
                     // Handle errors
                     console.log(error);
                 }
             });
+        }
     }
     function DeleteChapter(elm) {
 

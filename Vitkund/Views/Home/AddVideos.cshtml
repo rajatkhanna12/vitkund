@@ -39,14 +39,14 @@
 
                                 <div class="col-sm-6 col-md-4">
                                     <div class="mb-3">
-                                        <label class="form-label">Video File Title</label>
+                                        <label class="form-label">Video File Title</label>&nbsp;<span id="Videofiletitlevalid" style="color:red"></span><span id="maxvalspanvideotitle" style="color:red"></span>
                                         <input type="hidden" id="hiddenIdforvideo" />
                                         <input class="form-control" id="Videofiletitle" type="text" placeholder="Video Title">
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-4">
                                     <div class="mb-3">
-                                        <label class="form-label">Upload Image File</label>
+                                        <label class="form-label">Upload Image File</label>&nbsp;<span id="imageuploadersizevalid" style="color:red"></span>
                                         <input class="form-control" id="imageuploader" type="file" accept="image/png, image/jpeg,">
                                         <span style="display:none" id="imageuploaderspan"></span>
                                     </div>
@@ -55,7 +55,7 @@
                                 <div class="col-sm-6 col-md-12">
 
                                     <div class="mb-3">
-                                        <label>Upload Video File</label>
+                                        <label>Upload Video File</label>&nbsp;<span id="Videouploadersizevalid" style="color:red"></span>
                                         <input class="form-control" id="Videouploader" type="file" accept="video/mp4">
                                         <span style="display:none" id="videouploaderspan"></span>
                                         @*<div class="dropzone dz-clickable" id="singleFileUpload" action="/upload.php">
@@ -154,14 +154,51 @@
 
 <script>
     $(document).ready(function () {
-        $("#videouploader").on('change', function () {
+        $("#Videofiletitle").on('change', function () {
+            var maxLength = 30;
+            var inputValue = $(this).val();
+            if (inputValue.length > maxLength) {
+                // Trim the input to the maximum length
+                var trimmedValue = inputValue.substring(0, maxLength);
+                $(this).val(trimmedValue);
+                $("#maxvalspanvideotitle").text("Only 30 characters allowed.");
+            }
+            else {
+                $("#maxvalspanvideotitle").text("");
+            }
+        })
+        $("#Videouploader").on('change', function () {
+            var maxFileSizeInBytes = 20480 * 1024; // 1 MB (adjust as needed)
+            var selectedFile = this.files[0];
+
+            if (selectedFile && selectedFile.size > maxFileSizeInBytes) {
+                $('#Videouploadersizevalid').text('File size will be less than 20MB.');
+                setTimeout(function () {
+                    $("#Videouploader").val('');
+                }, 1000)
+            } else {
+                $('#Videouploadersizevalid').text('');
+            }
+
             $("#videouploaderspan").hide();
+
         });
         $("#imageuploader").on('change', function () {
+            var maxFileSizeInBytes = 5120 * 1024; // 1 MB (adjust as needed)
+            var selectedFile = this.files[0];
+            if (selectedFile && selectedFile.size > maxFileSizeInBytes) {
+                $('#imageuploadersizevalid').text('File size will be less than 5MB.');
+                setTimeout(function () {
+                    $("#imageuploader").val('');
+                }, 1000)
+            } else {
+                $('#imageuploadersizevalid').text('');
+            }
             $("#imageuploaderspan").hide();
         });
     })
     function AddVideos() {
+        var validation = false;
         var formData = new FormData();
         var formData1 = new FormData();
         var FileTitle = $("#Videofiletitle").val();
@@ -169,10 +206,18 @@
         var Id = $("#hiddenIdforvideo").val();
         formData.append('file', $("#imageuploader")[0].files[0]);
         formData.append('file1', $("#Videouploader")[0].files[0]);
-        $.ajax({
-            url: '@Url.Action("UploadVideosFile", "Home")',
-            type: 'POST',
-            data: formData,
+        if (FileTitle == "") {
+            $("#Videofiletitlevalid").text("Required!")
+            validation = false;
+        } else {
+            validation = true;
+            $("#Videofiletitlevalid").text("")
+}
+        if (validation) {
+            $.ajax({
+                url: '@Url.Action("UploadVideosFile", "Home")',
+                type: 'POST',
+                data: formData,
                 contentType: false,
                 processData: false,
                 success: function (response) {
@@ -183,8 +228,8 @@
                         imageUploader = response.split(",")[0];
                         videouploader = response.split(",")[1];
                     }
-                        var tblVideodata = { Id:Id, fK_Chapter: selectedchapterid, FileTitle: FileTitle, VideoFile: videouploader, VideoImage: imageUploader };
-                        finaladdmodal(tblVideodata);
+                    var tblVideodata = { Id: Id, fK_Chapter: selectedchapterid, FileTitle: FileTitle, VideoFile: videouploader, VideoImage: imageUploader };
+                    finaladdmodal(tblVideodata);
 
                 },
                 error: function (error) {
@@ -192,6 +237,7 @@
                     console.log(error);
                 }
             });
+        }
     }
     function finaladdmodal(tblVideodata) {
         $.ajax({

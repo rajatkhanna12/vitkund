@@ -22,6 +22,10 @@
           <Property Name="Image" Type="nvarchar(max)" />
           <Property Name="ShortDescription" Type="nvarchar" MaxLength="100" />
           <Property Name="LongDescription" Type="nvarchar(max)" />
+          <Property Name="fromPrice" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="toPrice" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="createDate" Type="datetime" />
+          <Property Name="UpdateDate" Type="datetime" />
         </EntityType>
         <EntityType Name="tblChapter">
           <Key>
@@ -50,16 +54,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="VitkundModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="tblBusinessidea">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ShortDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="LongDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="tblChapter">
           <Key>
             <PropertyRef Name="Id" />
@@ -68,10 +62,10 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="VitkundEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tblBusinessideas" EntityType="Self.tblBusinessidea" />
           <EntitySet Name="tblChapters" EntityType="Self.tblChapter" />
           <EntitySet Name="tblVideos" EntityType="VitkundModel.tblVideo" />
           <EntitySet Name="tblAdmins" EntityType="VitkundModel.tblAdmin" />
+          <EntitySet Name="tblBusinessideas" EntityType="VitkundModel.tblBusinessidea" />
         </EntityContainer>
         <EntityType Name="tblVideo">
           <Key>
@@ -91,23 +85,26 @@
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="tblBusinessidea">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ShortDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LongDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="fromPrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="toPrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="createDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="VitkundModelStoreContainer" CdmEntityContainer="VitkundEntities">
-          <EntitySetMapping Name="tblBusinessideas">
-            <EntityTypeMapping TypeName="VitkundModel.tblBusinessidea">
-              <MappingFragment StoreEntitySet="tblBusinessideas">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
-                <ScalarProperty Name="LongDescription" ColumnName="LongDescription" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblChapters">
             <EntityTypeMapping TypeName="VitkundModel.tblChapter">
               <MappingFragment StoreEntitySet="tblChapter">
@@ -132,6 +129,21 @@
               <MappingFragment StoreEntitySet="tblAdmin">
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblBusinessideas">
+            <EntityTypeMapping TypeName="VitkundModel.tblBusinessidea">
+              <MappingFragment StoreEntitySet="tblBusinessideas">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="createDate" ColumnName="createDate" />
+                <ScalarProperty Name="toPrice" ColumnName="toPrice" />
+                <ScalarProperty Name="fromPrice" ColumnName="fromPrice" />
+                <ScalarProperty Name="LongDescription" ColumnName="LongDescription" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

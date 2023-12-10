@@ -25,9 +25,9 @@ namespace Vitkund.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<tblBusinessidea> tblBusinessideas { get; set; }
         public virtual DbSet<tblChapter> tblChapters { get; set; }
         public virtual DbSet<tblVideo> tblVideos { get; set; }
         public virtual DbSet<tblAdmin> tblAdmins { get; set; }
+        public virtual DbSet<tblBusinessidea> tblBusinessideas { get; set; }
     }
 }

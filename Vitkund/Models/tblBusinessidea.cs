@@ -19,5 +19,9 @@ namespace Vitkund.Models
         public string Image { get; set; }
         public string ShortDescription { get; set; }
         public string LongDescription { get; set; }
+        public Nullable<decimal> fromPrice { get; set; }
+        public Nullable<decimal> toPrice { get; set; }
+        public Nullable<System.DateTime> createDate { get; set; }
+        public Nullable<System.DateTime> UpdateDate { get; set; }
     }
 }

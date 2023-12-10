@@ -30,14 +30,6 @@ namespace Vitkund.Controllers
 
             return View();
         }
-        [Route("Business-ideas")]
-        public ActionResult BusinessIdeas()
-        {
-            ViewBag.Message = "Your contact page.";
-            VitkundEntities db = new VitkundEntities();
-            var businessIdeas = db.tblBusinessideas.ToList();
-            return View(businessIdeas);
-        }
         [Route("Contact-us")]
         public ActionResult Contact()
         {
@@ -191,6 +183,18 @@ namespace Vitkund.Controllers
             return View();
         }
 
+
+        #region BusinessIdeasFrontend
+
+        [Route("Business-ideas")]
+        public ActionResult BusinessIdeas()
+        {
+            ViewBag.Message = "Your contact page.";
+            VitkundEntities db = new VitkundEntities();
+            var businessIdeas = db.tblBusinessideas.ToList();
+            return View(businessIdeas);
+        }
+
         [Route("Business-Ideas/{Id}")]
         public ActionResult BusinessIdeaDetail(string Id)
         {
@@ -203,6 +207,85 @@ namespace Vitkund.Controllers
                 return View(tblbusinessidea);
             }
         }
+        [HttpPost]
+        public ActionResult FilterBusinessIdeas(string filtervalue)
+        {
+            VitkundEntities db = new VitkundEntities();
+            if (filtervalue == "Popularity")
+            {
+                var orderbypopularitty = db.tblBusinessideas.OrderByDescending(x => x.Id).ToList();
+                if (string.IsNullOrEmpty(orderbypopularitty.ToString()))
+                {
+
+                    return Json(new { data = "No Data Found!" });
+                }
+                else
+                {
+                    return Json(new { data = orderbypopularitty });
+                }
+            }
+            else if (filtervalue == "Price: low to high")
+            {
+                var orderbypopularitty = db.tblBusinessideas.OrderBy(x => x.fromPrice).ToList();
+                if (string.IsNullOrEmpty(orderbypopularitty.ToString()))
+                {
+
+                    return Json(new { data = "No Data Found!" });
+                }
+                else
+                {
+                    return Json(new { data = orderbypopularitty });
+                }
+            }
+            else if (filtervalue == "Price: high to low")
+            {
+                var orderbypopularitty = db.tblBusinessideas.OrderByDescending(x => x.fromPrice).ToList();
+                if (string.IsNullOrEmpty(orderbypopularitty.ToString()))
+                {
+
+                    return Json(new { data = "No Data Found!" });
+                }
+                else
+                {
+                    return Json(new { data = orderbypopularitty });
+                }
+            }
+            else if (filtervalue == "Latest")
+            {
+                var orderbypopularitty = db.tblBusinessideas.OrderByDescending(x => x.createDate).ThenByDescending(y => y.UpdateDate).ToList();
+                if (string.IsNullOrEmpty(orderbypopularitty.ToString()))
+                {
+
+                    return Json(new { data = "No Data Found!" });
+                }
+                else
+                {
+                    return Json(new { data = orderbypopularitty });
+                }
+            }
+            else
+            {
+                return Json(new { data = "No Data Found!" });
+            }
+        }
+        [HttpPost]
+        public ActionResult FilterBusinessIdeasbypricerange(string minprice, string maxprice)
+        {
+            VitkundEntities db = new VitkundEntities();
+            var databypricerange = db.tblBusinessideas.Where(p => p.fromPrice >= Convert.ToDecimal(minprice) && p.toPrice <= Convert.ToDecimal(maxprice)).ToList();
+            if (databypricerange==null)
+            {
+
+                return Json(new { data = "No Data Found!" });
+            }
+            else
+            {
+                return Json(new { data = databypricerange });
+            }
+        }
+
+        #endregion
+
         #endregion
 
 
@@ -215,12 +298,14 @@ namespace Vitkund.Controllers
             var res = db.tblBusinessideas.ToList();
             return View(res);
         }
+
         [HttpPost]
         public ActionResult AddBusinessIdeas(tblBusinessidea tblBusinessidea)
         {
             VitkundEntities db = new VitkundEntities();
             if (tblBusinessidea.Id == null || tblBusinessidea.Id == 0)
             {
+                tblBusinessidea.createDate = DateTime.Now;
                 db.tblBusinessideas.Add(tblBusinessidea);
                 db.SaveChanges();
                 return Json(new { success = true, message = "Data saved successfully" });
@@ -235,12 +320,16 @@ namespace Vitkund.Controllers
                     if (tblBusinessidea.Image.ToLower().Contains(".png") || tblBusinessidea.Image.ToLower().Contains(".jpeg"))
                         data.Image = tblBusinessidea.Image;
                     data.LongDescription = tblBusinessidea.LongDescription;
+                    data.fromPrice = tblBusinessidea.fromPrice;
+                    data.toPrice = tblBusinessidea.toPrice;
+                    data.UpdateDate = DateTime.Now;
                     db.SaveChanges();
                     return Json(new { success = true, message = "Data Updated successfully" });
                 }
                 return Json(new { success = true, message = "Something Error Found !!" });
             }
         }
+
         [HttpPost]
         public ActionResult UploadFile(HttpPostedFileBase file)
         {
@@ -256,6 +345,7 @@ namespace Vitkund.Controllers
 
             return Content("No file selected.");
         }
+
         [HttpPost]
         public ActionResult GetBusinessIdeaById(string Id)
         {
@@ -269,6 +359,7 @@ namespace Vitkund.Controllers
             }
 
         }
+
         [HttpPost]
         public ActionResult DeleteBusinessIdea(string Id)
         {
@@ -283,11 +374,6 @@ namespace Vitkund.Controllers
             }
             return Json(new { success = true, message = "Data Deleted successfully" });
         }
-
-
-
-
-
         #endregion
 
 
@@ -378,7 +464,7 @@ namespace Vitkund.Controllers
                     var fileName = Path.GetFileName(file1.FileName);
                     var filePath = Path.Combine(Server.MapPath("~/Content/Uploads"), firstfilename + fileName);
                     videopathforserver = firstfilename + fileName;
-                    file.SaveAs(filePath);
+                    file1.SaveAs(filePath);
                 }
                 return Content(imagepathforserver + "," + videopathforserver); // return imagepath and video path with comma seprated.
             }
@@ -456,7 +542,7 @@ namespace Vitkund.Controllers
         public ActionResult LoginAdmin(tblAdmin tbladmin)
         {
             VitkundEntities db = new VitkundEntities();
-            tblAdmin tblAdmin = db.tblAdmins.FirstOrDefault(x=>x.Username== tbladmin.Username && x.Password==tbladmin.Password);
+            tblAdmin tblAdmin = db.tblAdmins.FirstOrDefault(x => x.Username == tbladmin.Username && x.Password == tbladmin.Password);
             if (tblAdmin == null)
                 return Json(new { success = true, message = "User Not Found" });
             else
@@ -465,5 +551,8 @@ namespace Vitkund.Controllers
         }
 
         #endregion
+
+
+
     }
 }

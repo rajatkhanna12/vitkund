@@ -23,20 +23,21 @@
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="mb-3">
-                                        <label>Title</label>
+                                        <label>Title</label>&nbsp;<span style="color:red" id="validationMessagefortitle"></span><span style="color:red" id="maxvalspantitle"></span><span style="color: red; display: none" id="titlerequired">Required !!</span>
                                         <input type="hidden" id="RecordIdhidden" />
-                                        <input class="form-control" type="text" id="EventTitletxtbox" placeholder="Title *">
+                                        <input class="form-control" type="text" maxlength="30" required id="EventTitletxtbox" placeholder="Title *">
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="mb-3">
-                                        <label>Short Description</label>
-                                        <input class="form-control" type="text" id="shortDescriptiontxtbox" placeholder="Short Description">
+                                        <label>Short Description</label>&nbsp;<span style="color:red" id="validationMessage"></span><span style="color:red" id="maxvalspanshortdesc"></span><span style="color: red; display: none" id="shortdescrequired">Required !!</span>
+                                        <input class="form-control" type="text" maxlength="55" id="shortDescriptiontxtbox" placeholder="Short Description">
+
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="mb-3">
-                                        <label>Upload Image</label>
+                                        <label>Upload Image</label><span id="validationMessageimageupload" style="color:red"></span>
                                         <input class="form-control" id="imageuploader" type="file" accept="image/png, image/jpeg">
                                         <span id="uplaoderimagevalue" style="display:none"></span>
                                     </div>
@@ -44,8 +45,20 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="mb-3">
-                                        <label>Long Description</label>
-                                        <textarea class="form-control" type="text" id="Longdescriptiontxtbox" placeholder="Description"></textarea>
+                                        <label>Long Description</label>&nbsp;<span style="color:red" id="maxvalspanlongdesc"></span><span style="color:red;display:none" id="longdescrequired">Required !!</span>
+                                        <textarea class="form-control" type="text" id="Longdescriptiontxtbox" placeholder="Long Description"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="mb-3">
+                                        <label>From Price</label>&nbsp;<span style="color:red" id="validationMessagefromprice"></span><span style="color: red; display: none" id="frompricerequired">Required !!</span>
+                                        <input class="form-control" type="text" id="frompricetxtbox" placeholder="From Price">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="mb-3">
+                                        <label>To Price</label>&nbsp;<span style="color:red" id="validationMessagetoprice"></span><span style="color: red; display: none" id="topricerequired">Required !!</span>
+                                        <input class="form-control" type="text" id="topricetxtbox" placeholder="To Price">
                                     </div>
                                 </div>
                                 @*@using (Html.BeginForm("UploadImage", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "myForm" }))
@@ -108,6 +121,11 @@
                                         <div class="caption">
                                             <h4>@item1.Title</h4>
                                             <span class="clsshortdescription">@item1.ShortDescription</span>
+                                            <br />
+                                            @if (!string.IsNullOrEmpty(item1.fromPrice.ToString()) && !string.IsNullOrEmpty(item1.toPrice.ToString()))
+                                            {
+                                                <span class="classprice">Price Range :- @item1.fromPrice - @item1.toPrice</span>
+                                            }
                                         </div>
                                     </a>
 
@@ -127,45 +145,124 @@
 
 <script src="~/Scripts/jquery-3.4.1.js"></script>
 <script>
-
+    var validation = false;
+    var titlevalidation = true;
+    var shortdescvalidation = true;
+    var formpricevalidation = true;
+    var topricevalidation = true;
     $(document).ready(function () {
+        $('#EventTitletxtbox').on('input', function () {
+            var maxLength = 30;
+            var inputValue = $(this).val();
+            var containsSpecialChars = /[!#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(inputValue);
+            if (inputValue.length > maxLength) {
+                // Trim the input to the maximum length
+                var trimmedValue = inputValue.substring(0, maxLength);
+                $(this).val(trimmedValue);
+                $("#maxvalspantitle").text("Only 10 characters allowed.");
+            }
+            else {
+                $("#maxvalspantitle").text("");
+            }
+            if (containsSpecialChars) {
+                titlevalidation = false;
+                $('#validationMessagefortitle').text('Special characters are not allowed.');
+            }
+            else {
+                titlevalidation = true;
+                $('#validationMessagefortitle').text('');
+            }
+        });
+        $('#shortDescriptiontxtbox').on('input', function () {
+            var maxLength = 50;
+            var inputValue = $(this).val();
+            var containsSpecialChars = /[!#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(inputValue);
+            if (inputValue.length > maxLength) {
+                // Trim the input to the maximum length
+                var trimmedValue = inputValue.substring(0, maxLength);
+                $(this).val(trimmedValue);
+                $("#maxvalspanshortdesc").text("Only 10 characters allowed.");
+            }
+            else {
+                $("#maxvalspanshortdesc").text("");
+            }
+            if (containsSpecialChars) {
+                shortdescvalidation = false;
+            $('#validationMessage').text('Special characters are not allowed.');
+            }
+            else {
+                shortdescvalidation = true;
+                $('#validationMessage').text('');
+            }
+        });
         $("#imageuploader").on('change', function () {
+            var maxFileSizeInBytes = 5120 * 1024; // 1 MB (adjust as needed)
+            var selectedFile = this.files[0];
+
+            if (selectedFile && selectedFile.size > maxFileSizeInBytes) {
+                $('#validationMessageimageupload').text('File size will be less than 5MB.');
+                setTimeout(function () {
+                    $("#imageuploader").val('');
+                },1000)
+            } else {
+                $('#validationMessageimageupload').text('');
+            }
             $("#uplaoderimagevalue").hide();
         });
-    })
-    $("#myForm").submit(function (e) {
-            e.preventDefault();
-
-            var formData = new FormData();
-
-            $.ajax({
-                url: '@Url.Action("UploadFile", "Home")',
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    // Handle the response
-                    console.log(response);
-                },
-                error: function (error) {
-                    // Handle errors
-                    console.log(error);
-                }
-            });
+        $('#frompricetxtbox').on('input', function () {
+            var inputValue = $(this).val();
+            if (/[^0-9]/g.test(inputValue)) {
+                formpricevalidation = false;
+                $('#validationMessagefromprice').text('Only numbers allowed (0-9)');
+            }
+            else {
+                formpricevalidation = true;
+                $('#validationMessagefromprice').text('');
+            }
+            // Allow only numbers (0-9)
+            var numericValue = inputValue.replace(/[^0-9]/g, '');
+            $(this).val(numericValue);
         });
-
+        $('#topricetxtbox').on('input', function () {
+            var inputValue = $(this).val();
+            if (/[^0-9]/g.test(inputValue)) {
+                topricevalidation = false;
+                $('#validationMessagetoprice').text('Only numbers allowed (0-9)');
+            }
+            else {
+                topricevalidation = true;
+                $('#validationMessagetoprice').text('');
+            }
+            // Allow only numbers (0-9)
+            var numericValue = inputValue.replace(/[^0-9]/g, '');
+            $(this).val(numericValue);
+        });
+    })
     function AddBusinessIdeas() {
         //debugger
+        var requiredval = true;
         var Id = $("#RecordIdhidden").val();
         var title = $("#EventTitletxtbox").val();
         var image = $("#imagetitletxtbox").val();
         var shortdescription = $("#shortDescriptiontxtbox").val();
         var longdescription = $("#Longdescriptiontxtbox").val();
+        var fromprice = $("#frompricetxtbox").val();
+        var toprice = $("#topricetxtbox").val();
         var formData = new FormData();
-
         formData.append('file', $("#imageuploader")[0].files[0]);
+        if (titlevalidation == true && shortdescvalidation == true && formpricevalidation == true && topricevalidation == true)
+            validation = true
+        else
+            validation = false;
+        //validation checking
+        if (title == "") { $("#titlerequired").show(); requiredval = false; } else { $("#titlerequired").hide(); requiredval = true; }
+        if (shortdescription == "") { $("#shortdescrequired").show(); requiredval = false; } else { $("#shortdescrequired").hide(); requiredval = true; }
+        if (longdescription == "") { $("#longdescrequired").show(); requiredval = false; } else { $("#longdescrequired").hide(); requiredval = true; }
+        if (fromprice == "") { $("#frompricerequired").show(); requiredval = false; } else { $("#frompricerequired").hide(); requiredval = true; }
+        if (toprice == "") { $("#topricerequired").show(); requiredval = false; } else { $("#topricerequired").hide(); requiredval = true; }
+        //validation checking
 
+        if (requiredval ==true && validation == true) {
             $.ajax({
                 url: '@Url.Action("UploadFile", "Home")',
                 type: 'POST',
@@ -173,7 +270,7 @@
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    var tblBusinessideadata = { Id: Id, Title: title, Image: response, ShortDescription: shortdescription, LongDescription: longdescription };
+                    var tblBusinessideadata = { Id: Id, Title: title, Image: response, ShortDescription: shortdescription, LongDescription: longdescription, fromprice: fromprice, toprice: toprice };
                     finaladdmodal(tblBusinessideadata);
                 },
                 error: function (error) {
@@ -181,10 +278,10 @@
                     console.log(error);
                 }
             });
-
+        }
+        else { }
 
     }
-
     function finaladdmodal(tblBusinessideadata) {
         $.ajax({
             type: 'POST',
@@ -204,8 +301,6 @@
         });
 
     }
-
-
     function EditVideo(elm) {
             debugger
             $.ajax({
@@ -223,6 +318,8 @@
                         $("#Longdescriptiontxtbox").val(response.message.LongDescription);
                         $("#RecordIdhidden").val(response.message.Id);
                         $("#uplaoderimagevalue").text(response.message.Image);
+                        $("#topricetxtbox").val(response.message.toPrice);
+                        $("#frompricetxtbox").val(response.message.fromPrice);
                         $("#uplaoderimagevalue").show();
                         $("#buttonaddupdate").text("Update");
                         window.scrollTo(0, 0);
