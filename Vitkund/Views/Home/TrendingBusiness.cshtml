@@ -94,44 +94,7 @@
                             </div>
                         </div>
 
-                        <div class="filter-select-option">
-                            <div class="filter-select rbt-modern-select">
-                                <span class="select-label d-block">Short By Author</span>
-                                <select data-live-search="true" title="Select Author" id="shortbyauthorddl" multiple data-size="7" data-actions-box="true" data-selected-text-format="count > 2">
-                                    <option data-subtext="Experts">Janin Afsana</option>
-                                    <option data-subtext="Experts">Joe Biden</option>
-                                    <option data-subtext="Experts">Fatima Asrafy</option>
-                                    <option data-subtext="Experts">Aysha Baby</option>
-                                    <option data-subtext="Experts">Mohamad Ali</option>
-                                    <option data-subtext="Experts">Jone Li</option>
-                                    <option data-subtext="Experts">Alberd Roce</option>
-                                    <option data-subtext="Experts">Zeliski Noor</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="filter-select-option">
-                            <div class="filter-select rbt-modern-select">
-                                <span class="select-label d-block">Short By Offer</span>
-                                <select id="shortbyoffer">
-                                    <option>Free</option>
-                                    <option>Paid</option>
-                                    <option>Premium</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="filter-select-option">
-                            <div class="filter-select rbt-modern-select">
-                                <span class="select-label d-block">Short By Category</span>
-                                <select data-live-search="true" id="shortbycategory">
-                                    <option>Web Design</option>
-                                    <option>Graphic</option>
-                                    <option>App Development</option>
-                                    <option>Figma Design</option>
-                                </select>
-                            </div>
-                        </div>
+                       
 
                         <div class="filter-select-option">
                             <div class="filter-select">
@@ -143,7 +106,7 @@
                                         <div class="slider__range--output">
                                             <div class="price__output--wrap">
                                                 <div class="price--output">
-                                                    <span>Price :</span><input type="text" id="amount">
+                                                   <input type="text" id="amount">
                                                 </div>
                                                 <div class="price--filter">
                                                     <a class="rbt-btn btn-gradient btn-sm" href="javascript:void(0);" onclick="FilterbyPriceRange()">Filter</a>
@@ -175,39 +138,15 @@
                     {<!-- Start Single Card  -->
                         <div class="course-grid-3">
                             <div class="rbt-card variation-01 rbt-hover">
-                                <div class="rbt-card-img">
-                                    <a href="#">
-                                        <div class="rbt-badge-3 bg-white">
-                                            <span>-40%</span>
-                                            <span>Off</span>
-                                        </div>
-                                    </a>
-                                </div>
+                           
                                 <div class="rbt-card-body">
-                                    <div class="rbt-card-top">
-                                        <div class="rbt-review">
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <span class="rating-count"> (15 Reviews)</span>
-                                        </div>
-                                        <div class="rbt-bookmark-btn">
-                                            <a class="rbt-round-btn" title="Bookmark" href="#">
-                                                <i class="feather-bookmark"></i>
-                                            </a>
-                                        </div>
-                                    </div>
 
-                                    <h4 class="rbt-card-title">
+                                    <h6 class="rbt-card-title primary-color">
                                         <a href="#">@item.BusinessName</a>
-                                    </h4>
+                                    </h6>
                                     @if (item.FromPrice != null && item.ToPrice != null)
                                     {
-                                        <h6>
+                                        <h6 style="margin-bottom:5px;">
                                             Price Range :- @item.FromPrice - @item.ToPrice
                                         </h6>
                                     }
@@ -216,15 +155,11 @@
                                         </p>*@
 
                                     <div class="rbt-card-bottom">
-                                        <!-- <div class="rbt-price"> -->
-                                        <!-- <span class="current-price">$60</span> -->
-                                        <!-- <span class="off-price">$120</span> -->
-                                        <!-- </div> -->
+                                      
                                         @if (item.VideoLink != null && item.VideoLink != "")
                                         {
                                             <a class="rbt-btn-link" href="@item.VideoLink">
-                                                Learn
-                                                More<i class="feather-arrow-right"></i>
+                                                Learn More<i class="feather-arrow-right"></i>
                                             </a>
                                         }
                                     </div>

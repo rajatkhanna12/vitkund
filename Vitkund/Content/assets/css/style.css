@@ -10679,7 +10679,7 @@ Primary style
   display: block;
 }
 .logo a img {
-  max-height: 50px;
+  max-height: 80px;
   object-fit: cover;
 }
 
@@ -12031,7 +12031,7 @@ ul.rbt-dropdown-menu.currency-menu li .sub-menu {
   z-index: 99;
 }
 .rbt-header .logo a img {
-  max-height: 50px;
+  max-height: 80px;
   object-fit: cover;
 }
 @media only screen and (max-width: 575px) {
@@ -14747,7 +14747,7 @@ span.transparent-button:hover i {
 }
 
 .rbt-section-overlayping-top {
-  margin: -175px auto 0;
+  margin: -210px auto 0;
   position: relative;
   z-index: 2;
 }
@@ -14829,7 +14829,7 @@ span.transparent-button:hover i {
 .rbt-card {
   overflow: hidden;
   box-shadow: var(--shadow-1);
-  padding: 30px;
+  padding: 10px 30px;
   border-radius: var(--radius);
   background: var(--color-white);
   position: relative;
@@ -14863,7 +14863,7 @@ span.transparent-button:hover i {
   border-radius: var(--radius);
 }
 .rbt-card .rbt-card-body {
-  padding-top: 30px;
+  padding-top: 3px;
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .rbt-card .rbt-card-body {
