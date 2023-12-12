@@ -271,9 +271,11 @@ namespace Vitkund.Controllers
         [HttpPost]
         public ActionResult FilterBusinessIdeasbypricerange(string minprice, string maxprice)
         {
+            decimal minprices = Convert.ToDecimal(minprice);
+            decimal maxprices = Convert.ToDecimal(maxprice);
             VitkundEntities db = new VitkundEntities();
-            var databypricerange = db.tblBusinessideas.Where(p => p.fromPrice >= Convert.ToDecimal(minprice) && p.toPrice <= Convert.ToDecimal(maxprice)).ToList();
-            if (databypricerange==null)
+            var databypricerange = db.tblBusinessideas.Where(p => p.fromPrice >= minprices && p.toPrice <= maxprices).ToList();
+            if (databypricerange == null)
             {
 
                 return Json(new { data = "No Data Found!" });
@@ -552,7 +554,156 @@ namespace Vitkund.Controllers
 
         #endregion
 
+        #region TrendingBusiness
+        [Route("Add-TrendingBusiness")]
+        public ActionResult AddTrendingBusiness()
+        {
+            VitkundEntities db = new VitkundEntities();
+            var result = db.tblTrendingBusinesses.ToList();
+            return View(result);
+        }
+        [HttpPost]
+        public ActionResult AddTrendingBusiness(tblTrendingBusiness tblTrendingBusiness)
+        {
+            VitkundEntities db = new VitkundEntities();
+            if (tblTrendingBusiness.Id == null || tblTrendingBusiness.Id == 0)
+            {
+                db.tblTrendingBusinesses.Add(tblTrendingBusiness);
+                db.SaveChanges();
+                return Json(new { success = true, message = "Data saved successfully" });
+            }
+            else
+            {
+                var data = db.tblTrendingBusinesses.FirstOrDefault(x => x.Id == tblTrendingBusiness.Id);
+                if (data != null)
+                {
+                    data.BusinessName = tblTrendingBusiness.BusinessName;
+                    data.FromPrice = tblTrendingBusiness.FromPrice;
+                    data.ToPrice = tblTrendingBusiness.ToPrice;
+                    if (!string.IsNullOrEmpty(tblTrendingBusiness.VideoLink))
+                        data.VideoLink = tblTrendingBusiness.VideoLink;
+                    db.SaveChanges();
+                    return Json(new { success = true, message = "Data Updated successfully" });
+                }
 
+                return Json(new { success = true, message = "Something Error Found !!" });
+            }
+        }
+        [HttpPost]
+        public ActionResult GetTrendingBusinessById(string Id)
+        {
+            VitkundEntities db = new VitkundEntities();
+            tblTrendingBusiness tblTrendingBusiness = db.tblTrendingBusinesses.Find(Convert.ToInt32(Id));
+            if (tblTrendingBusiness == null)
+                return HttpNotFound();
+            else
+            {
+                return Json(new { success = true, message = tblTrendingBusiness });
+            }
+        }
+        [HttpPost]
+        public ActionResult DeleteTrendingBusiness(string Id)
+        {
+            VitkundEntities db = new VitkundEntities();
+            tblTrendingBusiness tblTrendingBusiness = db.tblTrendingBusinesses.Find(Convert.ToInt32(Id));
+            if (tblTrendingBusiness == null)
+                return HttpNotFound();
+            else
+            {
+                db.tblTrendingBusinesses.Remove(tblTrendingBusiness);
+                db.SaveChanges();
+            }
+            return Json(new { success = true, message = "Data Deleted successfully" });
+        }
+
+        //FrontEnd
+        [Route("Trending-Business")]
+        public ActionResult TrendingBusiness()
+        {
+            VitkundEntities db = new VitkundEntities();
+            var trendingbusiness = db.tblTrendingBusinesses.ToList();
+            return View(trendingbusiness);
+        }
+        [HttpPost]
+        public ActionResult FilterTrendingBusinessbypricerange(string minprice, string maxprice)
+        {
+            decimal minprices = Convert.ToDecimal(minprice);
+            decimal maxprices = Convert.ToDecimal(maxprice);
+            VitkundEntities db = new VitkundEntities();
+            var databypricerange = db.tblTrendingBusinesses.Where(p => p.FromPrice >= minprices && p.ToPrice <= maxprices).ToList();
+            if (databypricerange == null)
+            {
+
+                return Json(new { data = "No Data Found!" });
+            }
+            else
+            {
+                return Json(new { data = databypricerange });
+            }
+        }
+        [HttpPost]
+        public ActionResult FilterTrendingBusiness(string filtervalue)
+        {
+            VitkundEntities db = new VitkundEntities();
+            if (filtervalue == "Popularity")
+            {
+                var orderbypopularitty = db.tblTrendingBusinesses.OrderByDescending(x => x.Id).ToList();
+                if (string.IsNullOrEmpty(orderbypopularitty.ToString()))
+                {
+
+                    return Json(new { data = "No Data Found!" });
+                }
+                else
+                {
+                    return Json(new { data = orderbypopularitty });
+                }
+            }
+            else if (filtervalue == "Price: low to high")
+            {
+                var orderbypopularitty = db.tblTrendingBusinesses.OrderBy(x => x.FromPrice).ToList();
+                if (string.IsNullOrEmpty(orderbypopularitty.ToString()))
+                {
+
+                    return Json(new { data = "No Data Found!" });
+                }
+                else
+                {
+                    return Json(new { data = orderbypopularitty });
+                }
+            }
+            else if (filtervalue == "Price: high to low")
+            {
+                var orderbypopularitty = db.tblTrendingBusinesses.OrderByDescending(x => x.FromPrice).ToList();
+                if (string.IsNullOrEmpty(orderbypopularitty.ToString()))
+                {
+
+                    return Json(new { data = "No Data Found!" });
+                }
+                else
+                {
+                    return Json(new { data = orderbypopularitty });
+                }
+            }
+            else if (filtervalue == "Latest")
+            {
+                var orderbypopularitty = db.tblTrendingBusinesses.OrderByDescending(x => x.CreateDate).ThenByDescending(y => y.UpdatedDate).ToList();
+                if (string.IsNullOrEmpty(orderbypopularitty.ToString()))
+                {
+
+                    return Json(new { data = "No Data Found!" });
+                }
+                else
+                {
+                    return Json(new { data = orderbypopularitty });
+                }
+            }
+            else
+            {
+                return Json(new { data = "No Data Found!" });
+            }
+        }
+        //FrontEnd
+        #endregion
 
     }
 }

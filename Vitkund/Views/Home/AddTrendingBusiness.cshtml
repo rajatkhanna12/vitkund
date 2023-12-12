@@ -1,0 +1,291 @@
+﻿@model List<Vitkund.Models.tblTrendingBusiness>
+@{
+    ViewBag.Title = "AddBusinessIdeas";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>AddTrendingBusiness</h2>
+<div class="page-body">
+
+    <!-- Container-fluid starts-->
+    <div class="container-fluid">
+        <div class="edit-profile">
+            <div class="row">
+                <div class="col-xl-12">
+                    <form class="card">
+                        <h3 style="text-align:center;margin:0 0 12px 0;display:none" id="successaddedh3">Data Saved Successfully</h3>
+
+                        <div class="card-header pb-0">
+                            <h5 class="card-title mb-0">Add Trending Business</h5>
+                            <div class="card-options"><a class="card-options-collapse" href="#" data-bs-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a><a class="card-options-remove" href="#" data-bs-toggle="card-remove"><i class="fe fe-x"></i></a></div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="mb-3">
+                                        <label>Business Name</label>&nbsp;<span style="color:red" id="validationMessagefortitle"></span><span style="color:red" id="maxvalBusniessName"></span><span style="color: red; display: none" id="Businessnamerequired">Required !!</span>
+                                        <input type="hidden" id="RecordIdhidden" />
+                                        <input class="form-control" type="text" id="BusinessNametxtbox" placeholder="Business Name">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="mb-3">
+                                        <label>From Price</label>&nbsp;<span style="color:red" id="validationMessagefromprice"></span><span style="color:red" id="maxvalfromprice"></span><span style="color: red; display: none" id="frompricerequired">Required !!</span>
+                                        <input class="form-control" type="text" id="frompricetxtbox" placeholder="From Price">
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="mb-3">
+                                        <label>To Price</label>&nbsp;<span style="color:red" id="validationMessagetoprice"></span><span style="color:red" id="maxvaltoprice"></span><span style="color: red; display: none" id="topricerequired">Required !!</span>
+                                        <input class="form-control" type="text" id="topricetxtbox" placeholder="To Price">
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="mb-3">
+                                        <label>Video Link</label>&nbsp;
+                                        <input class="form-control" type="text" id="videolinktxtbox" placeholder="Video Link">
+                                    </div>
+                                </div>
+                                @*@using (Html.BeginForm("UploadImage", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "myForm" }))
+                                    {*@
+
+                                @*}*@
+                            </div>
+                        </div>
+                        <div class="card-footer text-end">
+                            <div class="text-end"><a class="btn btn-primary me-3" id="buttonaddupdate" href="javascript:void(0);" onclick="AddTrendingBusiness()">Add</a><a class="btn btn-danger" href="#">Cancel</a></div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="container-fluid">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <h3>Trending Business</h3>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="my-gallery card-body" itemscope="" data-pswp-uid="1">
+                        <div class="row my-gallery gallery-with-description" itemscope="" data-pswp-uid="2">
+                            @foreach (var item1 in Model)
+                            {
+                                <figure class="col-xl-3 col-6 xl-33" itemprop="associatedMedia" itemscope="">
+                                    <div style="float:right; margin-right:38px;">
+                                        <a class="icon-wrapper" href="javascript:void(0);" onclick="DeleteVideo(@item1.Id)"><i class="icofont icofont-trash"></i></a>
+                                    </div>
+                                    <div style="float:right; margin-right:76px;">
+                                        <a class="icon-wrapper" href="javascript:void(0);" onclick="EditVideo(@item1.Id)"><i class="icofont icofont-pencil"></i></a>
+                                    </div>
+                                    <a href="!#">
+
+                                        <div class="caption">
+                                            <h4>@item1.BusinessName</h4>
+                                            <br />
+                                            @if (!string.IsNullOrEmpty(item1.FromPrice.ToString()) && !string.IsNullOrEmpty(item1.ToPrice.ToString()))
+                                            {
+                                                <span class="classprice">Price Range :- @item1.FromPrice - @item1.ToPrice</span>
+                                            }
+                                        </div>
+                                    </a>
+
+                                </figure>
+                            }
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    var validation = false;
+    var titlevalidation = true;
+    var shortdescvalidation = true;
+    var formpricevalidation = true;
+    var topricevalidation = true;
+    $(document).ready(function () {
+        $('#BusinessNametxtbox').on('input', function () {
+            var maxLength = 100;
+            var inputValue = $(this).val();
+            var containsSpecialChars = /[!#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(inputValue);
+            if (inputValue.length > maxLength) {
+                var trimmedValue = inputValue.substring(0, maxLength);
+                $(this).val(trimmedValue);
+                $("#maxvalspantitle").text("Only " + maxLength + " characters allowed.");
+            }
+            else {
+                $("#maxvalspantitle").text("");
+            }
+            if (containsSpecialChars) {
+                titlevalidation = false;
+                $('#validationMessagefortitle').text('Special characters are not allowed.');
+            }
+            else {
+                titlevalidation = true;
+                $('#validationMessagefortitle').text('');
+            }
+        });
+        $('#frompricetxtbox').on('input', function () {
+            var maxLength = 10;
+            var inputValue = $(this).val();
+            if (/[^0-9]/g.test(inputValue)) {
+                formpricevalidation = false;
+                $('#validationMessagefromprice').text('Only numbers allowed (0-9)');
+            }
+            else {
+                formpricevalidation = true;
+                $('#validationMessagefromprice').text('');
+            }
+            // Allow only numbers (0-9)
+            var numericValue = inputValue.replace(/[^0-9]/g, '');
+            $(this).val(numericValue);
+            if (inputValue.length > maxLength) {
+                // Trim the input to the maximum length
+                var trimmedValue = inputValue.substring(0, maxLength);
+                $(this).val(trimmedValue);
+                $("#maxvalfromprice").text("Only " + maxLength + " Digits allowed.");
+            }
+            else {
+                $("#maxvalfromprice").text("");
+            }
+
+        });
+        $('#topricetxtbox').on('input', function () {
+            var maxLength = 10;
+            var inputValue = $(this).val();
+            if (/[^0-9]/g.test(inputValue)) {
+                topricevalidation = false;
+                $('#validationMessagetoprice').text('Only numbers allowed (0-9)');
+            }
+            else {
+                topricevalidation = true;
+                $('#validationMessagetoprice').text('');
+            }
+            // Allow only numbers (0-9)
+            var numericValue = inputValue.replace(/[^0-9]/g, '');
+            $(this).val(numericValue);
+            if (inputValue.length > maxLength) {
+                // Trim the input to the maximum length
+                var trimmedValue = inputValue.substring(0, maxLength);
+                $(this).val(trimmedValue);
+                $("#maxvaltoprice").text("Only " + maxLength + " Digits allowed.");
+            }
+            else {
+                $("#maxvaltoprice").text("");
+            }
+        });
+    })
+    function AddTrendingBusiness() {
+        //debugger
+        var requiredval = true;
+        var Id = $("#RecordIdhidden").val();
+        var Businessname = $("#BusinessNametxtbox").val();
+        var Fromprice = $("#frompricetxtbox").val();
+        var Toprice = $("#topricetxtbox").val();
+        var Videolink = $("#videolinktxtbox").val();
+
+        if (Businessname == "") { $("#Businessnamerequired").show(); requiredval = false; } else { $("#Businessnamerequired").hide(); requiredval = true; }
+        if (Fromprice == "") { $("#frompricerequired").show(); requiredval = false; } else { $("#frompricerequired").hide(); requiredval = true; }
+        if (Toprice == "") { $("#topricerequired").show(); requiredval = false; } else { $("#topricerequired").hide(); requiredval = true; }
+
+        if (requiredval == true) {
+            var tbltrendingbusinessdata = { Id: Id, BusinessName: Businessname, FromPrice: Fromprice, ToPrice: Toprice, VideoLink: Videolink };
+            $.ajax({
+                url: '/Home/AddTrendingBusiness',
+                type: 'POST',
+                data: JSON.stringify({ tblTrendingBusiness: tbltrendingbusinessdata }),
+                traditional: true,
+                contentType: 'application/json; charset=utf-8',
+                datatype: 'json',
+                success: function (response) {
+                    alert(response.message);
+                    window.location.reload();
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+        else { }
+
+    }
+    function EditVideo(elm) {
+            debugger
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetTrendingBusinessById", "Home")',
+                data: JSON.stringify({ Id: elm }),
+                traditional: true,
+                contentType: 'application/json; charset=utf-8',
+                datatype:'json',
+                success: function (response) {
+                    debugger
+                    if (response.message != "") {
+                        $("#BusinessNametxtbox").val(response.message.BusinessName);
+                        $("#RecordIdhidden").val(response.message.Id);
+                        $("#frompricetxtbox").val(response.message.FromPrice);
+                        $("#topricetxtbox").val(response.message.ToPrice);
+                        $("#videolinktxtbox").val(response.message.VideoLink);
+                        $("#buttonaddupdate").text("Update");
+                        window.scrollTo(0, 0);
+                    }
+                },
+                error: function (error) {
+                    // Handle errors
+                    console.log(error);
+                }
+            });
+    }
+    function DeleteVideo(elm) {
+
+        var result = confirm("Want to delete?");
+        if (result) {
+            debugger
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("DeleteTrendingBusiness", "Home")',
+                data: JSON.stringify({ Id: elm }),
+                traditional: true,
+                contentType: 'application/json; charset=utf-8',
+                datatype:'json',
+                success: function (response) {
+                    debugger
+                    if (response.message == "Data Deleted successfully") {
+                        alert(response.message);
+                        window.location.reload();
+                    }
+                },
+                error: function (error) {
+                    // Handle errors
+                    console.log(error);
+                }
+            });
+        }
+
+
+    }
+</script>

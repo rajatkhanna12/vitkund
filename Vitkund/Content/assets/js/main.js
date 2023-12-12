@@ -849,8 +849,8 @@
             })
             $('#slider-range').slider({
                 range: true,
-                min: 10,
-                max: 500,
+                min: 10000,
+                max: 500000,
                 values: [100, 300],
                 slide: function (event, ui) {
                     $('#amount').val('INR ' + ui.values[0] + ' - ' + ui.values[1]);

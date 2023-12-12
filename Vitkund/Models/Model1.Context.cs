@@ -29,5 +29,6 @@ namespace Vitkund.Models
         public virtual DbSet<tblVideo> tblVideos { get; set; }
         public virtual DbSet<tblAdmin> tblAdmins { get; set; }
         public virtual DbSet<tblBusinessidea> tblBusinessideas { get; set; }
+        public virtual DbSet<tblTrendingBusiness> tblTrendingBusinesses { get; set; }
     }
 }

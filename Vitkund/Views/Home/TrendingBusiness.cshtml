@@ -1,4 +1,4 @@
-﻿@model List<Vitkund.Models.tblBusinessidea>
+﻿@model List<Vitkund.Models.tblTrendingBusiness>
 <style>
     .notdatafoundcls {
         color: white;
@@ -177,14 +177,7 @@
                             <div class="rbt-card variation-01 rbt-hover">
                                 <div class="rbt-card-img">
                                     <a href="#">
-                                        @if (@item.Image.Contains("Content"))
-                                        {
-                                            <img src="@item.Image" alt="Card image">
-                                        }
-                                        else
-                                        {
-                                            <img src="~/Content/Uploads/@item.Image" alt="Card image">
-                                        }                                     <div class="rbt-badge-3 bg-white">
+                                        <div class="rbt-badge-3 bg-white">
                                             <span>-40%</span>
                                             <span>Off</span>
                                         </div>
@@ -210,27 +203,30 @@
                                     </div>
 
                                     <h4 class="rbt-card-title">
-                                        <a href="#">@item.Title</a>
+                                        <a href="#">@item.BusinessName</a>
                                     </h4>
-                                    @if (item.fromPrice != null && item.toPrice != null)
+                                    @if (item.FromPrice != null && item.ToPrice != null)
                                     {
                                         <h6>
-                                            Price Range :- @item.fromPrice - @item.toPrice
+                                            Price Range :- @item.FromPrice - @item.ToPrice
                                         </h6>
                                     }
-                                    <p class="rbt-card-text">
-                                        @item.ShortDescription
-                                    </p>
+                                    @*<p class="rbt-card-text">
+                                            @item.VideoLink
+                                        </p>*@
 
                                     <div class="rbt-card-bottom">
                                         <!-- <div class="rbt-price"> -->
                                         <!-- <span class="current-price">$60</span> -->
                                         <!-- <span class="off-price">$120</span> -->
                                         <!-- </div> -->
-                                        <a class="rbt-btn-link" href="/Business-Ideas/@item.Id">
-                                            Learn
-                                            More<i class="feather-arrow-right"></i>
-                                        </a>
+                                        @if (item.VideoLink != null && item.VideoLink != "")
+                                        {
+                                            <a class="rbt-btn-link" href="@item.VideoLink">
+                                                Learn
+                                                More<i class="feather-arrow-right"></i>
+                                            </a>
+                                        }
                                     </div>
 
                                 </div>
@@ -267,7 +263,7 @@
         //var pricerange = $("#amount").val().replaceAll("$", "");
         $.ajax({
                 type: 'POST',
-                url: '@Url.Action("FilterBusinessIdeas", "Home")',
+                url: '@Url.Action("FilterTrendingBusiness", "Home")',
                 data: JSON.stringify({ filtervalue: elm }),
                 traditional: true,
                 contentType: 'application/json; charset=utf-8',
@@ -283,19 +279,17 @@
                             $(".rbt-course-grid-column").html('');
                             for (var i = 0; i < response.data.length; i++) {
                                 var Id = response.data[i].Id;
-                                var Title = response.data[i].Title;
-                                var Image = response.data[i].Image;
-                                var ShortDesc = response.data[i].ShortDescription;
-                                var LongDesc = response.data[i].LongDescription;
-                                var Fromprice = response.data[i].fromPrice;
-                                var Toprice = response.data[i].toPrice;
+                                var Businessname = response.data[i].BusinessName;
+                                var Fromprice = response.data[i].FromPrice;
+                                var Toprice = response.data[i].ToPrice;
+                                var VideoLink = response.data[i].VideoLink;
 
                                 html += '<div class="course-grid-3"> <div class="rbt-card variation-01 rbt-hover"> <div class="rbt-card-img"> <a href="#">';
-                                if (Image.toLowerCase().includes("content"))
-                                    html += '<img src="' + Image + '" alt="Card image">';
-                                else
-                                    html += '<img src="/Content/Uploads/' + Image + '" alt="Card image">';
-                                html += '<div class="rbt-badge-3 bg-white"> <span>-40%</span> <span>Off</span> </div> </a> </div > <div class="rbt-card-body"> <div class="rbt-card-top"> <div class="rbt-review"> <div class="rating"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> </div> <span class="rating-count"> (15 Reviews)</span> </div> <div class="rbt-bookmark-btn"> <a class="rbt-round-btn" title="Bookmark" href="#"> <i class="feather-bookmark"></i> </a> </div> </div> <h4 class="rbt-card-title"> <a href="#">' + Title + '</a> </h4><h6>Price Range :- ' + Fromprice + ' - ' + Toprice + '</h6> <p class="rbt-card-text">' + ShortDesc + '</p> <div class="rbt-card-bottom"><a class="rbt-btn-link" href="/Business-Ideas/' + Id + '"> Learn More<i class="feather-arrow-right"></i> </a></div></div></div ></div > '
+                                html += '<div class="rbt-badge-3 bg-white"> <span>-40%</span> <span>Off</span> </div> </a> </div > <div class="rbt-card-body"> <div class="rbt-card-top"> <div class="rbt-review"> <div class="rating"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> </div> <span class="rating-count"> (15 Reviews)</span> </div> <div class="rbt-bookmark-btn"> <a class="rbt-round-btn" title="Bookmark" href="#"> <i class="feather-bookmark"></i> </a> </div> </div> <h4 class="rbt-card-title"> <a href="#">' + Businessname + '</a> </h4><h6>Price Range :- ' + Fromprice + ' - ' + Toprice + '</h6><div class="rbt-card-bottom">';
+                                if (VideoLink != null && VideoLink != '') {
+                                    html += '<a class="rbt-btn-link" href="' + VideoLink + '"> Learn More<i class="feather-arrow-right"></i> </a>';
+                                }
+                                html += '</div></div></div ></div > '
                             }
                             $(".rbt-course-grid-column").html(html);
                         }
@@ -314,37 +308,34 @@
         var minprice = value.split(" - ")[0];
         var maxprice = value.split(" - ")[1];
         $.ajax({
-                type: 'POST',
-            url: '@Url.Action("FilterBusinessIdeasbypricerange", "Home")',
+            type: 'POST',
+            url: '@Url.Action("FilterTrendingBusinessbypricerange", "Home")',
             data: JSON.stringify({ minprice: minprice, maxprice: maxprice }),
-                traditional: true,
-                contentType: 'application/json; charset=utf-8',
-                datatype:'json',
-                success: function (response) {
-                    debugger
-                    var html = "";
-                    if (response.data != null) {
-                        if (response.data == "No Data Found!") {
-                            $(".rbt-course-grid-column").html("<p class='notdatafoundcls'>" + response.data + "</p>");
-                        }
-                        else {
-                            $(".rbt-course-grid-column").html('');
-                            for (var i = 0; i < response.data.length; i++) {
-                                var Id = response.data[i].Id;
-                                var Title = response.data[i].Title;
-                                var Image = response.data[i].Image;
-                                var ShortDesc = response.data[i].ShortDescription;
-                                var LongDesc = response.data[i].LongDescription;
-                                var Fromprice = response.data[i].fromPrice;
-                                var Toprice = response.data[i].toPrice;
+            traditional: true,
+            contentType: 'application/json; charset=utf-8',
+            datatype: 'json',
+            success: function (response) {
+                debugger
+                var html = "";
+                if (response.data != null) {
+                    if (response.data == "No Data Found!") {
+                        $(".rbt-course-grid-column").html("<p class='notdatafoundcls'>" + response.data + "</p>");
+                    }
+                    else {
+                        $(".rbt-course-grid-column").html('');
+                        for (var i = 0; i < response.data.length; i++) {
+                            var Id = response.data[i].Id;
+                            var Businessname = response.data[i].BusinessName;
+                            var Fromprice = response.data[i].FromPrice;
+                            var Toprice = response.data[i].ToPrice;
+                            var VideoLink = response.data[i].VideoLink;
 
-
-                                html += '<div class="course-grid-3"> <div class="rbt-card variation-01 rbt-hover"> <div class="rbt-card-img"> <a href="#">';
-                                if (Image.toLowerCase().includes("content"))
-                                    html += '<img src="' + Image + '" alt="Card image">';
-                                else
-                                    html += '<img src="/Content/Uploads/' + Image + '" alt="Card image">';
-                                html += '<div class="rbt-badge-3 bg-white"> <span>-40%</span> <span>Off</span> </div> </a> </div > <div class="rbt-card-body"> <div class="rbt-card-top"> <div class="rbt-review"> <div class="rating"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> </div> <span class="rating-count"> (15 Reviews)</span> </div> <div class="rbt-bookmark-btn"> <a class="rbt-round-btn" title="Bookmark" href="#"> <i class="feather-bookmark"></i> </a> </div> </div> <h4 class="rbt-card-title"> <a href="#">' + Title + '</a> </h4><h6>Price Range :- ' + Fromprice + ' - ' + Toprice + '</h6> <p class="rbt-card-text">' + ShortDesc + '</p> <div class="rbt-card-bottom"><a class="rbt-btn-link" href="/Business-Ideas/' + Id + '"> Learn More<i class="feather-arrow-right"></i> </a></div></div></div ></div > '
+                            html += '<div class="course-grid-3"> <div class="rbt-card variation-01 rbt-hover"> <div class="rbt-card-img"> <a href="#">';
+                            html += '<div class="rbt-badge-3 bg-white"> <span>-40%</span> <span>Off</span> </div> </a> </div > <div class="rbt-card-body"> <div class="rbt-card-top"> <div class="rbt-review"> <div class="rating"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> </div> <span class="rating-count"> (15 Reviews)</span> </div> <div class="rbt-bookmark-btn"> <a class="rbt-round-btn" title="Bookmark" href="#"> <i class="feather-bookmark"></i> </a> </div> </div> <h4 class="rbt-card-title"> <a href="#">' + Businessname + '</a> </h4><h6>Price Range :- ' + Fromprice + ' - ' + Toprice + '</h6><div class="rbt-card-bottom">';
+                            if (VideoLink != null && VideoLink != '') {
+                                html += '<a class="rbt-btn-link" href="' + VideoLink + '"> Learn More<i class="feather-arrow-right"></i> </a>';
+                            }
+                            html += '</div></div></div ></div > '
                             }
                             $(".rbt-course-grid-column").html(html);
                         }
