@@ -100,8 +100,11 @@
                 datatype:'json',
                 success: function (response) {
                     debugger
-                    if (response.message == "Logged In")
-                        window.location.href="/AdminIndex";
+                    var data = response.message.split(",");
+                    if (data[0] == "Logged In" && data[1]=="Admin")
+                        window.location.href = "/AdminIndex";
+                    else if (data[0] == "Logged In" && data[1] == "User")
+                        window.location.href = "/Index";
                     else if (response.message == "User Not Found")
                         alert(response.message)
                 },

@@ -32,34 +32,39 @@
 
                         <div class="row g-5">
                             <div class="col-md-6 col-12">
-                                <label>नाम*</label>
-                                <input type="text" placeholder="आपका नाम लिखे ">
+                                <label>नाम*</label><span id="maxvalspanname" style="color:red"></span><span id="validationMessageforname" style="color:red"></span><span id="requiredvalidationforname" style="color:red"></span>
+                                <input type="text" id="Nametxtbox" placeholder="आपका नाम लिखे ">
                             </div>
 
                             <div class="col-md-6 col-12">
-                                <label>पिता का नाम*</label>
-                                <input type="text" placeholder="पिता का नाम लिखे">
+                                <label>पिता का नाम*</label><span id="maxvalspanfathername" style="color:red"></span><span id="validationMessageforfathername" style="color:red"></span><span id="requiredvalidationforfathername" style="color:red"></span>
+                                <input type="text" id="fathernametxtbox" placeholder="पिता का नाम लिखे">
                             </div>
 
                             <div class="col-md-6 col-12">
-                                <label>जिला *</label>
-                                <input type="text" placeholder="आपका जिला लिखे">
+                                <label>जिला *</label><span id="maxvalspandistrict" style="color:red"></span><span id="validationMessagefordistrict" style="color:red"></span><span id="requiredvalidationfordistrict" style="color:red"></span>
+                                <input type="text" id="districttxbox" placeholder="आपका जिला लिखे">
                             </div>
 
                             <div class="col-md-6 col-12">
-                                <label>राज्य *</label>
-                                <input type="text" placeholder="आपका राज्य लिखे">
+                                <label>राज्य *</label><span id="maxvalspanstate" style="color:red"></span><span id="validationMessageforstate" style="color:red"></span><span id="requiredvalidationforstate" style="color:red"></span>
+                                <input type="text" id="statetxtbox" placeholder="आपका राज्य लिखे">
                             </div>
 
                             <div class="col-md-6 col-12">
-                                <label>मोबाइल नंबर *</label>
-                                <input type="text" placeholder="मोबाइल नंबर दर्ज करे ">
+                                <label>मोबाइल नंबर *</label><span id="validationMessagemobileno" style="color:red"></span><span id="maxvalmobileno" style="color:red"></span><span id="requiredvalidationformobileno" style="color:red"></span>
+                                <input type="text" id="mobilenotxtbox" placeholder="मोबाइल नंबर दर्ज करे ">
                             </div>
-
-
-
+                            <div class="col-md-6 col-12">
+                                <label>उपयोगकर्ता नाम *</label><span id="maxvalspanusername" style="color:red"></span><span id="validationMessageforusername" style="color:red"></span><span id="requiredvalidationforusername" style="color:red"></span>
+                                <input type="text" id="Usernametxtbox" placeholder="मोबाइल नंबर दर्ज करे ">
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label>पासवर्ड *</label><span id="passwordError" style="color: red;"></span><span id="requiredvalidationforpassword" style="color:red"></span>
+                                <input type="password" id="Passwordtxtbox" placeholder="मोबाइल नंबर दर्ज करे ">
+                            </div>
                             <div class="plceholder-button mt--50">
-                                <button class="rbt-btn btn-gradient hover-icon-reverse">
+                                <button onclick="Signup()" type="button" class="rbt-btn btn-gradient hover-icon-reverse">
                                     <a href="#" style="color:#fff;">
                                         <span class="icon-reverse-wrapper">
                                             <span class="btn-text">Signup</span>
@@ -70,15 +75,9 @@
                                 </button>
                             </div>
                         </div>
-
                     </div>
-
-
-
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>
@@ -88,5 +87,250 @@
         <hr class="rbt-separator m-0">
     </div>
 </div>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    $(document).ready(function () {
+        var namevalidation = false;
+        var fathernamevalidation = false;
+        var districtvalidation = false;
+        var statevalidation = false;
+        var usernamevalidation = false;
+        var passwordvalidation = false;
+        $('#mobilenotxtbox').on('input', function () {
+            var maxLength = 10;
+            var inputValue = $(this).val();
+            if (/[^0-9]/g.test(inputValue)) {
+                topricevalidation = false;
+                $('#validationMessagemobileno').text('Only numbers allowed (0-9)');
+            }
+            else {
+                topricevalidation = true;
+                $('#validationMessagemobileno').text('');
+            }
+            // Allow only numbers (0-9)
+            var numericValue = inputValue.replace(/[^0-9]/g, '');
+            $(this).val(numericValue);
+            if (inputValue.length > maxLength) {
+                // Trim the input to the maximum length
+                var trimmedValue = inputValue.substring(0, maxLength);
+                $(this).val(trimmedValue);
+                $("#maxvalmobileno").text("Only " + maxLength + " Digits allowed.");
+            }
+            else {
+                $("#maxvalmobileno").text("");
+            }
+        });
+        $('#Nametxtbox').on('input', function () {
+            var maxLength = 20;
+            var inputValue = $(this).val();
+            var containsSpecialChars = /[!#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(inputValue);
+            if (inputValue.length > maxLength) {
+                var trimmedValue = inputValue.substring(0, maxLength);
+                $(this).val(trimmedValue);
+                $("#maxvalspanname").text("Only " + maxLength + " characters allowed.");
+            }
+            else {
+                $("#maxvalspanname").text("");
+            }
+            if (containsSpecialChars) {
+                namevalidation = false;
+                $('#validationMessageforname').text('Special characters are not allowed.');
+            }
+            else {
+                namevalidation = true;
+                $('#validationMessageforname').text('');
+            }
+        });
+        $('#fathernametxtbox').on('input', function () {
+            var maxLength = 20;
+            var inputValue = $(this).val();
+            var containsSpecialChars = /[!#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(inputValue);
+            if (inputValue.length > maxLength) {
+                var trimmedValue = inputValue.substring(0, maxLength);
+                $(this).val(trimmedValue);
+                $("#maxvalspanfathername").text("Only " + maxLength + " characters allowed.");
+            }
+            else {
+                $("#maxvalspanfathername").text("");
+            }
+            if (containsSpecialChars) {
+                fathernamevalidation = false;
+                $('#validationMessageforfathername').text('Special characters are not allowed.');
+            }
+            else {
+                fathernamevalidation = true;
+                $('#validationMessageforfathername').text('');
+            }
+        });
+        $('#districttxbox').on('input', function () {
+            var maxLength = 20;
+            var inputValue = $(this).val();
+            var containsSpecialChars = /[!#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(inputValue);
+            if (inputValue.length > maxLength) {
+                var trimmedValue = inputValue.substring(0, maxLength);
+                $(this).val(trimmedValue);
+                $("#maxvalspandistrict").text("Only " + maxLength + " characters allowed.");
+            }
+            else {
+                $("#maxvalspandistrict").text("");
+            }
+            if (containsSpecialChars) {
+                districtvalidation = false;
+                $('#validationMessagefordistrict').text('Special characters are not allowed.');
+            }
+            else {
+                districtvalidation = true;
+                $('#validationMessagefordistrict').text('');
+            }
+        });
+        $('#statetxtbox').on('input', function () {
+            var maxLength = 20;
+            var inputValue = $(this).val();
+            var containsSpecialChars = /[!#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(inputValue);
+            if (inputValue.length > maxLength) {
+                var trimmedValue = inputValue.substring(0, maxLength);
+                $(this).val(trimmedValue);
+                $("#maxvalspanstate").text("Only " + maxLength + " characters allowed.");
+            }
+            else {
+                $("#maxvalspanstate").text("");
+            }
+            if (containsSpecialChars) {
+                statevalidation = false;
+                $('#validationMessageforstate').text('Special characters are not allowed.');
+            }
+            else {
+                statevalidation = true;
+                $('#validationMessageforstate').text('');
+            }
+        });
+        $('#Usernametxtbox').on('input', function () {
+            var maxLength = 20;
+            var inputValue = $(this).val();
+            var containsSpecialChars = /[!#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(inputValue);
+            if (inputValue.length > maxLength) {
+                var trimmedValue = inputValue.substring(0, maxLength);
+                $(this).val(trimmedValue);
+                $("#maxvalspanusername").text("Only " + maxLength + " characters allowed.");
+            }
+            else {
+                $("#maxvalspanusername").text("");
+            }
+            if (containsSpecialChars) {
+                usernamevalidation = false;
+                $('#validationMessageforusername').text('Special characters are not allowed.');
+            }
+            else {
+                usernamevalidation = true;
+                $('#validationMessageforusername').text('');
+            }
+        });
+        $('#Passwordtxtbox').on('input', function () {
+            var password = $(this).val();
+            var isValid = validatePassword(password);
 
+            if (isValid) {
+                passwordvalidation = true;
+                $('#passwordError').text('');
+            } else {
+                passwordvalidation = false;
+                $('#passwordError').text('Password must meet the criteria.');
+            }
+        });
+        function validatePassword(password) {
+            // Define your password criteria
+            var minLength = 8;
+            var hasUppercase = /[A-Z]/.test(password);
+            var hasLowercase = /[a-z]/.test(password);
+            var hasDigit = /\d/.test(password);
+            var hasSpecialChar = /[!@@#$%^&*(),.?":{}|<>]/.test(password);
+
+            // Check if the password meets all criteria
+            return password.length >= minLength &&
+                hasUppercase &&
+                hasLowercase &&
+                hasDigit &&
+                hasSpecialChar;
+        }
+        
+    })
+    function Signup() {
+        var validationreq = false;
+        var name = $("#Nametxtbox").val();
+        var fathername = $("#fathernametxtbox").val();
+        var district = $("#districttxbox").val();
+        var state = $("#statetxtbox").val();
+        var mobileno = $("#mobilenotxtbox").val();
+        var username = $("#Usernametxtbox").val();
+        var password = $("#Passwordtxtbox").val();
+        if (name == "") {
+            $("#requiredvalidationforname").val("Required!");
+        }
+        else {
+            $("#requiredvalidationforname").val("");
+        }
+        if (fathername == "") {
+            $("#requiredvalidationforfathername").val("Required!");
+        }
+        else {
+            $("#requiredvalidationforfathername").val("");
+        }
+        if (district == "") {
+            $("#requiredvalidationfordistrict").val("Required!");
+        }
+        else {
+            $("#requiredvalidationfordistrict").val("");
+        }
+        if (state == "") {
+            $("#requiredvalidationforstate").val("Required!");
+        }
+        else {
+            $("#requiredvalidationforstate").val("");
+        }
+        if (mobileno == "") {
+            $("#requiredvalidationformobileno").val("Required!");
+        }
+        else {
+            $("#requiredvalidationformobileno").val("");
+        }
+        if (username == "") {
+            $("#requiredvalidationforusername").val("Required!");
+        }
+        else {
+            $("#requiredvalidationforusername").val("");
+        }
+        if (password == "") {
+            $("#requiredvalidationforpassword").val("Required!");
+        }
+        else {
+            $("#requiredvalidationforpassword").val("");
+        }
+        if (name == "" || fathername == "" || district == "" || state == "" || mobileno == "" || username == "" || password == "") {
+            validationreq = false;
+        }
+        else {
+            validationreq = true;
+        }
+        if (validationreq) {
+            var tblsignupdata = { Username: username, Password: password, Name: name, FatherName: fathername, District: district, State: state, PhoneNumber: mobileno }
+            $.ajax({
+                url: '/Home/AddSignupDetails',
+                type: 'POST',
+                data: JSON.stringify({ tbladmin: tblsignupdata }),
+                traditional: true,
+                contentType: 'application/json; charset=utf-8',
+                datatype: 'json',
+                success: function (response) {
+                    if (response.message = "Signup successfully") {
+                        window.location.href = "/login";
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+    }
+</script>
 

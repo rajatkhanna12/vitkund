@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Ajax.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
@@ -68,8 +69,8 @@ namespace Vitkund.Controllers
         [Route("Login")]
         public ActionResult Login()
         {
-            ViewBag.Message = "Your contact page.";
-
+            Session.Remove("Role");
+            Session.Remove("LoggedIn");
             return View();
         }
         [Route("Motivational-quotes")]
@@ -146,21 +147,20 @@ namespace Vitkund.Controllers
 
             return View();
         }
-        [Route("Signup")]
-        public ActionResult Signup()
-        {
-            ViewBag.Message = "Your contact page.";
 
-            return View();
-        }
         [Route("Videos")]
         public ActionResult Videos()
         {
-            VitkundEntities db = new VitkundEntities();
-            ViewBag.tblchapters = db.tblChapters.ToList();
-            ViewBag.Message = "Your contact page.";
-            var res = db.tblVideos.ToList();
-            return View(res);
+            if (Session["LoggedIn"] == "true" && (Session["Role"] == "Admin" || Session["Role"] == "User"))
+            {
+                VitkundEntities db = new VitkundEntities();
+                ViewBag.tblchapters = db.tblChapters.ToList();
+                ViewBag.Message = "Your contact page.";
+                var res = db.tblVideos.ToList();
+                return View(res);
+            }
+            else
+                return Redirect("/Login");
         }
         [Route("Vitkund")]
         public ActionResult Vitkund()
@@ -179,8 +179,12 @@ namespace Vitkund.Controllers
         [Route("AdminIndex")]
         public ActionResult AdminIndex()
         {
-            ViewBag.Message = "Your Admin Index page.";
-            return View();
+            if (Session["LoggedIn"] == "true" && Session["Role"] == "Admin")
+            {
+                ViewBag.Message = "Your Admin Index page.";
+                return View();
+            }
+            else return Redirect("/Login");
         }
 
 
@@ -189,23 +193,35 @@ namespace Vitkund.Controllers
         [Route("Business-ideas")]
         public ActionResult BusinessIdeas()
         {
-            ViewBag.Message = "Your contact page.";
-            VitkundEntities db = new VitkundEntities();
-            var businessIdeas = db.tblBusinessideas.ToList();
-            return View(businessIdeas);
+            if (Session["LoggedIn"] == "true" && (Session["Role"] == "Admin" || Session["Role"] == "User"))
+            {
+                ViewBag.Message = "Your contact page.";
+                VitkundEntities db = new VitkundEntities();
+                var businessIdeas = db.tblBusinessideas.ToList();
+                return View(businessIdeas);
+            }
+            else
+            {
+                return Redirect("/Login");
+            }
         }
 
         [Route("Business-Ideas/{Id}")]
         public ActionResult BusinessIdeaDetail(string Id)
         {
-            VitkundEntities db = new VitkundEntities();
-            tblBusinessidea tblbusinessidea = db.tblBusinessideas.Find(Convert.ToInt32(Id));
-            if (tblbusinessidea == null)
-                return HttpNotFound();
-            else
+            if (Session["LoggedIn"] == "true" && (Session["Role"] == "Admin" || Session["Role"] == "User"))
             {
-                return View(tblbusinessidea);
+                VitkundEntities db = new VitkundEntities();
+                tblBusinessidea tblbusinessidea = db.tblBusinessideas.Find(Convert.ToInt32(Id));
+                if (tblbusinessidea == null)
+                    return HttpNotFound();
+                else
+                {
+                    return View(tblbusinessidea);
+                }
             }
+            else
+                return Redirect("/Login");
         }
         [HttpPost]
         public ActionResult FilterBusinessIdeas(string filtervalue)
@@ -296,9 +312,14 @@ namespace Vitkund.Controllers
         [Route("Add-Businessideas")]
         public ActionResult AddBusinessIdeas()
         {
-            VitkundEntities db = new VitkundEntities();
-            var res = db.tblBusinessideas.ToList();
-            return View(res);
+            if (Session["LoggedIn"] == "true" && Session["Role"] == "Admin")
+            {
+                VitkundEntities db = new VitkundEntities();
+                var res = db.tblBusinessideas.ToList();
+                return View(res);
+            }
+            else
+                return Redirect("/Login");
         }
 
         [HttpPost]
@@ -384,10 +405,15 @@ namespace Vitkund.Controllers
         [Route("Add-Videos")]
         public ActionResult AddVideos()
         {
-            VitkundEntities db = new VitkundEntities();
-            ViewBag.tblchapters = db.tblChapters.ToList();
-            var res = db.tblVideos.ToList();
-            return View(res);
+            if (Session["LoggedIn"] == "true" && Session["Role"] == "Admin")
+            {
+                VitkundEntities db = new VitkundEntities();
+                ViewBag.tblchapters = db.tblChapters.ToList();
+                var res = db.tblVideos.ToList();
+                return View(res);
+            }
+            else
+                return Redirect("/Login");
         }
         [HttpPost]
         public ActionResult AddVideos(tblVideo tblvideo)
@@ -481,9 +507,13 @@ namespace Vitkund.Controllers
         [Route("Add-Chapters")]
         public ActionResult AddChapters()
         {
-            VitkundEntities db = new VitkundEntities();
-            var res = db.tblChapters.ToList();
-            return View(res);
+            if (Session["LoggedIn"] == "true" && Session["Role"] == "Admin")
+            {
+                VitkundEntities db = new VitkundEntities();
+                var res = db.tblChapters.ToList();
+                return View(res);
+            }
+            else return Redirect("/Login");
         }
         [HttpPost]
         public ActionResult AddChapters(tblChapter tblchapter)
@@ -548,7 +578,20 @@ namespace Vitkund.Controllers
             if (tblAdmin == null)
                 return Json(new { success = true, message = "User Not Found" });
             else
-                return Json(new { success = true, message = "Logged In" });
+            {
+                if (tblAdmin.IsRole == true)
+                {
+                    Session["LoggedIn"] = "true";
+                    Session["Role"] = "User";
+                }
+                else if (tblAdmin.IsAdmin == true)
+                {
+                    Session["LoggedIn"] = "true";
+                    Session["Role"] = "Admin";
+                }
+                return Json(new { success = true, message = "Logged In," + Session["Role"] });
+            }
+
 
         }
 
@@ -558,10 +601,15 @@ namespace Vitkund.Controllers
         [Route("Add-TrendingBusiness")]
         public ActionResult AddTrendingBusiness()
         {
-            VitkundEntities db = new VitkundEntities();
-            var result = db.tblTrendingBusinesses.ToList();
-            return View(result);
+            if (Session["LoggedIn"] == "true" && Session["Role"] == "Admin")
+            {
+                VitkundEntities db = new VitkundEntities();
+                var result = db.tblTrendingBusinesses.ToList();
+                return View(result);
+            }
+            else return Redirect("/Login");
         }
+
         [HttpPost]
         public ActionResult AddTrendingBusiness(tblTrendingBusiness tblTrendingBusiness)
         {
@@ -620,9 +668,16 @@ namespace Vitkund.Controllers
         [Route("Trending-Business")]
         public ActionResult TrendingBusiness()
         {
-            VitkundEntities db = new VitkundEntities();
-            var trendingbusiness = db.tblTrendingBusinesses.ToList();
-            return View(trendingbusiness);
+            if (Session["LoggedIn"] == "true" && (Session["Role"] == "Admin" || Session["Role"] == "User"))
+            {
+                VitkundEntities db = new VitkundEntities();
+                var trendingbusiness = db.tblTrendingBusinesses.ToList();
+                return View(trendingbusiness);
+            }
+            else
+            {
+                return Redirect("/Login");
+            }
         }
         [HttpPost]
         public ActionResult FilterTrendingBusinessbypricerange(string minprice, string maxprice)
@@ -705,5 +760,40 @@ namespace Vitkund.Controllers
         //FrontEnd
         #endregion
 
+        #region Signup
+        [Route("Signup")]
+        public ActionResult Signup()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddSignupDetails(tblAdmin tbladmin)
+        {
+            try
+            {
+                VitkundEntities db = new VitkundEntities();
+                tbladmin.IsRole = true;
+                db.tblAdmins.Add(tbladmin);
+                db.SaveChanges();
+                return Json(new { success = true, message = "Signup successfully" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = true, message = ex });
+            }
+
+        }
+        #endregion
+
+        #region Logout
+
+        //[HttpPost]
+        //public ActionResult Logout()
+        //{
+        //    Session.Remove("Role");
+        //    Session.Remove("LoggedIn");
+        //    return Redirect("/Login");
+        //}
+        #endregion
     }
 }
