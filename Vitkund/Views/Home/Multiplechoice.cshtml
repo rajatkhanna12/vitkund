@@ -126,12 +126,12 @@
                                 <div class="col-md-4 col-12">
                                     <div class="col-12 mb--50">
                                         <div class="check-box">
-                                            <input type="checkbox" id="create_account10" wfd-id="id11">
-                                            <label for="create_account10">Yes</label>
+                                            <input type="checkbox" id="create_account14" wfd-id="id11">
+                                            <label for="create_account14">Yes</label>
                                         </div>
                                         <div class="check-box">
-                                            <input type="checkbox" id="shiping_address11" data-shipping="" wfd-id="id12">
-                                            <label for="shiping_address11">No</label>
+                                            <input type="checkbox" id="shiping_address15" data-shipping="" wfd-id="id12">
+                                            <label for="shiping_address15">No</label>
                                         </div>
                                     </div>
                                 </div>
@@ -142,12 +142,12 @@
                                 <div class="col-md-4 col-12">
                                     <div class="col-12 mb--50">
                                         <div class="check-box">
-                                            <input type="checkbox" id="create_account12" wfd-id="id11">
-                                            <label for="create_account12">Yes</label>
+                                            <input type="checkbox" id="create_account10" wfd-id="id11">
+                                            <label for="create_account10">Yes</label>
                                         </div>
                                         <div class="check-box">
-                                            <input type="checkbox" id="shiping_address13" data-shipping="" wfd-id="id12">
-                                            <label for="shiping_address13">No</label>
+                                            <input type="checkbox" id="shiping_address11" data-shipping="" wfd-id="id12">
+                                            <label for="shiping_address11">No</label>
                                         </div>
                                     </div>
                                 </div>
@@ -170,7 +170,7 @@
 
                                 <div class="plceholder-button mt--50">
                                     <a href="result" style="color:#fff;">
-                                        <button class="rbt-btn btn-gradient hover-icon-reverse">
+                                        <button class="rbt-btn btn-gradient hover-icon-reverse page2">
                                             <span class="icon-reverse-wrapper">
                                                 <span class="btn-text">Submit</span>
                                                 <span class="btn-icon"><i class="feather-arrow-right"></i></span>
@@ -200,3 +200,170 @@
     </div>
 
 </main>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var totalcheckbox = 0;
+        $('.page2').click(function () {
+            page_2()
+        });
+
+        // check which checkboxe is selected and disable another checkbox 
+        $('input[type="checkbox"]').change(function () { 
+            if ($('#create_account1').is(":checked") == true) {
+                $("#shiping_address2").attr("disabled", "disabled");
+            }
+            else if ($('#shiping_address2').is(":checked") == true) {
+                $("#create_account1").attr("disabled", "disabled")
+            }
+            else {
+                $("#create_account1").removeAttr("disabled")
+                $("#shiping_address2").removeAttr("disabled")
+            }
+             if ($('#create_account3').is(":checked") == true) {
+                $("#shiping_address4").attr("disabled", "disabled");
+            }
+            else if ($('#shiping_address4').is(":checked") == true) {
+               
+                $("#create_account3").attr("disabled", "disabled")
+             }
+             else {
+                 $("#create_account3").removeAttr("disabled")
+                 $("#shiping_address4").removeAttr("disabled")
+             }
+            if ($('#create_account5').is(":checked") == true) {
+                $("#shiping_address06").attr("disabled", "disabled");
+            }
+            else if ($('#shiping_address06').is(":checked") == true) {
+               
+                $("#create_account5").attr("disabled", "disabled")
+            }
+            else {
+                $("#create_account5").removeAttr("disabled")
+                $("#shiping_address06").removeAttr("disabled")
+            }
+           if ($('#create_account6').is(":checked") == true) {
+                $("#shiping_address7").attr("disabled", "disabled");
+            }
+            else if ($('#shiping_address7').is(":checked") == true) {
+                
+                $("#create_account6").attr("disabled", "disabled")
+           }
+           else {
+               $("#create_account6").removeAttr("disabled")
+               $("#shiping_address7").removeAttr("disabled")
+           }
+            if ($('#create_account8').is(":checked") == true) {
+                $("#shiping_address9").attr("disabled", "disabled");
+            }
+            else if ($('#shiping_address9').is(":checked") == true) {
+                
+                $("#create_account8").attr("disabled", "disabled")
+            }
+            else {
+                $("#create_account8").removeAttr("disabled")
+                $("#shiping_address9").removeAttr("disabled")
+            }
+            if ($('#create_account10').is(":checked") == true) {
+                $("#shiping_address11").attr("disabled", "disabled");
+            }
+            else if ($('#shiping_address11').is(":checked") == true) {
+               
+                $("#create_account10").attr("disabled", "disabled")
+            }
+            else {
+                $("#create_account10").removeAttr("disabled")
+                $("#shiping_address11").removeAttr("disabled")
+            }
+            if ($('#create_account12').is(":checked") == true) {
+                $("#shiping_address13").attr("disabled", "disabled");
+            }
+            else if ($('#shiping_address13').is(":checked") == true) {
+               
+                $("#create_account12").attr("disabled", "disabled")
+            }
+            else {
+                $("#create_account12").removeAttr("disabled")
+                $("#shiping_address13").removeAttr("disabled")
+            }
+            if ($('#create_account14').is(":checked") == true) {
+                $("#shiping_address15").attr("disabled", "disabled");
+            }
+            else if ($('#shiping_address15').is(":checked") == true) {
+              
+                $("#create_account14").attr("disabled", "disabled")
+            }
+            else {  
+                $("#create_account14").removeAttr("disabled")         
+                $("#shiping_address15").removeAttr("disabled")
+            }
+            });
+        
+    });
+    function page_2()
+    {
+        //debugger
+        //get sum of previous page from local storage
+        var Page1_Sum = localStorage.getItem("Page1Sum")
+        var Page1_2total = 0;
+        var question1 = 0;
+        var question2 = 0;
+        var question3 = 0;
+        var question4 = 0;
+        var question5 = 0;
+        var question6 = 0;
+        var question7 = 0;
+        var question8 = 0;
+        if ($('#create_account1').is(":checked") == true) {
+            question1 = 5;
+        }
+        else {
+            question1 = 0;
+        }
+        if ($('#create_account3').is(":checked") == true) {
+            question2 = 5;
+        }
+        else {
+            question2 = 0;
+        }
+        if ($('#create_account5').is(":checked") == true) {
+            question3 = 5;
+        }
+        else {
+            question3 = 0;
+        }
+        if ($('#create_account6').is(":checked") == true) {
+            question4 = 5;
+        }
+        else {
+            question4 = 0;
+        }
+        if ($('#create_account8').is(":checked") == true) {
+            question5 = 5;
+        }
+        else {
+            question5 = 0;
+        }
+        if ($('#create_account10').is(":checked") == true) {
+            question6 = 5;
+        }
+        else {
+            question6 = 0;
+        }
+        if ($('#create_account12').is(":checked") == true) {
+            question7 = 5;
+        }
+        else {
+            question7 = 0;
+        }
+        if ($('#create_account14').is(":checked") == true) {
+            question8 = 5;
+        }
+        else {
+            question8 = 0;
+        }
+        totalcheckbox = question1 + question2 + question3 + question4 + question5 + question6 + question7 + question8;
+        Page1_2total = totalcheckbox + parseInt(Page1_Sum);
+        localStorage.setItem("PagesSum", Page1_2total);
+    }
+</script>

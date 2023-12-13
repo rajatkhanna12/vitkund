@@ -51,23 +51,13 @@
                                     <li class="course-switch-item"><button class="rbt-list-view" title="List Layout"><i class="feather-list"></i> <span class="text">List</span></button></li>
                                 </ul>
                             </div>
-                            <div class="rbt-short-item">
-                                <span class="course-index">Showing 1-4 of 4 results</span>
-                            </div>
+                           
                         </div>
                     </div>
 
                     <div class="col-lg-7 col-md-12">
                         <div class="rbt-sorting-list d-flex flex-wrap align-items-center justify-content-start justify-content-lg-end">
-                            <div class="rbt-short-item">
-                                <form action="#" class="rbt-search-style me-0">
-                                    <input type="text" placeholder="Search Your Course..">
-                                    <button type="submit" class="rbt-search-btn rbt-round-btn">
-                                        <i class="feather-search"></i>
-                                    </button>
-                                </form>
-                            </div>
-
+                          
                             <div class="rbt-short-item">
                                 <div class="view-more-btn text-start text-sm-end">
                                     <button class="discover-filter-button discover-filter-activation rbt-btn btn-white btn-md radius-round">Filter<i class="feather-filter"></i></button>
@@ -94,44 +84,9 @@
                             </div>
                         </div>
 
-                        <div class="filter-select-option">
-                            <div class="filter-select rbt-modern-select">
-                                <span class="select-label d-block">Short By Author</span>
-                                <select data-live-search="true" title="Select Author" id="shortbyauthorddl" multiple data-size="7" data-actions-box="true" data-selected-text-format="count > 2">
-                                    <option data-subtext="Experts">Janin Afsana</option>
-                                    <option data-subtext="Experts">Joe Biden</option>
-                                    <option data-subtext="Experts">Fatima Asrafy</option>
-                                    <option data-subtext="Experts">Aysha Baby</option>
-                                    <option data-subtext="Experts">Mohamad Ali</option>
-                                    <option data-subtext="Experts">Jone Li</option>
-                                    <option data-subtext="Experts">Alberd Roce</option>
-                                    <option data-subtext="Experts">Zeliski Noor</option>
-                                </select>
-                            </div>
-                        </div>
+                        
 
-                        <div class="filter-select-option">
-                            <div class="filter-select rbt-modern-select">
-                                <span class="select-label d-block">Short By Offer</span>
-                                <select id="shortbyoffer">
-                                    <option>Free</option>
-                                    <option>Paid</option>
-                                    <option>Premium</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="filter-select-option">
-                            <div class="filter-select rbt-modern-select">
-                                <span class="select-label d-block">Short By Category</span>
-                                <select data-live-search="true" id="shortbycategory">
-                                    <option>Web Design</option>
-                                    <option>Graphic</option>
-                                    <option>App Development</option>
-                                    <option>Figma Design</option>
-                                </select>
-                            </div>
-                        </div>
+                       
 
                         <div class="filter-select-option">
                             <div class="filter-select">
@@ -184,32 +139,13 @@
                                         else
                                         {
                                             <img src="~/Content/Uploads/@item.Image" alt="Card image">
-                                        }                                     <div class="rbt-badge-3 bg-white">
-                                            <span>-40%</span>
-                                            <span>Off</span>
-                                        </div>
+                                        }                                   
                                     </a>
                                 </div>
                                 <div class="rbt-card-body">
-                                    <div class="rbt-card-top">
-                                        <div class="rbt-review">
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <span class="rating-count"> (15 Reviews)</span>
-                                        </div>
-                                        <div class="rbt-bookmark-btn">
-                                            <a class="rbt-round-btn" title="Bookmark" href="#">
-                                                <i class="feather-bookmark"></i>
-                                            </a>
-                                        </div>
-                                    </div>
+                                 
 
-                                    <h4 class="rbt-card-title">
+                                    <h4 class="rbt-card-title" style="padding-top:10px;">
                                         <a href="#">@item.Title</a>
                                     </h4>
                                     @if (item.fromPrice != null && item.toPrice != null)
@@ -222,14 +158,13 @@
                                         @item.ShortDescription
                                     </p>
 
-                                    <div class="rbt-card-bottom">
+                                    <div class="rbt-card-bottom" style="padding-bottom: 20px;">
                                         <!-- <div class="rbt-price"> -->
                                         <!-- <span class="current-price">$60</span> -->
                                         <!-- <span class="off-price">$120</span> -->
                                         <!-- </div> -->
                                         <a class="rbt-btn-link" href="/Business-Ideas/@item.Id">
-                                            Learn
-                                            More<i class="feather-arrow-right"></i>
+                                            Learn More<i class="feather-arrow-right"></i>
                                         </a>
                                     </div>
 
@@ -295,7 +230,7 @@
                                     html += '<img src="' + Image + '" alt="Card image">';
                                 else
                                     html += '<img src="/Content/Uploads/' + Image + '" alt="Card image">';
-                                html += '<div class="rbt-badge-3 bg-white"> <span>-40%</span> <span>Off</span> </div> </a> </div > <div class="rbt-card-body"> <div class="rbt-card-top"> <div class="rbt-review"> <div class="rating"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> </div> <span class="rating-count"> (15 Reviews)</span> </div> <div class="rbt-bookmark-btn"> <a class="rbt-round-btn" title="Bookmark" href="#"> <i class="feather-bookmark"></i> </a> </div> </div> <h4 class="rbt-card-title"> <a href="#">' + Title + '</a> </h4><h6>Price Range :- ' + Fromprice + ' - ' + Toprice + '</h6> <p class="rbt-card-text">' + ShortDesc + '</p> <div class="rbt-card-bottom"><a class="rbt-btn-link" href="/Business-Ideas/' + Id + '"> Learn More<i class="feather-arrow-right"></i> </a></div></div></div ></div > '
+                                html += ' </a> </div > <div class="rbt-card-body"> <div class="rbt-card-top">  </div> <h4 class="rbt-card-title"> <a href="#">' + Title + '</a> </h4><h6>Price Range :- ' + Fromprice + ' - ' + Toprice + '</h6> <p class="rbt-card-text">' + ShortDesc + '</p> <div class="rbt-card-bottom"><a class="rbt-btn-link" href="/Business-Ideas/' + Id + '"> Learn More<i class="feather-arrow-right"></i> </a></div></div></div ></div > '
                             }
                             $(".rbt-course-grid-column").html(html);
                         }
@@ -344,7 +279,7 @@
                                     html += '<img src="' + Image + '" alt="Card image">';
                                 else
                                     html += '<img src="/Content/Uploads/' + Image + '" alt="Card image">';
-                                html += '<div class="rbt-badge-3 bg-white"> <span>-40%</span> <span>Off</span> </div> </a> </div > <div class="rbt-card-body"> <div class="rbt-card-top"> <div class="rbt-review"> <div class="rating"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> </div> <span class="rating-count"> (15 Reviews)</span> </div> <div class="rbt-bookmark-btn"> <a class="rbt-round-btn" title="Bookmark" href="#"> <i class="feather-bookmark"></i> </a> </div> </div> <h4 class="rbt-card-title"> <a href="#">' + Title + '</a> </h4><h6>Price Range :- ' + Fromprice + ' - ' + Toprice + '</h6> <p class="rbt-card-text">' + ShortDesc + '</p> <div class="rbt-card-bottom"><a class="rbt-btn-link" href="/Business-Ideas/' + Id + '"> Learn More<i class="feather-arrow-right"></i> </a></div></div></div ></div > '
+                                html += ' </a> </div > <div class="rbt-card-body"> <div class="rbt-card-top">  </div> <h4 class="rbt-card-title" style="padding-top:10px;"> <a href="#">' + Title + '</a> </h4><h6>Price Range :- ' + Fromprice + ' - ' + Toprice + '</h6> <p class="rbt-card-text">' + ShortDesc + '</p> <div class="rbt-card-bottom"><a class="rbt-btn-link" href="/Business-Ideas/' + Id + '"> Learn More<i class="feather-arrow-right"></i> </a></div></div></div ></div > '
                             }
                             $(".rbt-course-grid-column").html(html);
                         }

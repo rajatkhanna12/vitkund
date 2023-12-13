@@ -1,11 +1,5 @@
 ﻿<style>
-    .widget {
-        margin: 0 auto;
-        width: 350px;
-        <!-- background-color: #222D3A; -->
-        <!-- border-radius: 5px; -->
-        <!-- box-shadow: 0px 0px 1px 0px #06060d; -->
-    }
+
 
     .header {
         background-color: #29384D;
@@ -20,87 +14,15 @@
         text-shadow: 1px 1px #06060d;
     }
 
-    .chart-container {
-        padding: 25px;
-    }
 
-    svg.shadow {
-        box-shadow: 0 .0rem 0rem rgba(0,0,0,.15) !important;
-    }
-
-    .shadow {
-        -webkit-filter: drop-shadow( 0px 3px 3px rgba(0,0,0,.5) );
-        filter: drop-shadow( 0px 3px 3px rgba(0,0,0,.5) );
+    #chartdiv {
+        width: 100%;
+        height: 360px;
+        font-size: 11px;
     }
 </style>
 <!-- Start Header Area -->
-<!-- Mobile Menu Section -->
-<div class="popup-mobile-menu">
-    <div class="inner-wrapper">
-        <div class="inner-top">
-            <div class="content">
-                <div class="logo">
-                    <a href="index">
-                        <img src="~/Content/assets/images/logo.png" alt="Education Logo Images">
-                    </a>
-                </div>
-                <div class="rbt-btn-close">
-                    <button class="close-button rbt-round-btn"><i class="feather-x"></i></button>
-                </div>
-            </div>
-            <ul class="navbar-top-left rbt-information-list justify-content-start" style="padding-top:30px;">
-                <li>
-                    <a href="mailto:info@vitkund.com"><i class="feather-mail"></i>info@vitkund.com</a>
-                </li>
-                <li>
-                    <a href="tel:8607609898"><i class="feather-phone"></i>8607609898</a>
-                </li>
-            </ul>
-        </div>
 
-        <nav class="mainmenu-nav">
-            <ul class="mainmenu">
-                <li><a href="index">Home</a></li>
-                <li><a href="about-us">About Us</a></li>
-                <li><a href="course">Courses</a></li>
-                <li><a href="our-services">Our Services</a></li>
-                <li><a href="plan">Plan</a></li>
-                <li><a href="faq">FAQ</a></li>
-                <li><a href="contact-us">Contact Us</a></li>
-            </ul>
-        </nav>
-
-        <div class="mobile-menu-bottom">
-            <div class="rbt-btn-wrapper mb--20">
-                <a class="rbt-btn blink btn-border-gradient radius-round btn-sm hover-transform-none w-100 justify-content-center text-center" href="vitkund">
-                    <span>Vitkund Gaon</span>
-                </a>
-
-            </div>
-
-            <div class="social-share-wrapper">
-                <span class="rbt-short-title d-block">Find With Us</span>
-                <ul class="social-icon social-default transparent-with-border justify-content-start mt--20">
-                    <li>
-                        <a href="https://m.facebook.com/profile.php?id=100087627835593&mibextid=ZbWKwL"><i class="fab fa-facebook-f"></i></a>
-                    </li>
-
-                    <li>
-                        <a href="https://instagram.com/vitkund"><i class="fab fa-instagram"></i></a>
-                    </li>
-
-                    <li>
-                        <a href="https://www.youtube.com/@("@vitkund")"><i class="fab fa-youtube"></i></a>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-<a class="close_side_menu" href="javascript:void(0);"></a>
 
 <!-- Start breadcrumb Area -->
 <div class="rbt-breadcrumb-default ptb--50 ptb_md--50 ptb_sm--30 bg-gradient-1">
@@ -131,19 +53,65 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="widget">
-                        <div id="chart" class="chart-container">
-                        </div>
-                    </div>
+                    <!-- partial:index.partial.html -->
+                    <script src="../Content/assets/js/amcharts.js"></script>
+                    <script src="../Content/assets/js/pie.js"></script>
+                    <script src="../Content/assets/js/light.js"></script>
+
+                    <div id="chartdiv"></div>
+
+                    <!-- partial -->
+                    <script>
+                        var chart = AmCharts.makeChart("chartdiv", {
+                            "type": "pie",
+                            "theme": "light",
+                            "dataProvider": [{
+                                "country": "Lithuania",
+                                "litres": 501.9
+                            }, {
+                                "country": "Czech Republic",
+                                "litres": 301.9
+                            }, {
+                                "country": "Ireland",
+                                "litres": 201.1
+                            }, {
+                                "country": "Germany",
+                                "litres": 165.8
+                            }, {
+                                "country": "Australia",
+                                "litres": 139.9
+                            }, {
+                                "country": "Austria",
+                                "litres": 128.3
+                            }, {
+                                "country": "UK",
+                                "litres": 99
+                            }, {
+                                "country": "Belgium",
+                                "litres": 60
+                            }, {
+                                "country": "The Netherlands",
+                                "litres": 50
+                            }],
+                            "valueField": "litres",
+                            "titleField": "country",
+                            "balloon": {
+                                "fixedPosition": true
+                            },
+                            "export": {
+                                "enabled": true
+                            }
+                        });
+                    </script>
                 </div>
                 <div class="col-lg-6" style="padding-top:50px;">
                     <ol class="legend">
-                        <li class="key one">> 76 Extremly Recommended</li>
-                        <li class="key two">> 60-75 Highly Recommended</li>
-                        <li class="key three">> 50 - 69 Recommended</li>
-                        <li class="key four">> 40 - 49 Go Ahead</li>
-                        <li class="key six">> 40 - 44 Need Improvement</li>
-                        <li class="key five"> Below 39 Not to Go Ahead</li>
+                        <li class="keyone">> 76 Extremly Recommended</li>
+                        <li class="keytwo">> 70-75 Highly Recommended</li>
+                        <li class="keythree">>60 - 69 Recommended</li>
+                        <li class="keyfour">> 50 - 59 Go Ahead</li>
+                        <li class="keysix">> 40 - 49 Need Improvement</li>
+                        <li class="keyfive"> Below 39 Not to Go Ahead</li>
 
                     </ol>
 
@@ -168,8 +136,37 @@
 
 
 </main>
-
-
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
 <script src="~/Content/assets/js/script.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        result() 
+    });
+    function result()
+    {
+        //debugger
+        var totalsum = localStorage.getItem("PagesSum")
+        if (totalsum >= 76)
+        {
+            $(".keyone").css("background-color", "yellow");
+        }
+        else if (totalsum >=70 & totalsum <=75) {
+            $(".keytwo").css("background-color", "yellow");
+        }
+        else if (totalsum >= 60 & totalsum <= 69) {
+            $(".keythree").css("background-color", "yellow");
+        }
+        else if (totalsum >= 50 & totalsum <= 59) {
+            $(".keyfour").css("background-color", "yellow");
+        }
+        else if (totalsum >= 40 & totalsum <= 49) {
+            $(".keysix").css("background-color", "Red");
+        }
+        else if (totalsum <= 39) {
+            $(".keyfive").css("background-color", "Red");
+        }
+    }
+ </script>
+

@@ -1,10 +1,13 @@
 ﻿using Microsoft.Ajax.Utilities;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
@@ -40,6 +43,13 @@ namespace Vitkund.Controllers
         }
         [Route("Course")]
         public ActionResult Course()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+        [Route("my-account")]
+        public ActionResult myaccount()
         {
             ViewBag.Message = "Your contact page.";
 
@@ -290,7 +300,7 @@ namespace Vitkund.Controllers
             decimal minprices = Convert.ToDecimal(minprice);
             decimal maxprices = Convert.ToDecimal(maxprice);
             VitkundEntities db = new VitkundEntities();
-            var databypricerange = db.tblBusinessideas.Where(p => p.fromPrice >= minprices && p.toPrice <= maxprices).ToList();
+            var databypricerange = db.tblBusinessideas.Where(p => p.fromPrice >= minprices && p.fromPrice <= maxprices).ToList();
             if (databypricerange == null)
             {
 
@@ -685,7 +695,7 @@ namespace Vitkund.Controllers
             decimal minprices = Convert.ToDecimal(minprice);
             decimal maxprices = Convert.ToDecimal(maxprice);
             VitkundEntities db = new VitkundEntities();
-            var databypricerange = db.tblTrendingBusinesses.Where(p => p.FromPrice >= minprices && p.ToPrice <= maxprices).ToList();
+            var databypricerange = db.tblTrendingBusinesses.Where(p => p.FromPrice >= minprices && p.FromPrice <= maxprices).ToList();
             if (databypricerange == null)
             {
 
@@ -785,6 +795,9 @@ namespace Vitkund.Controllers
         }
         #endregion
 
+
+
+
         #region Logout
 
         //[HttpPost]
@@ -795,5 +808,64 @@ namespace Vitkund.Controllers
         //    return Redirect("/Login");
         //}
         #endregion
+
+        public JsonResult SendContactEmail(string name, string email, string phone, string message)
+        {
+
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+
+            MailMessage mail = new MailMessage();
+
+            ArrayList list_emails = new ArrayList();
+            list_emails.Add(ConfigurationManager.AppSettings["ToMail"].ToString());
+            list_emails.Add(ConfigurationManager.AppSettings["ToMailNew"].ToString());
+
+            SmtpClient smtp = new SmtpClient();
+            foreach (string email_to in list_emails)
+            {
+                mail.To.Add(new MailAddress(email_to));
+                mail.From = new MailAddress("hello@thebusinessbox.in", "Vitkund: ");
+
+
+
+                mail.Subject = "New Contact Form Enquiry";
+
+                string logoImgPath1 = Server.MapPath("~/Content/assets/images/logo.png") + "<br/>" + "<br/>";
+                string Body = "Hi Team," + "<br/>";
+                Body += "We received one new enquiry. " + "<br/>";
+                Body += "Name : " + name + "<br/>";
+                Body += "Email : " + email + "<br/>";
+                Body += "Phone No : " + phone + "<br/>";
+                Body += "Message : " + message + "<br/>";
+
+
+
+                Body += "<b>Regards</b> " + "<br/>";
+                Body += "<b>Team Vitkund</b> " + "<br/>";
+                mail.Body = Body;
+
+
+                mail.IsBodyHtml = true;
+                smtp.Host = "smtpout.secureserver.net";
+                //smtp.Port = 80;
+                smtp.Port = 80;
+                //smtp.Port = 587;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new System.Net.NetworkCredential("hello@thebusinessbox.in", "Webasp@12"); // Enter seders User name and password                                                                                           //smtp.Credentials = new System.Net.NetworkCredential("oknkapil@gmail.com", "1234@Abcd");
+                smtp.EnableSsl = false;
+            }
+            try
+            {
+
+                smtp.Send(mail);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

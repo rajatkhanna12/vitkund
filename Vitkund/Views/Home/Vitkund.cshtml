@@ -31,7 +31,7 @@
 
                         <label>What do you want to do?</label>
                         <div class="rbt-modern-select bg-transparent height-45" style="margin-bottom:20px;">
-                            <select class="w-100">
+                            <select class="w-100" id="ddlBusiness">
                                 <option>-- Select --</option>
                                 <option>Job</option>
                                 <option>Business</option>
@@ -67,3 +67,12 @@
     </div>
 </div>
 
+<script>
+    $("#ddlBusiness").change(function () {
+        var ddl = $("#ddlBusiness").text();
+        if (ddl == "Job") {
+            alert("We are not for you");
+            return false;
+        }
+    });
+</script>
