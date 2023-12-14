@@ -101,10 +101,18 @@
                 success: function (response) {
                     debugger
                     var data = response.message.split(",");
-                    if (data[0] == "Logged In" && data[1]=="Admin")
-                        window.location.href = "/AdminIndex";
-                    else if (data[0] == "Logged In" && data[1] == "User")
-                        window.location.href = "/Index";
+                    if (data[0] == "Logged In" && data[1] == "Admin") {
+                        if (data[2] != null || data[2] != "")
+                            window.location.href = "/" + data[2];
+                        else
+                            window.location.href = "/AdminIndex";
+                    }
+                    else if (data[0] == "Logged In" && data[1] == "User") {
+                        if (data[2] != null || data[2] != "")
+                            window.location.href = "/" + data[2];
+                        else
+                            window.location.href = "/Index";
+                    }
                     else if (response.message == "User Not Found")
                         alert(response.message)
                 },

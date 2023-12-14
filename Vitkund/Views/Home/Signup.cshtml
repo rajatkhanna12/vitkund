@@ -56,7 +56,7 @@
                                 <input type="text" id="mobilenotxtbox" placeholder="Your Mobile No. ">
                             </div>
                             <div class="col-md-6 col-12">
-                                <label>User Name *</label><span id="maxvalspanusername" style="color:red"></span><span id="validationMessageforusername" style="color:red"></span><span id="requiredvalidationforusername" style="color:red"></span>
+                                <label>User Name / Email *</label><span id="maxvalspanusername" style="color:red"></span><span id="validationMessageforusername" style="color:red"></span><span id="requiredvalidationforusername" style="color:red"></span>
                                 <input type="text" id="Usernametxtbox" placeholder="Enter User Name">
                             </div>
                             <div class="col-md-6 col-12">
@@ -312,7 +312,7 @@
             validationreq = true;
         }
         if (validationreq) {
-            var tblsignupdata = { Username: username, Password: password, Name: name, FatherName: fathername, District: district, State: state, PhoneNumber: mobileno }
+            var tblsignupdata = { Username: username, Password: password, Name: name, FatherName: fathername, City: district, State: state, PhoneNumber: mobileno }
             $.ajax({
                 url: '/Home/AddSignupDetails',
                 type: 'POST',

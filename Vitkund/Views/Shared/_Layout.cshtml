@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -49,7 +50,7 @@
                                 <!-- Start Header Information List  -->
                                 <div class="header-info">
                                     <ul class="rbt-information-list">
-                                     <li>
+                                        <li>
                                             <a href="#"><i class="fab fa-instagram"></i>100k <span class="d-none d-xxl-block">Followers</span></a>
                                         </li>
                                         <li>
@@ -277,147 +278,163 @@
                         <!-- Navbar Icons -->
                         <ul class="quick-access">
                             <!------<li class="access-icon" style="padding-right:20px;">
-        <a class="search-trigger-active rbt-round-btn" href="#">
-            <i class="feather-search"></i>
-        </a>
-    </li>
+                                <a class="search-trigger-active rbt-round-btn" href="#">
+                                    <i class="feather-search"></i>
+                                </a>
+                            </li>
 
-     <li class="access-icon rbt-mini-cart">
-             <a class="rbt-cart-sidenav-activation rbt-round-btn" href="#">
-                 <i class="feather-shopping-cart"></i>
-                 <span class="rbt-cart-count">4</span>
-             </a>
-         </li>--->
+                             <li class="access-icon rbt-mini-cart">
+                                     <a class="rbt-cart-sidenav-activation rbt-round-btn" href="#">
+                                         <i class="feather-shopping-cart"></i>
+                                         <span class="rbt-cart-count">4</span>
+                                     </a>
+                                 </li>--->
 
-         <li class="account-access rbt-user-wrapper d-none d-xl-block">
-             <a href="#"><i class="feather-user"></i></a>
-             <div class="rbt-user-menu-list-wrapper">
-                 <div class="inner">
-                     <div class="rbt-admin-profile">
-                         <div class="admin-thumbnail">
-                             <img src="../Content/assets/images/avatar.jpg" alt="User Images" />
-                         </div>
-                         <div class="admin-info">
-                             <span class="name">Anil Jangra</span>
-                             <a class="rbt-btn-link color-primary" href="profile">View Profile</a>
-                         </div>
-                     </div>
-                     <ul class="user-list-wrapper">
-                         <li>
-                             <a href="instructor-dashboard">
-                                 <i class="feather-home"></i>
-                                 <span>My Dashboard</span>
-                             </a>
-                         </li>
-                         
-                     </ul>
-                     <hr class="mt--10 mb--10">
-                    
-                     <ul class="user-list-wrapper">
-                        
-                         <li>
-                             <a href="index">
-                                 <i class="feather-log-out"></i>
-                                 <span>Logout</span>
-                             </a>
-                         </li>
-                     </ul>
-                 </div>
-             </div>
-         </li>
-<!---
-         <li class="access-icon rbt-user-wrapper d-block d-xl-none">
-             <a class="rbt-round-btn" href="#"><i class="feather-user"></i></a>
-             <div class="rbt-user-menu-list-wrapper">
-                 <div class="inner">
-                     <div class="rbt-admin-profile">
 
-                         <div class="admin-thumbnail">
-                             <img src="assets/images/team/avatar.jpg" alt="User Images">
-                         </div>
-                         <div class="admin-info">
-                             <span class="name">Nipa Bali</span>
-                             <a class="rbt-btn-link color-primary" href="profile">View Profile</a>
-                         </div>
-                     </div>
-                     <ul class="user-list-wrapper">
-                         <li>
-                             <a href="instructor-dashboard">
-                                 <i class="feather-home"></i>
-                                 <span>My Dashboard</span>
-                             </a>
-                         </li>
-                         <li>
-                             <a href="#">
-                                 <i class="feather-bookmark"></i>
-                                 <span>Bookmark</span>
-                             </a>
-                         </li>
-                         <li>
-                             <a href="instructor-enrolled-courses">
-                                 <i class="feather-shopping-bag"></i>
-                                 <span>Enrolled Courses</span>
-                             </a>
-                         </li>
-                         <li>
-                             <a href="instructor-wishlist">
-                                 <i class="feather-heart"></i>
-                                 <span>Wishlist</span>
-                             </a>
-                         </li>
-                         <li>
-                             <a href="instructor-reviews">
-                                 <i class="feather-star"></i>
-                                 <span>Reviews</span>
-                             </a>
-                         </li>
-                         <li>
-                             <a href="instructor-my-quiz-attempts">
-                                 <i class="feather-list"></i>
-                                 <span>My Quiz Attempts</span>
-                             </a>
-                         </li>
-                         <li>
-                             <a href="instructor-order-history">
-                                 <i class="feather-clock"></i>
-                                 <span>Order History</span>
-                             </a>
-                         </li>
-                         <li>
-                             <a href="instructor-quiz-attempts">
-                                 <i class="feather-message-square"></i>
-                                 <span>Question & Answer</span>
-                             </a>
-                         </li>
-                     </ul>
-                     <hr class="mt--10 mb--10">
-                     <ul class="user-list-wrapper">
-                         <li>
-                             <a href="#">
-                                 <i class="feather-book-open"></i>
-                                 <span>Getting Started</span>
-                             </a>
-                         </li>
-                     </ul>
-                     <hr class="mt--10 mb--10">
-                     <ul class="user-list-wrapper">
-                         <li>
-                             <a href="instructor-settings">
-                                 <i class="feather-settings"></i>
-                                 <span>Settings</span>
-                             </a>
-                         </li>
-                         <li>
-                             <a href="index">
-                                 <i class="feather-log-out"></i>
-                                 <span>Logout</span>
-                             </a>
-                         </li>
-                     </ul>
-                 </div>
-             </div>
-         </li>
-    ------------>
+
+                            <li class="account-access rbt-user-wrapper d-none d-xl-block">
+
+                                @if (Session["LoggedIn"] == "true")
+                                {
+                                        <a href="#"><i class="feather-user"></i></a>
+                                        <div class="rbt-user-menu-list-wrapper">
+                                            <div class="inner">
+                                                <div class="rbt-admin-profile">
+                                                    <div class="admin-thumbnail">
+                                                        <img src="../Content/assets/images/avatar.jpg" alt="User Images" />
+                                                    </div>
+                                                    <div class="admin-info">
+                                                        <span class="name">@Session["Usernameloggedin"]</span>
+
+                                                        <a class="rbt-btn-link color-primary" href="profile">View Profile</a>
+                                                    </div>
+                                                </div>
+                                                @if (Session["Role"] == "Admin")
+                                                {
+                                                    <ul class="user-list-wrapper">
+                                                        <li>
+                                                            <a href="/AdminIndex">
+                                                                <i class="feather-home"></i>
+                                                                <span>My Dashboard</span>
+                                                            </a>
+                                                        </li>
+
+                                                    </ul>
+                                                }
+                                                else { }
+                                                <hr class="mt--10 mb--10">
+
+                                                <ul class="user-list-wrapper">
+
+                                                    <li>
+                                                        <a href="/Login">
+                                                            <i class="feather-log-out"></i>
+                                                            <span>Logout</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    
+                                }
+                                else
+                                {
+                                    <a href="/Login"><i class="feather-user"></i></a>
+                                }
+                            </li>
+                            <!---
+                                     <li class="access-icon rbt-user-wrapper d-block d-xl-none">
+                                         <a class="rbt-round-btn" href="#"><i class="feather-user"></i></a>
+                                         <div class="rbt-user-menu-list-wrapper">
+                                             <div class="inner">
+                                                 <div class="rbt-admin-profile">
+
+                                                     <div class="admin-thumbnail">
+                                                         <img src="assets/images/team/avatar.jpg" alt="User Images">
+                                                     </div>
+                                                     <div class="admin-info">
+                                                         <span class="name">Nipa Bali</span>
+                                                         <a class="rbt-btn-link color-primary" href="profile">View Profile</a>
+                                                     </div>
+                                                 </div>
+                                                 <ul class="user-list-wrapper">
+                                                     <li>
+                                                         <a href="instructor-dashboard">
+                                                             <i class="feather-home"></i>
+                                                             <span>My Dashboard</span>
+                                                         </a>
+                                                     </li>
+                                                     <li>
+                                                         <a href="#">
+                                                             <i class="feather-bookmark"></i>
+                                                             <span>Bookmark</span>
+                                                         </a>
+                                                     </li>
+                                                     <li>
+                                                         <a href="instructor-enrolled-courses">
+                                                             <i class="feather-shopping-bag"></i>
+                                                             <span>Enrolled Courses</span>
+                                                         </a>
+                                                     </li>
+                                                     <li>
+                                                         <a href="instructor-wishlist">
+                                                             <i class="feather-heart"></i>
+                                                             <span>Wishlist</span>
+                                                         </a>
+                                                     </li>
+                                                     <li>
+                                                         <a href="instructor-reviews">
+                                                             <i class="feather-star"></i>
+                                                             <span>Reviews</span>
+                                                         </a>
+                                                     </li>
+                                                     <li>
+                                                         <a href="instructor-my-quiz-attempts">
+                                                             <i class="feather-list"></i>
+                                                             <span>My Quiz Attempts</span>
+                                                         </a>
+                                                     </li>
+                                                     <li>
+                                                         <a href="instructor-order-history">
+                                                             <i class="feather-clock"></i>
+                                                             <span>Order History</span>
+                                                         </a>
+                                                     </li>
+                                                     <li>
+                                                         <a href="instructor-quiz-attempts">
+                                                             <i class="feather-message-square"></i>
+                                                             <span>Question & Answer</span>
+                                                         </a>
+                                                     </li>
+                                                 </ul>
+                                                 <hr class="mt--10 mb--10">
+                                                 <ul class="user-list-wrapper">
+                                                     <li>
+                                                         <a href="#">
+                                                             <i class="feather-book-open"></i>
+                                                             <span>Getting Started</span>
+                                                         </a>
+                                                     </li>
+                                                 </ul>
+                                                 <hr class="mt--10 mb--10">
+                                                 <ul class="user-list-wrapper">
+                                                     <li>
+                                                         <a href="instructor-settings">
+                                                             <i class="feather-settings"></i>
+                                                             <span>Settings</span>
+                                                         </a>
+                                                     </li>
+                                                     <li>
+                                                         <a href="index">
+                                                             <i class="feather-log-out"></i>
+                                                             <span>Logout</span>
+                                                         </a>
+                                                     </li>
+                                                 </ul>
+                                             </div>
+                                         </div>
+                                     </li>
+                                ------------>
                         </ul>
 
                         <div class="rbt-btn-wrapper d-none d-xl-block">
