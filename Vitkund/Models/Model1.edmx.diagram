@@ -5,11 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="d1ecfeed33184461bf3e0d0e2b085189" Name="Diagram1">
-        <EntityTypeShape EntityType="VitkundModel.tblChapter" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="VitkundModel.tblVideo" Width="1.5" PointX="0.75" PointY="3.75" />
-        <EntityTypeShape EntityType="VitkundModel.tblAdmin" Width="1.5" PointX="3.375" PointY="3.75" />
-        <EntityTypeShape EntityType="VitkundModel.tblBusinessidea" Width="1.5" PointX="5.375" PointY="0.75" />
-        <EntityTypeShape EntityType="VitkundModel.tblTrendingBusiness" Width="1.5" PointX="7.125" PointY="3.375" />
+        <EntityTypeShape EntityType="VitkundModel.tblBusinessidea" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="VitkundModel.tblChapter" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="VitkundModel.tblTrendingBusiness" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="VitkundModel.tblVideo" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="VitkundModel.tblAdmin" Width="1.5" PointX="5.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

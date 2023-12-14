@@ -122,7 +122,7 @@
                                 <!-- Start Profile Row  -->
                                 <div class="rbt-profile-row row row--15 mt--15">
                                     <div class="col-lg-4 col-md-4">
-                                        <div class="rbt-profile-content b2">Username</div>
+                                        <div class="rbt-profile-content b2">Username / Email</div>
                                     </div>
                                     <div class="col-lg-8 col-md-8">
                                         <div class="rbt-profile-content b2">@Model.Username</div>
@@ -130,14 +130,14 @@
                                 </div>
                                 <!-- End Profile Row  -->
                                 <!-- Start Profile Row  -->
-                                <div class="rbt-profile-row row row--15 mt--15">
-                                    <div class="col-lg-4 col-md-4">
-                                        <div class="rbt-profile-content b2">Email</div>
-                                    </div>
-                                    <div class="col-lg-8 col-md-8">
-                                        <div class="rbt-profile-content b2">@Model.Email</div>
-                                    </div>
-                                </div>
+                                @*<div class="rbt-profile-row row row--15 mt--15">
+                                        <div class="col-lg-4 col-md-4">
+                                            <div class="rbt-profile-content b2">Email</div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="rbt-profile-content b2">@Model.Email</div>
+                                        </div>
+                                    </div>*@
                                 <!-- End Profile Row  -->
                                 <!-- Start Profile Row  -->
                                 <div class="rbt-profile-row row row--15 mt--15">
@@ -235,7 +235,7 @@
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                                 <div class="rbt-form-group">
-                                                    <label for="Usernametxtbox">User Name</label>
+                                                    <label for="Usernametxtbox">User Name / Email</label>
                                                     <input id="Usernametxtbox" type="text" value="@Model.Username">
                                                 </div>
                                             </div>
@@ -299,22 +299,26 @@
         var phonenumber = $("#phonenumbertxtbox").val();
         var Username = $("#Usernametxtbox").val();
         var tblAdmin = { Id: Id, Username: Username, Name: Name, FatherName: Fathername, City: City, State: State, PhoneNumber: phonenumber }
-        $.ajax({
-            type: 'POST',
-            url: '/Home/UpdateProfileDetails',
-            data: JSON.stringify({ tbladmin: tblBusinessideadata }),
-            traditional: true,
-            contentType: 'application/json; charset=utf-8',
-            datatype: 'json',
-            success: function (result) {
-                debugger
-                alert(result.message);
-                window.location.reload();
+        if (Name == "" || Fathername == "" || City == "" || State == "" || phonenumber == "" || Username == "") 
+            alert("Detail should not be empty.")
+        else {
+            $.ajax({
+                type: 'POST',
+                url: '/Home/UpdateProfileDetails',
+                data: JSON.stringify({ tbladmin: tblAdmin }),
+                traditional: true,
+                contentType: 'application/json; charset=utf-8',
+                datatype: 'json',
+                success: function (result) {
+                    debugger
+                    alert(result.message);
+                    window.location.reload();
 
-            },
-            error: function (result) {
-            }
-        });
+                },
+                error: function (result) {
+                }
+            });
+        }
     }
     function UpdatePassword() {
         var id = $("#hiddenuserid").val();

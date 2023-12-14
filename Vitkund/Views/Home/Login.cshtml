@@ -27,7 +27,7 @@
             <div class="col-lg-6 offset-lg-3">
                 <div class="rbt-contact-form contact-form-style-1 max-width-auto">
 
-                    <form class="max-width-auto">
+                    <form class="max-width-auto" >
                         <div class="form-group">
                             <input name="con_name" type="text" id="usernametxtbox" required>
                             <label>Username or email *</label>
@@ -46,11 +46,11 @@
                                     <label for="rememberme">Remember me</label>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            @*<div class="col-lg-6">
                                 <div class="rbt-lost-password text-end">
                                     <a class="rbt-btn-link" href="#">Lost your password?</a>
                                 </div>
-                            </div>
+                            </div>*@
                         </div>
 
                         <div class="form-submit-group">
@@ -68,7 +68,7 @@
                         <br />
                         <div class="text-center" style="">
                             <p>OR</p>
-                            <a class="rbt-btn-link" href="signup">Signup Now</a>
+                            <a class="rbt-btn-link" href="/signup">Signup Now</a>
                         </div>
                     </form>
                 </div>
@@ -91,24 +91,25 @@
         var username = $("#usernametxtbox").val();
         var password = $("#passwordtxtbox").val();
         var tbladmin = { Username: username, Password: password }
-        $.ajax({
+        if (username != "" || password != "") {
+            $.ajax({
                 type: 'POST',
                 url: '@Url.Action("LoginAdmin", "Home")',
                 data: JSON.stringify({ tbladmin }),
                 traditional: true,
                 contentType: 'application/json; charset=utf-8',
-                datatype:'json',
+                datatype: 'json',
                 success: function (response) {
                     debugger
                     var data = response.message.split(",");
                     if (data[0] == "Logged In" && data[1] == "Admin") {
-                        if (data[2] != null || data[2] != "")
+                        if (data[2] != null && data[2] != "")
                             window.location.href = "/" + data[2];
                         else
                             window.location.href = "/AdminIndex";
                     }
                     else if (data[0] == "Logged In" && data[1] == "User") {
-                        if (data[2] != null || data[2] != "")
+                        if (data[2] != null && data[2] != "")
                             window.location.href = "/" + data[2];
                         else
                             window.location.href = "/Index";
@@ -121,6 +122,10 @@
                     console.log(error);
                 }
             });
+        }
+        else {
+            alert('Please Enter Login Details.');
+        }
     }
 </script>
 

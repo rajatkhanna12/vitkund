@@ -12,6 +12,14 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Username" Type="varchar" MaxLength="50" />
           <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="FatherName" Type="varchar" MaxLength="50" />
+          <Property Name="State" Type="varchar" MaxLength="50" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
+          <Property Name="IsAdmin" Type="bit" />
+          <Property Name="IsRole" Type="bit" />
+          <Property Name="RegistrationDate" Type="datetime" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tblBusinessideas">
           <Key>
@@ -67,6 +75,27 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="VitkundModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="VitkundEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblBusinessideas" EntityType="VitkundModel.tblBusinessidea" />
+          <EntitySet Name="tblChapters" EntityType="VitkundModel.tblChapter" />
+          <EntitySet Name="tblTrendingBusinesses" EntityType="VitkundModel.tblTrendingBusiness" />
+          <EntitySet Name="tblVideos" EntityType="VitkundModel.tblVideo" />
+          <EntitySet Name="tblAdmins" EntityType="VitkundModel.tblAdmin" />
+        </EntityContainer>
+        <EntityType Name="tblBusinessidea">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ShortDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LongDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="fromPrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="toPrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="createDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="tblChapter">
           <Key>
             <PropertyRef Name="Id" />
@@ -74,13 +103,18 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="VitkundEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tblChapters" EntityType="Self.tblChapter" />
-          <EntitySet Name="tblVideos" EntityType="VitkundModel.tblVideo" />
-          <EntitySet Name="tblAdmins" EntityType="VitkundModel.tblAdmin" />
-          <EntitySet Name="tblBusinessideas" EntityType="VitkundModel.tblBusinessidea" />
-          <EntitySet Name="tblTrendingBusinesses" EntityType="VitkundModel.tblTrendingBusiness" />
-        </EntityContainer>
+        <EntityType Name="tblTrendingBusiness">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BusinessName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FromPrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ToPrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="VideoLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="tblVideo">
           <Key>
             <PropertyRef Name="Id" />
@@ -98,44 +132,54 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsAdmin" Type="Boolean" />
+          <Property Name="IsRole" Type="Boolean" />
+          <Property Name="RegistrationDate" Type="DateTime" Precision="3" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="tblBusinessidea">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ShortDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="LongDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="fromPrice" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="toPrice" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="createDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="tblTrendingBusiness">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BusinessName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="FromPrice" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="ToPrice" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="VideoLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="CreateDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
-        </EntityType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="VitkundModelStoreContainer" CdmEntityContainer="VitkundEntities">
+          <EntitySetMapping Name="tblBusinessideas">
+            <EntityTypeMapping TypeName="VitkundModel.tblBusinessidea">
+              <MappingFragment StoreEntitySet="tblBusinessideas">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="createDate" ColumnName="createDate" />
+                <ScalarProperty Name="toPrice" ColumnName="toPrice" />
+                <ScalarProperty Name="fromPrice" ColumnName="fromPrice" />
+                <ScalarProperty Name="LongDescription" ColumnName="LongDescription" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblChapters">
             <EntityTypeMapping TypeName="VitkundModel.tblChapter">
               <MappingFragment StoreEntitySet="tblChapter">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblTrendingBusinesses">
+            <EntityTypeMapping TypeName="VitkundModel.tblTrendingBusiness">
+              <MappingFragment StoreEntitySet="tblTrendingBusiness">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="VideoLink" ColumnName="VideoLink" />
+                <ScalarProperty Name="ToPrice" ColumnName="ToPrice" />
+                <ScalarProperty Name="FromPrice" ColumnName="FromPrice" />
+                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -153,36 +197,16 @@
           <EntitySetMapping Name="tblAdmins">
             <EntityTypeMapping TypeName="VitkundModel.tblAdmin">
               <MappingFragment StoreEntitySet="tblAdmin">
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="IsRole" ColumnName="IsRole" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblBusinessideas">
-            <EntityTypeMapping TypeName="VitkundModel.tblBusinessidea">
-              <MappingFragment StoreEntitySet="tblBusinessideas">
-                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
-                <ScalarProperty Name="createDate" ColumnName="createDate" />
-                <ScalarProperty Name="toPrice" ColumnName="toPrice" />
-                <ScalarProperty Name="fromPrice" ColumnName="fromPrice" />
-                <ScalarProperty Name="LongDescription" ColumnName="LongDescription" />
-                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblTrendingBusinesses">
-            <EntityTypeMapping TypeName="VitkundModel.tblTrendingBusiness">
-              <MappingFragment StoreEntitySet="tblTrendingBusiness">
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
-                <ScalarProperty Name="VideoLink" ColumnName="VideoLink" />
-                <ScalarProperty Name="ToPrice" ColumnName="ToPrice" />
-                <ScalarProperty Name="FromPrice" ColumnName="FromPrice" />
-                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

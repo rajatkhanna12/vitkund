@@ -156,6 +156,9 @@
     <Compile Include="Models\tblChapter.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblTrendingBusiness.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblVideo.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -646,6 +649,7 @@
     <Content Include="Views\Home\AddChapters.cshtml" />
     <Content Include="Views\Home\AdminIndex.cshtml" />
     <Content Include="Views\Home\BusinessIdeaDetail.cshtml" />
+    <Content Include="Views\Home\myaccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

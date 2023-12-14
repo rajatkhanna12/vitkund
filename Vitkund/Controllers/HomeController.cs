@@ -207,7 +207,7 @@ namespace Vitkund.Controllers
         {
             if (Session["LoggedIn"] == "true" && (Session["Role"] == "Admin" || Session["Role"] == "User"))
             {
-                
+
                 ViewBag.Message = "Your contact page.";
                 VitkundEntities db = new VitkundEntities();
                 var businessIdeas = db.tblBusinessideas.ToList();
@@ -305,7 +305,7 @@ namespace Vitkund.Controllers
             decimal maxprices = Convert.ToDecimal(maxprice);
             VitkundEntities db = new VitkundEntities();
             var databypricerange = db.tblBusinessideas.Where(p => p.fromPrice >= minprices && p.fromPrice <= maxprices).ToList();
-            if (databypricerange == null)
+            if (databypricerange == null || databypricerange.Count <= 0)
             {
 
                 return Json(new { data = "No Data Found!" });
@@ -326,12 +326,22 @@ namespace Vitkund.Controllers
         [Route("Add-Businessideas")]
         public ActionResult AddBusinessIdeas()
         {
-            if (Session["LoggedIn"] == "true" && Session["Role"] == "Admin")
+            if (Session["LoggedIn"] == "true")
             {
+                if (Session["Role"] == "Admin")
+                {
 
-                VitkundEntities db = new VitkundEntities();
-                var res = db.tblBusinessideas.ToList();
-                return View(res);
+                    VitkundEntities db = new VitkundEntities();
+                    var res = db.tblBusinessideas.ToList();
+                    return View(res);
+                }
+                else
+                {
+                    Session.Remove("lastaccesspage");
+                    //Session["lastaccesspage"] = "Add-Chapters";
+                    return Redirect("/Login");
+                    //return Json(new { success = true, message = "Access Denied,You Cannot Access this page. ( Add-Businessideas )" });
+                }
             }
             else
             {
@@ -423,13 +433,22 @@ namespace Vitkund.Controllers
         [Route("Add-Videos")]
         public ActionResult AddVideos()
         {
-            if (Session["LoggedIn"] == "true" && Session["Role"] == "Admin")
+            if (Session["LoggedIn"] == "true")
             {
+                if (Session["Role"] == "Admin")
+                {
 
-                VitkundEntities db = new VitkundEntities();
-                ViewBag.tblchapters = db.tblChapters.ToList();
-                var res = db.tblVideos.ToList();
-                return View(res);
+                    VitkundEntities db = new VitkundEntities();
+                    ViewBag.tblchapters = db.tblChapters.ToList();
+                    var res = db.tblVideos.ToList();
+                    return View(res);
+                }
+                else
+                {
+                    Session.Remove("lastaccesspage");
+                    //Session["lastaccesspage"] = "Add-Chapters";
+                    return Json(new { success = true, message = "You Cannot Access this page. ( Add-Videos )" });
+                }
             }
             else
             {
@@ -529,12 +548,20 @@ namespace Vitkund.Controllers
         [Route("Add-Chapters")]
         public ActionResult AddChapters()
         {
-            if (Session["LoggedIn"] == "true" && Session["Role"] == "Admin")
+            if (Session["LoggedIn"] == "true")
             {
-
-                VitkundEntities db = new VitkundEntities();
-                var res = db.tblChapters.ToList();
-                return View(res);
+                if (Session["Role"] == "Admin")
+                {
+                    VitkundEntities db = new VitkundEntities();
+                    var res = db.tblChapters.ToList();
+                    return View(res);
+                }
+                else
+                {
+                    Session.Remove("lastaccesspage");
+                    //Session["lastaccesspage"] = "Add-Chapters";
+                    return Json(new { success = true, message = "You Cannot Access this page. ( Add-Chapters )" });
+                }
             }
             else
             {
@@ -616,10 +643,10 @@ namespace Vitkund.Controllers
                 {
                     Session["LoggedIn"] = "true";
                     Session["Role"] = "Admin";
-                    Session["Usernameloggedin"] = tbladmin.Name;
+                    Session["Usernameloggedin"] = tblAdmin.Name;
                     Session["UserLoggedInId"] = tblAdmin.Id;
                 }
-                return Json(new { success = true, message = "Logged In," + Session["Role"] +","+ Session["lastaccesspage"] });
+                return Json(new { success = true, message = "Logged In," + Session["Role"] + "," + Session["lastaccesspage"] });
             }
 
 
@@ -631,12 +658,21 @@ namespace Vitkund.Controllers
         [Route("Add-TrendingBusiness")]
         public ActionResult AddTrendingBusiness()
         {
-            if (Session["LoggedIn"] == "true" && Session["Role"] == "Admin")
+            if (Session["LoggedIn"] == "true")
             {
+                if (Session["Role"] == "Admin")
+                {
 
-                VitkundEntities db = new VitkundEntities();
-                var result = db.tblTrendingBusinesses.ToList();
-                return View(result);
+                    VitkundEntities db = new VitkundEntities();
+                    var result = db.tblTrendingBusinesses.ToList();
+                    return View(result);
+                }
+                else
+                {
+                    Session.Remove("lastaccesspage");
+                    //Session["lastaccesspage"] = "Add-Chapters";
+                    return Json(new { success = true, message = "You Cannot Access this page. ( Add-TrendingBusiness )" });
+                }
             }
             else
             {
@@ -704,7 +740,7 @@ namespace Vitkund.Controllers
         {
             if (Session["LoggedIn"] == "true" && (Session["Role"] == "Admin" || Session["Role"] == "User"))
             {
-                
+
                 VitkundEntities db = new VitkundEntities();
                 var trendingbusiness = db.tblTrendingBusinesses.ToList();
                 return View(trendingbusiness);
@@ -722,7 +758,7 @@ namespace Vitkund.Controllers
             decimal maxprices = Convert.ToDecimal(maxprice);
             VitkundEntities db = new VitkundEntities();
             var databypricerange = db.tblTrendingBusinesses.Where(p => p.FromPrice >= minprices && p.FromPrice <= maxprices).ToList();
-            if (databypricerange == null)
+            if (databypricerange == null || databypricerange.Count <= 0)
             {
 
                 return Json(new { data = "No Data Found!" });
