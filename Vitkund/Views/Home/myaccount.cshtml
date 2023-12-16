@@ -49,7 +49,7 @@
                                         <nav class="mainmenu-nav">
                                             <ul class="dashboard-mainmenu rbt-default-sidebar-list">
                                                 @*<li><a href="instructor-dashboard.html"><i class="feather-home"></i><span>Dashboard</span></a></li>*@
-                                                <li><a href="#Profile" class="active"><i class="feather-user"></i><span>My Profile</span></a></li>
+                                                <li><a href="#Profile" id="btnProfile" class="active"><i class="feather-user"></i><span>My Profile</span></a></li>
 
                                             </ul>
                                         </nav>
@@ -62,7 +62,7 @@
 
                                         <nav class="mainmenu-nav">
                                             <ul class="dashboard-mainmenu rbt-default-sidebar-list">
-                                                <li><a href="#"><i class="feather-settings"></i><span>Settings</span></a></li>
+                                                <li><a href="#" id="btnSetting"><i class="feather-settings"></i><span>Settings</span></a></li>
                                                 <li><a href="/Login"><i class="feather-log-out"></i><span>Logout</span></a></li>
                                             </ul>
                                         </nav>
@@ -75,7 +75,8 @@
                     </div>
 
                     <div class="col-lg-9">
-                        <div class="rbt-dashboard-content bg-color-white rbt-shadow-box">
+
+                        <div class="rbt-dashboard-content bg-color-white rbt-shadow-box" id="profile">
                             <div class="content">
                                 <div class="section-title">
                                     <h4 class="rbt-title-style-3">My Profile</h4>
@@ -175,7 +176,7 @@
 
 
                         <!-- Start Instructor Profile  -->
-                        <div class="rbt-dashboard-content bg-color-white rbt-shadow-box" style="margin-top:20px;">
+                        <div class="rbt-dashboard-content bg-color-white rbt-shadow-box" id="setting" style="margin-top:20px;">
                             <div class="content">
 
                                 <div class="section-title">
@@ -289,7 +290,12 @@
         </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 <script>
+    $(document).ready(function () {
+        $("#setting").hide();
+    });
     function UpdateAdminDetails() {
         var Id = $("#hiddenuserid").val();
         var Name = $("#firstname").val();
@@ -299,7 +305,7 @@
         var phonenumber = $("#phonenumbertxtbox").val();
         var Username = $("#Usernametxtbox").val();
         var tblAdmin = { Id: Id, Username: Username, Name: Name, FatherName: Fathername, City: City, State: State, PhoneNumber: phonenumber }
-        if (Name == "" || Fathername == "" || City == "" || State == "" || phonenumber == "" || Username == "") 
+        if (Name == "" || Fathername == "" || City == "" || State == "" || phonenumber == "" || Username == "")
             alert("Detail should not be empty.")
         else {
             $.ajax({
@@ -353,4 +359,16 @@
             }
         }
     }
+    $('#btnSetting').click(function () {
+        $('#profile').hide();
+        $('#setting').show();
+        $("#btnSetting").addClass('active');
+        $("#btnProfile").removeClass('active');
+    })
+    $('#btnProfile').click(function () {
+        $('#setting').hide();
+        $('#profile').show();
+        $("#btnProfile").addClass('active');
+        $("#btnSetting").removeClass('active');
+    })
 </script>
