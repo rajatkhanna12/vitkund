@@ -31,24 +31,25 @@
 
                         <label>What do you want to do?</label>
                         <div class="rbt-modern-select bg-transparent height-45" style="margin-bottom:20px;">
-                            <select class="w-100" id="ddlBusiness">
+                            <select class="w-100" id="yourchoice">
                                 <option>-- Select --</option>
                                 <option>Job</option>
                                 <option>Business</option>
                             </select>
-
+                            <span id="error1"></span>
+                            <span id="error2"></span>
                         </div>
 
                         <div class="plceholder-button mt--10">
-                            <a href="vitkund-gaon" style="color:#fff;">
-                                <button class="rbt-btn btn-gradient hover-icon-reverse">
+                            <button class="rbt-btn btn-gradient hover-icon-reverse vitpagestart">
+                                <a href="vitkund-gaon" style="color:#fff;">
                                     <span class="icon-reverse-wrapper">
                                         <span class="btn-text">Next</span>
                                         <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                                         <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                                     </span>
-                                </button>
-                            </a>
+                                </a>
+                            </button>
                         </div>
 
                     </div>
@@ -67,12 +68,38 @@
     </div>
 </div>
 
-<script>
-    $("#ddlBusiness").change(function () {
-        var ddl = $("#ddlBusiness").text();
-        if (ddl == "Job") {
-            alert("We are not for you");
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#error1').hide();
+        $('#error2').hide();
+        $('.vitpagestart').click(function () {
+            debugger;
+        var isselect = true;
+        var selectop = $('#yourchoice :selected').text();
+        if (selectop == "-- Select --") {
+            $('#error1').show();
+            $('#error1').text("Please Select Bussiness").css('color', 'red');
+            $('#error2').hide();
+            isselect = false;
+        }
+        else if (selectop == "Job") {
+            $('#error2').show();
+            $('#error2').text("Not Availabel for Job").css('color','red');
+            $('#error1').hide();
+            isselect = false;
+        }
+        else {
+            $('#error1').hide();
+            $('#error2').hide();
+        }
+        //check
+        if (isselect == false) {
             return false;
         }
+        else {
+            return true;
+            }
+        });
     });
-</script>
+    </script>

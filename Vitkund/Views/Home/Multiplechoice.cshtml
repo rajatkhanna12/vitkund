@@ -48,7 +48,7 @@
                                             <label for="shiping_address2">No</label>
                                         </div>
                                     </div>
-
+                                    <span id="error1" style="font-size:medium"></span>
                                 </div>
 
 
@@ -67,6 +67,7 @@
                                             <label for="shiping_address4">No</label>
                                         </div>
                                     </div>
+                                    <span id="error2" style="font-size:medium"></span>
                                 </div>
 
                                 <div class="col-md-8 col-12">
@@ -84,7 +85,8 @@
                                             <input type="checkbox" id="shiping_address06" data-shipping="" wfd-id="id12">
                                             <label for="shiping_address06">No</label>
                                         </div>
-                                    </div>
+                                    </div> 
+                                    <span id="error3" style="font-size:medium"></span>
                                 </div>
 
                                 <div class="col-md-8 col-12">
@@ -102,6 +104,7 @@
                                             <label for="shiping_address7">No</label>
                                         </div>
                                     </div>
+                                    <span id="error4" style="font-size:medium"></span>
                                 </div>
 
                                 <div class="col-md-8 col-12">
@@ -118,6 +121,7 @@
                                             <label for="shiping_address9">No</label>
                                         </div>
                                     </div>
+                                    <span id="error5" style="font-size:medium"></span>
                                 </div>
 
                                 <div class="col-md-8 col-12">
@@ -134,6 +138,7 @@
                                             <label for="shiping_address15">No</label>
                                         </div>
                                     </div>
+                                    <span id="error8" style="font-size:medium"></span>
                                 </div>
 
                                 <div class="col-md-8 col-12">
@@ -150,6 +155,7 @@
                                             <label for="shiping_address11">No</label>
                                         </div>
                                     </div>
+                                    <span id="error6" style="font-size:medium"></span>
                                 </div>
 
                                 <div class="col-md-8 col-12">
@@ -166,6 +172,7 @@
                                             <label for="shiping_address13">No</label>
                                         </div>
                                     </div>
+                                    <span id="error7" style="font-size:medium"></span>
                                 </div>
 
                                 <div class="plceholder-button mt--50">
@@ -204,8 +211,97 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var totalcheckbox = 0;
+        $('#error1').hide();
+        $('#error2').hide();
+        $('#error3').hide();
+        $('#error4').hide();
+        $('#error5').hide();
+        $('#error6').hide();
+        $('#error7').hide();
+        $('#error8').hide();
         $('.page2').click(function () {
-            page_2()
+            var ischeckbox=false
+            //question1
+            if (($('#create_account1').is(":checked") == true) || ($('#shiping_address2').is(":checked") == true)) {
+                $('#error1').hide();
+            }
+            else {
+                $('#error1').show();
+                $('#error1').text("Please Select One Option").css('color', 'red');
+                ischeckbox = false;
+            }
+            //question 2
+            if (($('#create_account3').is(":checked") == true) || ($('#shiping_address4').is(":checked") == true)) {
+                $('#error2').hide();
+            }
+            else {
+                $('#error2').show();
+                $('#error2').text("Please Select One Option").css('color', 'red');
+                ischeckbox = false;
+            }
+            //question 3
+            if (($('#create_account5').is(":checked") == true) || ($('#shiping_address06').is(":checked") == true))
+            {
+                $('#error3').hide();
+            }
+            else {
+                $('#error3').show();
+                $('#error3').text("Please Select One Option").css('color', 'red');
+                ischeckbox = false;
+            }
+            //question 4
+            if (($('#create_account6').is(":checked") == true) || ($('#shiping_address7').is(":checked") == true))
+        {
+                $('#error4').hide();
+            }
+            else {
+                $('#error4').show();
+                $('#error4').text("Please Select One Option").css('color', 'red');
+                ischeckbox = false;
+            }
+            //question 5
+            if (($('#create_account8').is(":checked") == true) || ($('#shiping_address9').is(":checked") == true)) {
+                $('#error5').hide();
+            }
+            else {
+                $('#error5').show();
+                $('#error5').text("Please Select One Option").css('color', 'red');
+                ischeckbox = false;
+            }
+            //question 6
+            if (($('#create_account10').is(":checked") == true) || ($('#shiping_address11').is(":checked") == true)) {
+                $('#error6').hide();
+            }
+            else {
+                $('#error6').show();
+                $('#error6').text("Please Select One Option").css('color', 'red');
+                ischeckbox = false;
+            }
+            //question 7
+            if (($('#create_account12').is(":checked") == true) || ($('#shiping_address13').is(":checked") == true)) {
+                $('#error7').hide();
+            }
+            else {
+                $('#error7').show();
+                $('#error7').text("Please Select One Option").css('color', 'red');
+                ischeckbox = false;
+            }
+            //question 8
+            if (($('#create_account14').is(":checked") == true) || ($('#shiping_address15').is(":checked") == true)) {
+                $('#error8').hide();
+            }
+            else {
+                $('#error8').show();
+                $('#error8').text("Please Select One Option").css('color', 'red');
+                ischeckbox = false;
+            }
+            if (ischeckbox == false) {
+                return false;
+            }
+            else {
+                page_2();
+                return true;
+            }
         });
 
         // check which checkboxe is selected and disable another checkbox 

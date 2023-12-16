@@ -22,8 +22,6 @@
     }
 </style>
 <!-- Start Header Area -->
-
-
 <!-- Start breadcrumb Area -->
 <div class="rbt-breadcrumb-default ptb--50 ptb_md--50 ptb_sm--30 bg-gradient-1">
     <div class="container">
@@ -62,36 +60,49 @@
 
                     <!-- partial -->
                     <script>
+                    
                         var chart = AmCharts.makeChart("chartdiv", {
                             "type": "pie",
                             "theme": "light",
                             "dataProvider": [{
-                                "country": "Lithuania",
-                                "litres": 501.9
+                                "country": "वयः",
+                                "litres": parseInt(localStorage.getItem("Age"))
                             }, {
-                                "country": "Czech Republic",
-                                "litres": 301.9
+                                "country": "निर्मिमीते",
+                                "litres": parseInt(localStorage.getItem("Firms"))
                             }, {
-                                "country": "Ireland",
-                                "litres": 201.1
+                                "country": "पठन ",
+                                "litres": parseInt(localStorage.getItem("Education"))
                             }, {
-                                "country": "Germany",
-                                "litres": 165.8
+                                "country": "लाभः प्रतिशतः",
+                                "litres": parseInt(localStorage.getItem("Percent"))
                             }, {
-                                "country": "Australia",
-                                "litres": 139.9
+                                "country": "अनुभव: ",
+                                "litres": parseInt(localStorage.getItem("Experience"))
                             }, {
-                                "country": "Austria",
-                                "litres": 128.3
+                                "country": "परिसर",
+                                "litres": parseInt(localStorage.getItem("Premises"))
                             }, {
-                                "country": "UK",
-                                "litres": 99
+                                "country": "वित्त",
+                                "litres": parseInt(localStorage.getItem("Capital"))
                             }, {
-                                "country": "Belgium",
-                                "litres": 60
+                                "country": "मालस्य उपलब्धता",
+                                "litres": parseInt(localStorage.getItem("Material"))
                             }, {
-                                "country": "The Netherlands",
-                                "litres": 50
+                                "country": "अनुसंधानम:",
+                                "litres": parseInt(localStorage.getItem("Research"))
+                            },
+                            {
+                                "country": "विपणनम्",
+                                "litres": parseInt(localStorage.getItem("Market"))
+                            },
+                            {
+                                "country": "अंक",
+                                "litres": parseInt(localStorage.getItem("Cibil"))
+                            },
+                            {
+                                "country": "विशेषज्ञाः",
+                                "litres": parseInt(localStorage.getItem("Expertise"))
                             }],
                             "valueField": "litres",
                             "titleField": "country",
@@ -114,13 +125,12 @@
                         <li class="keyfive"> Below 39 Not to Go Ahead</li>
 
                     </ol>
-
                 </div>
-
-
+                   <span id="finalresult" style="color:red;text-align:center"></span>
+               
                 <div class="col-lg-12">
                     <div class="pricing-btn-group text-center" style="margin-top:50px;">
-                        <button class="rbt-btn btn-gradient">Pay Now</button>
+                        <button class="rbt-btn btn-gradient finalpayment">Pay Now</button>
                     </div>
 
                 </div>
@@ -142,31 +152,49 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        result() 
+        $('#finalresult').hide();
+        result();
+        $('.finalpayment').click(function () {
+            localStorage.clear();
+        });
     });
-    function result()
-    {
+    function result() {
         //debugger
         var totalsum = localStorage.getItem("PagesSum")
-        if (totalsum >= 76)
-        {
+        if (totalsum >= 76) {
             $(".keyone").css("background-color", "yellow");
+            $('#finalresult').show();
+            $('#finalresult').text("You are Extremly Recommended for Bussiness");
         }
-        else if (totalsum >=70 & totalsum <=75) {
+        else if (totalsum >= 70 & totalsum <= 75) {
             $(".keytwo").css("background-color", "yellow");
+            $('#finalresult').show();
+            $('#finalresult').text("You are Highly Recommended for Bussiness");
         }
         else if (totalsum >= 60 & totalsum <= 69) {
             $(".keythree").css("background-color", "yellow");
+            $('#finalresult').show();
+            $('#finalresult').text("You are Recommended for Bussiness");
         }
         else if (totalsum >= 50 & totalsum <= 59) {
             $(".keyfour").css("background-color", "yellow");
+            $('#finalresult').show();
+            $('#finalresult').text("Recommended for Bussiness");
         }
         else if (totalsum >= 40 & totalsum <= 49) {
             $(".keysix").css("background-color", "Red");
+            $('#finalresult').show();
+            $('#finalresult').text("Need Improvment for Bussiness");
         }
-        else if (totalsum <= 39) {
+        else if (totalsum >= 0 & totalsum <= 39) {
             $(".keyfive").css("background-color", "Red");
+            $('#finalresult').show();
+            $('#finalresult').text("You are not Recommended for Bussiness");
         }
+        else {
+
+        }
+        
     }
- </script>
+</script>
 

@@ -34,12 +34,13 @@
                             <div class="col-md-6 col-12">
                                 <label>Age*</label>
                                 <input type="text" placeholder="Your Age" id="age">
+                                <span id="error1"></span>
                             </div>
                             <div class="col-md-6 col-12">
                                 <label>Type of Firm*</label>
-                                <div class="rbt-modern-select bg-transparent height-45">
-                                    <select class="w-100" id="firm">
-                                        <option> -- Select --</option>
+                                <div class="rbt-modern-select bg-transparent height-45" >
+                                    <select class="w-100 validationcheck" id="firm" required>
+                                        <option selected="selected"> -- Select --</option>
                                         <option>Sole Proprietorship</option>
                                         <option>Partnerships</option>
                                         <option>Company</option>
@@ -47,27 +48,28 @@
                                         <option>Unregistered</option>
                                     </select>
                                 </div>
-
+                                <span id="error2"></span>
                             </div>
 
                             <div class="col-md-6 col-12">
                                 <label>Education*</label>
                                 <div class="rbt-modern-select bg-transparent height-45">
-                                    <select class="w-100" id="education">
-                                        <option> -- Select --</option>
+                                    <select class="w-100 validationcheck" id="education" required>
+                                        <option selected="selected"> -- Select --</option>
                                         <option>10th</option>
                                         <option>12th</option>
                                         <option>Graduate</option>
                                         <option>Post Graduate</option>
                                         <option>Bussiness Related Education</option>
                                     </select>
+                                    <span id="error3"></span>
                                 </div>
                             </div>
 
                             <div class="col-md-6 col-12">
                                 <label>Profit Percentage*</label>
                                 <div class="rbt-modern-select bg-transparent height-45">
-                                    <select class="w-100" id="profit">
+                                    <select class="w-100 validationcheck" id="profit">
                                         <option> -- Select --</option>
                                         <option><= 5%</option>
                                         <option>6 to 10%</option>
@@ -75,13 +77,14 @@
                                         <option>21 to 35%</option>
                                         <option> > 35%</option>
                                     </select>
+                                    <span id="error4"></span>
                                 </div>
                             </div>
 
                             <div class="col-md-6 col-12">
                                 <label>Experience*</label>
                                 <div class="rbt-modern-select bg-transparent height-45">
-                                    <select class="w-100" id="exp">
+                                    <select class="w-100 validationcheck" id="exp">
                                         <option> -- Select --</option>
                                         <option><=1 Year</option>
                                         <option>1 to 3 Year</option>
@@ -89,13 +92,14 @@
                                         <option> > 5 Year</option>
                                         <option> > 7 Year/Related</option>
                                     </select>
+                                    <span id="error5"></span>
                                 </div>
                             </div>
 
                             <div class="col-md-6 col-12">
                                 <label>Premises*</label>
                                 <div class="rbt-modern-select bg-transparent height-45">
-                                    <select class="w-100" id="premises">
+                                    <select class="w-100 validationcheck" id="premises">
                                         <option> -- Select --</option>
                                         <option>On Rent</option>
                                         <option>On Lease</option>
@@ -103,12 +107,13 @@
                                         <option>Property</option>
                                         <option>Own Property</option>
                                     </select>
+                                    <span id="error6"></span>
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <label>Capital </label>
                                 <div class="rbt-modern-select bg-transparent height-45">
-                                    <select class="w-100" id="capital">
+                                    <select class="w-100 validationcheck" id="capital">
                                         <option> -- Select --</option>
                                         <option> <= 10%</option>
                                         <option>11 to 25%</option>
@@ -116,12 +121,13 @@
                                         <option>41 to 60%</option>
                                         <option> >60%</option>
                                     </select>
+                                    <span id="error7"></span>
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <label>Raw Material & Labour Etc. Availability</label>
                                 <div class="rbt-modern-select bg-transparent height-45">
-                                    <select class="w-100" id="material">
+                                    <select class="w-100 validationcheck" id="material">
                                         <option> -- Select --</option>
                                         <option> >251KM</option>
                                         <option>151 to 250KM</option>
@@ -129,12 +135,13 @@
                                         <option>51 to 100KM</option>
                                         <option>Less then 50KM</option>
                                     </select>
+                                    <span id="error8"></span>
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <label>Research & Development </label>
                                 <div class="rbt-modern-select bg-transparent height-45">
-                                    <select class="w-100" id="research">
+                                    <select class="w-100 validationcheck" id="research">
                                         <option> -- Select --</option>
                                         <option><=1 Year</option>
                                         <option>1 to 3 Year</option>
@@ -142,6 +149,7 @@
                                         <option> >5 to 7 Year</option>
                                         <option> >7 Year/Related</option>
                                     </select>
+                                    <span id="error9"></span>
                                 </div>
                             </div>
 
@@ -149,7 +157,7 @@
                             <div class="col-md-6 col-12">
                                 <label>Marketing & Product Selling</label>
                                 <div class="rbt-modern-select bg-transparent height-45">
-                                    <select class="w-100" id="market">
+                                    <select class="w-100 validationcheck" id="market">
                                         <option> -- Select --</option>
                                         <option>Untrained Worker</option>
                                         <option>Through Social Media</option>
@@ -157,6 +165,7 @@
                                         <option>Responsibility of partner or Manager</option>
                                         <option>Own Responsibility</option>
                                     </select>
+                                    <span id="error10"></span>
                                 </div>
                             </div>
 
@@ -171,13 +180,14 @@
                                         <option> > 715 to 749</option>
                                         <option> < 714</option>
                                     </select>
+                                    <span id="error11"></span>
                                 </div>
                             </div>
 
                             <div class="col-md-6 col-12">
                                 <label>Business Expertise</label>
                                 <div class="rbt-modern-select bg-transparent height-45">
-                                    <select class="w-100" id="experts">
+                                    <select class="w-100 validationcheck" id="experts">
                                         <option> -- Select --</option>
                                         <option>Self Skilled</option>
                                         <option>Partner or Manager Specialist</option>
@@ -185,6 +195,7 @@
                                         <option>Semi-trained Staff & Owners</option>
                                         <option>Untrained Staff & Owners</option>
                                     </select>
+                                    <span id="error12"></span>
                                 </div>
                             </div>
 
@@ -219,10 +230,149 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var totalvalue = 0;
+        $('#error1').hide();
+        $('#error2').hide();
+        $('#error3').hide();
+        $('#error4').hide();
+        $('#error5').hide();
+        $('#error6').hide();
+        $('#error7').hide();
+        $('#error8').hide();
+        $('#error9').hide();
+        $('#error10').hide();
+        $('#error11').hide();
+        $('#error12').hide();
         $('.vit_page1').click(function () {
-            page1()
+            var isselect = true;
+            //age
+            if ($('#age').val() == "") {
+                $('#error1').show();
+                $('#error1').text("Please Enter Age").css('color','red');
+                isselect= false;
+            }
+            else {
+                $('#error1').hide();
+            }
+           // Firms
+            var tofirm = $('#firm :selected').text();
+            if (tofirm == " -- Select --") {
+                $('#error2').show();
+                $('#error2').text("Please Select Firm").css('color', 'red');
+                isselect = false;
+            }
+            else {
+                $('#error2').hide();
+            }
+            // education
+            var edu = $('#education :selected').text();
+            if (edu == " -- Select --") {
+                $('#error3').show();
+                $('#error3').text("Please Select Education").css('color', 'red');
+                isselect = false;
+            }
+            else {
+                $('#error3').hide();
+            }
+            //profit
+            var percen = $('#profit :selected').text();
+            if (percen == " -- Select --") {
+                $('#error4').show();
+                $('#error4').text("Please Select Profit Percentage").css('color', 'red');
+                isselect = false;
+            }
+            else {
+                $('#error4').hide();
+            }
+            //Experience
+            var exper = $('#exp :selected').text();
+            if (exper == " -- Select --") {
+                $('#error5').show();
+                $('#error5').text("Please Select Total Experience").css('color', 'red');
+                isselect = false;
+            }
+            else {
+                $('#error5').hide();
+            }
+            //Premises
+            var premis = $('#premises :selected').text();
+            if (premis == " -- Select --") {
+                $('#error6').show();
+                $('#error6').text("Please Select Premises").css('color', 'red');
+                isselect = false;
+            }
+            else {
+                $('#error6').hide();
+            }
+            //capital
+            var capi = $('#capital :selected').text();
+            if (capi == " -- Select --") {
+                $('#error7').show();
+                $('#error7').text("Please Select Capital").css('color', 'red');
+                isselect = false;
+            }
+            else {
+                $('#error7').hide();
+            }
+            //Material
+            var mat = $('#material :selected').text();
+            if (mat == " -- Select --") {
+                $('#error8').show();
+                $('#error8').text("Please Select Raw Material & Labour Availability").css('color', 'red');
+                isselect = false;
+            }
+            else {
+                $('#error8').hide();
+            }
+            //Research
+            var develop = $('#research :selected').text();
+            if (develop == " -- Select --") {
+                $('#error9').show();
+                $('#error9').text("Please Select Research & Developmen").css('color', 'red');
+                isselect = false;
+            }
+            else {
+                $('#error9').hide();
+            }
+            //marketing
+            var mar = $('#market :selected').text();
+            if (mar == " -- Select --") {
+                $('#error10').show();
+                $('#error10').text("Please Select Marketing & Product Selling").css('color', 'red');
+                isselect = false;
+            }
+            else {
+                $('#error10').hide();
+            }
+            //cibil score
+            var cib = $('#cibil :selected').text();
+            if (cib == " -- Select --") {
+                $('#error11').show();
+                $('#error11').text("Please Select Cibil Score").css('color', 'red');
+                isselect = false;
+            }
+            else {
+                $('#error11').hide();
+            }
+            // bussiness expertise
+            var business = $('#experts :selected').text();
+            if (business == " -- Select --") {
+                $('#error12').show();
+                $('#error12').text("Please Select Bussiness Expertise").css('color', 'red');
+                isselect = false;
+            }
+            else {
+                $('#error12').hide();
+            }
+            if (isselect == false) {
+                return false;
+            }
+            else {
+                page1();
+                return true;
+            }
+           
         });
-
+        
     });
     function page1() {
         //debugger
@@ -259,6 +409,7 @@
         }
         else {
             totalage = 0;
+            //$("#error").text("This Field is Required").css("color", 'red');
         }
         // getting the education drodown value
         var edu = $('#education :selected').text();
@@ -485,5 +636,31 @@
         totalvalue = totalage + totaledu + totalprofit + totalexp + totalcapital + totalmaterial + totalresearch + totalmarketing + totalscore + totalexpert + totalfirm + totalpremise;
         // store total in local storage
         localStorage.setItem("Page1Sum", totalvalue);
+        // Stored Individual values in Local Storage
+        //Age
+        localStorage.setItem("Age", totalage);
+        //Education
+        localStorage.setItem("Education", totaledu);
+        //Percentage Profit
+        localStorage.setItem("Percent", totalprofit);
+        // Experience
+        localStorage.setItem("Experience", totalexp);
+        //capital
+        localStorage.setItem("Capital", totalcapital);
+        //Raw Material
+        localStorage.setItem("Material", totalmaterial);
+        //Research
+        localStorage.setItem("Research", totalresearch);
+        //Marketing
+        localStorage.setItem("Market", totalmarketing);
+        //Cibil Score
+        localStorage.setItem("Cibil", totalscore);
+        //Bussiness Expertise
+        localStorage.setItem("Expertise", totalexpert);
+        // Types of firm
+        localStorage.setItem("Firms", totalfirm);
+        //Premises
+        localStorage.setItem("Premises", totalpremise);
     }
+    
 </script>
