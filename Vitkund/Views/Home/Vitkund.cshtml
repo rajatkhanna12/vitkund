@@ -31,7 +31,7 @@
 
                         <label>What do you want to do?</label>
                         <div class="rbt-modern-select bg-transparent height-45" style="margin-bottom:20px;">
-                            <select class="w-100" id="yourchoice">
+                            <select onchange="ddlChange()" class="w-100" id="yourchoice">
                                 <option>-- Select --</option>
                                 <option>Job</option>
                                 <option>Business</option>
@@ -61,7 +61,48 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modalJob" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
 
+                <img src="~/Content/assets/images/sad.jpg" />
+                <span> We are not for you.</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
+              
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalBusiness" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                <button type="button" class="close closeBusinessModal" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <img src="~/Content/assets/images/smile.jpg" />
+                <span>Go ahead.</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary closeBusinessModal" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
 <div class="rbt-separator-mid">
     <div class="container">
         <hr class="rbt-separator m-0">
@@ -73,6 +114,9 @@
     $(document).ready(function () {
         $('#error1').hide();
         $('#error2').hide();
+
+       
+
         $('.vitpagestart').click(function () {
             debugger;
         var isselect = true;
@@ -85,6 +129,7 @@
         }
         else if (selectop == "Job") {
             $('#error2').show();
+          
             $('#error2').text("Not Availabel for Job").css('color','red');
             $('#error1').hide();
             isselect = false;
@@ -102,4 +147,22 @@
             }
         });
     });
+    $('.close').click(function () {
+        $('#modalJob').modal('hide');
+    })
+    $('.closeBusinessModal').click(function () {
+        $('#modalBusiness').modal('hide');
+    })
+    function ddlChange() {
+        debugger;
+        var selectop = $('#yourchoice :selected').text();
+        if (selectop == "Job") {
+            $('#modalJob').modal('toggle');
+            $('#modalJob').modal('show');
+        }
+        else if (selectop == "Business") {
+            $('#modalBusiness').modal('toggle');
+            $('#modalBusiness').modal('show');
+        }
+    }
     </script>
