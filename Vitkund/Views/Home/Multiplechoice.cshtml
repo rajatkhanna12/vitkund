@@ -176,7 +176,7 @@
                                 </div>
 
                                 <div class="plceholder-button mt--50">
-                                    <a  id="btnNext" style="color:#fff;" class="rbt-btn btn-gradient hover-icon-reverse page2">
+                                    <a href="#" id="btnNext" style="color:#fff;" class="rbt-btn btn-gradient hover-icon-reverse page2">
                                             <span class="icon-reverse-wrapper">
                                                 <span class="btn-text">Submit</span>
                                                 <span class="btn-icon"><i class="feather-arrow-right"></i></span>
@@ -219,10 +219,11 @@
         $('#error7').hide();
         $('#error8').hide();
         $('.page2').click(function () {
-            var ischeckbox=false
+            var ischeckbox = true;
             //question1
             if (($('#create_account1').is(":checked") == true) || ($('#shiping_address2').is(":checked") == true)) {
                 $('#error1').hide();
+                ischeckbox = true;
             }
             else {
                 $('#error1').show();
@@ -232,6 +233,7 @@
             //question 2
             if (($('#create_account3').is(":checked") == true) || ($('#shiping_address4').is(":checked") == true)) {
                 $('#error2').hide();
+                ischeckbox = true;
             }
             else {
                 $('#error2').show();
@@ -242,6 +244,7 @@
             if (($('#create_account5').is(":checked") == true) || ($('#shiping_address06').is(":checked") == true))
             {
                 $('#error3').hide();
+                ischeckbox = true;
             }
             else {
                 $('#error3').show();
@@ -252,6 +255,7 @@
             if (($('#create_account6').is(":checked") == true) || ($('#shiping_address7').is(":checked") == true))
         {
                 $('#error4').hide();
+                ischeckbox = true;
             }
             else {
                 $('#error4').show();
@@ -261,6 +265,7 @@
             //question 5
             if (($('#create_account8').is(":checked") == true) || ($('#shiping_address9').is(":checked") == true)) {
                 $('#error5').hide();
+                ischeckbox = true;
             }
             else {
                 $('#error5').show();
@@ -270,6 +275,7 @@
             //question 6
             if (($('#create_account10').is(":checked") == true) || ($('#shiping_address11').is(":checked") == true)) {
                 $('#error6').hide();
+                ischeckbox = true;
             }
             else {
                 $('#error6').show();
@@ -279,6 +285,7 @@
             //question 7
             if (($('#create_account12').is(":checked") == true) || ($('#shiping_address13').is(":checked") == true)) {
                 $('#error7').hide();
+                ischeckbox = true;
             }
             else {
                 $('#error7').show();
@@ -288,12 +295,14 @@
             //question 8
             if (($('#create_account14').is(":checked") == true) || ($('#shiping_address15').is(":checked") == true)) {
                 $('#error8').hide();
+                ischeckbox = true;
             }
             else {
                 $('#error8').show();
                 $('#error8').text("Please Select One Option").css('color', 'red');
                 ischeckbox = false;
             }
+           
             if (ischeckbox == false) {
                 return false;
             }
@@ -400,6 +409,7 @@
         //debugger
         //get sum of previous page from local storage
         var Page1_Sum = localStorage.getItem("Page1Sum")
+       
         var Page1_2total = 0;
         var question1 = 0;
         var question2 = 0;
@@ -460,8 +470,8 @@
         totalcheckbox = question1 + question2 + question3 + question4 + question5 + question6 + question7 + question8;
         Page1_2total = totalcheckbox + parseInt(Page1_Sum);
         localStorage.setItem("PagesSum", Page1_2total);
-    }
-    $("#btnNext").click(function () {
         window.location.href = "/result";
-    })
+
+    }
+  
 </script>
