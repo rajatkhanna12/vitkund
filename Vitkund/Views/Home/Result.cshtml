@@ -276,7 +276,7 @@
                     <ul class="legend" style="list-style:none;">
                         <li class="keyone">> 76 Extremly Recommended</li>
                         <li class="keytwo">> 70-75 Highly Recommended</li>
-                        <li class="keythree">>60 - 69 Recommended</li>
+                        <li class="keythree">> 60 - 69 Recommended</li>
                         <li class="keyfour">> 50 - 59 Go Ahead</li>
                         <li class="keysix">> 40 - 49 Need Improvement</li>
                         <li class="keyfive"> Below 39 Not to Go Ahead</li>
@@ -319,37 +319,37 @@
         //debugger
         var totalsum = localStorage.getItem("PagesSum")
         if (totalsum >= 76) {
-            $(".keyone").css("background-color", "yellow");
-            $(".keyfive").css("color", "#333");
-            $(".keyfive").css("padding", "10px");
+            $(".keyone").css("background-color", "Green");
+            $(".keyone").css("color", "#fff");
+            $(".keyone").css("padding", "10px");
             $('#finalresult').show();
             $('#finalresult').text("You are Extremly Recommended for Bussiness");
         }
         else if (totalsum >= 70 & totalsum <= 75) {
-            $(".keytwo").css("background-color", "yellow");
-            $(".keyfive").css("color", "#333");
-            $(".keyfive").css("padding", "10px");
+            $(".keytwo").css("background-color", "Green");
+            $(".keytwo").css("color", "#fff");
+            $(".keytwo").css("padding", "10px");
             $('#finalresult').show();
             $('#finalresult').text("You are Highly Recommended for Bussiness");
         }
         else if (totalsum >= 60 & totalsum <= 69) {
             $(".keythree").css("background-color", "yellow");
-            $(".keyfive").css("color", "#333");
-            $(".keyfive").css("padding", "10px");
+            $(".keythree").css("color", "#333");
+            $(".keythree").css("padding", "10px");
             $('#finalresult').show();
             $('#finalresult').text("You are Recommended for Bussiness");
         }
         else if (totalsum >= 50 & totalsum <= 59) {
             $(".keyfour").css("background-color", "yellow");
-            $(".keyfive").css("color", "#333");
-            $(".keyfive").css("padding", "10px");
+            $(".keyfour").css("color", "#333");
+            $(".keyfour").css("padding", "10px");
             $('#finalresult').show();
             $('#finalresult').text("Recommended for Bussiness");
         }
         else if (totalsum >= 40 & totalsum <= 49) {
             $(".keysix").css("background-color", "Red");
-            $(".keyfive").css("color", "White");
-            $(".keyfive").css("padding", "10px");
+            $(".keysix").css("color", "White");
+            $(".keysix").css("padding", "10px");
             $('#finalresult').show();
             $('#finalresult').text("Need Improvment for Bussiness");
         }
