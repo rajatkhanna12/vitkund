@@ -23,12 +23,12 @@
                             <li>
                                 <div class="icon-right"><i class="feather-chevron-right"></i></div>
                             </li>
-                            <li class="rbt-breadcrumb-item active">Trending Business Ideas</li>
+                            <li class="rbt-breadcrumb-item active"> Business Ideas</li>
                         </ul>
                         <!-- End Breadcrumb Area  -->
 
                         <div class=" title-wrapper">
-                            <h1 class="title mb--0">Trending Business Ideas</h1>
+                            <h1 class="title mb--0">Business Ideas</h1>
 
                         </div>
 
@@ -131,7 +131,7 @@
                         <div class="course-grid-3">
                             <div class="rbt-card variation-01 rbt-hover">
                                 <div class="rbt-card-img">
-                                    <a href="#">
+                                   
                                         @if (@item.Image.Contains("Content"))
                                         {
                                             <img src="@item.Image" alt="Card image">
@@ -140,13 +140,13 @@
                                         {
                                             <img src="~/Content/Uploads/@item.Image" alt="Card image">
                                         }                                   
-                                    </a>
+                                    
                                 </div>
                                 <div class="rbt-card-body">
                                  
 
                                     <h4 class="rbt-card-title" style="padding-top:10px;">
-                                        <a href="#">@item.Title</a>
+                                       @item.Title
                                     </h4>
                                     @if (item.fromPrice != null && item.toPrice != null)
                                     {

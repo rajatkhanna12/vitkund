@@ -176,17 +176,16 @@
                                 </div>
 
                                 <div class="plceholder-button mt--50">
-                                    <a href="result" style="color:#fff;">
-                                        <button class="rbt-btn btn-gradient hover-icon-reverse page2">
+                                    <a  id="btnNext" style="color:#fff;" class="rbt-btn btn-gradient hover-icon-reverse page2">
                                             <span class="icon-reverse-wrapper">
                                                 <span class="btn-text">Submit</span>
                                                 <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                                                 <span class="btn-icon"><i class="feather-arrow-right"></i></span>
                                             </span>
-                                        </button>
+                                      
                                     </a>
                                 </div>
-                            </div>
+                            </div> 
 
                         </div>
 
@@ -462,4 +461,7 @@
         Page1_2total = totalcheckbox + parseInt(Page1_Sum);
         localStorage.setItem("PagesSum", Page1_2total);
     }
+    $("#btnNext").click(function () {
+        window.location.href = "/result";
+    })
 </script>
