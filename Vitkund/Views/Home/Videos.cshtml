@@ -72,7 +72,7 @@
 
                                                             if (item2.VideoImage.ToLower().Contains("content"))
                                                             {
-                                                                <img class="w-100 rbt-radius" src="@item2.VideoImage" alt="Video Images">
+                                                                <img  class="w-100 rbt-radius" src="@item2.VideoImage" alt="Video Images">
                                                             }
                                                             else
                                                             {
@@ -81,14 +81,14 @@
                                                             }
                                                             if (item2.VideoFile.ToLower().Contains("content"))
                                                             {
-                                                                <a class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="@item2.VideoFile" style="max-width:50px; max-height:50px;">
+                                                                <a  class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="@item2.VideoFile" style="max-width:50px; max-height:50px;">
 
                                                                     <span><i class="feather-play"></i></span>
                                                                 </a>
                                                             }
                                                             else
                                                             {
-                                                                <a class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="~/Content/Uploads/@item2.VideoFile" style="max-width:50px; max-height:50px;">
+                                                                <a  class="rbt-btn rounded-player popup-video position-to-top rbtplayer" href="~/Content/Uploads/@item2.VideoFile" style="max-width:50px; max-height:50px;">
                                                                     <span><i class="feather-play"></i></span>
                                                                 </a>
                                                             }
@@ -254,6 +254,12 @@
     $(document).ready(function () {
         $(".lisul li").eq(0).children().children().click();
     });
+    function disableRightClick() {
+        alert("Sorry, right click is not allowed !!");
+        return false;
+    }
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
 </script>
 
 
