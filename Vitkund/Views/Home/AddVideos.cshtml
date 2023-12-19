@@ -168,7 +168,7 @@
             }
         })
         $("#Videouploader").on('change', function () {
-            var maxFileSizeInBytes = 20480 * 1024; // 1 MB (adjust as needed)
+            var maxFileSizeInBytes = 200480 * 1024; // 1 MB (adjust as needed)
             var selectedFile = this.files[0];
 
             if (selectedFile && selectedFile.size > maxFileSizeInBytes) {
@@ -176,18 +176,20 @@
                 setTimeout(function () {
                     $("#Videouploader").val('');
                 }, 1000)
+                $("#btnaddupdate").prop('disabled', true);
             } else {
                 $('#Videouploadersizevalid').text('');
+                $("#btnaddupdate").prop('disabled', false);
             }
 
             $("#videouploaderspan").hide();
 
         });
         $("#imageuploader").on('change', function () {
-            var maxFileSizeInBytes = 5120 * 1024; // 1 MB (adjust as needed)
+            var maxFileSizeInBytes = 5120 * 3024; // 1 MB (adjust as needed)
             var selectedFile = this.files[0];
             if (selectedFile && selectedFile.size > maxFileSizeInBytes) {
-                $('#imageuploadersizevalid').text('File size will be less than 5MB.');
+                $('#imageuploadersizevalid').text('File size will be less than 15MB.');
                 setTimeout(function () {
                     $("#imageuploader").val('');
                 }, 1000)
@@ -212,8 +214,20 @@
         } else {
             validation = true;
             $("#Videofiletitlevalid").text("")
-}
+        }
+        debugger;
+        var video = $("#Videouploader")[0].files[0];
+        var imageUploader = $("#imageuploader")[0].files[0];
+        if (video == undefined) {
+            $('#Videouploadersizevalid').text('File size will be less than 200MB.');
+            validation = false;
+        }
+        if (imageUploader == undefined) {
+            $('#imageuploadersizevalid').text('File size will be less than 15MB.');
+            validation = false;
+        }
         if (validation) {
+            $("#btnaddupdate").prop('disabled', true);
             $.ajax({
                 url: '@Url.Action("UploadVideosFile", "Home")',
                 type: 'POST',
@@ -221,7 +235,7 @@
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    debugger
+                  
                     var imageUploader = "no file selected";
                     var videouploader = "no file selected";
                     if (response.includes(",")) {
@@ -235,6 +249,7 @@
                 error: function (error) {
                     // Handle errors
                     console.log(error);
+                    $("#btnaddupdate").prop('disabled', false);
                 }
             });
         }
