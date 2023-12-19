@@ -167,7 +167,7 @@
                                     z: 235
                                 }
                                     , {
-                                        name: 'मालस्य उपलब्धता: ' + parseInt(localStorage.getItem("Material")) + '',
+                                    name: 'मालस्य उपलब्धता: ' + parseInt(localStorage.getItem("Material")) + '',
                                     y: 250454,
                                     z: 245
                                 }
@@ -187,7 +187,7 @@
                                     z: 301
                                 }
                                     , {
-                                        name: 'विशेषज्ञाः ' + parseInt(localStorage.getItem("Expertise")) + '',
+                                    name: 'विशेषज्ञाः ' + parseInt(localStorage.getItem("Expertise")) + '',
                                     y: 423231,
                                     z: 314
                                 }
@@ -196,8 +196,8 @@
 
                                 ],
                                 "export": {
-                                "enabled": false
-                            },
+                                    "enabled": false
+                                },
                                 colors: [
                                     '#4caefe',
                                     '#3dc3e8',
@@ -213,7 +213,7 @@
                                     '#FFBF00'
                                 ]
                             }]
-                            ,exporting: {
+                            , exporting: {
                                 enabled: false
                             }
                         });
@@ -287,7 +287,7 @@
 
                 <div class="col-lg-12">
                     <div class="pricing-btn-group text-center" style="margin-top:50px;">
-                        <button class="rbt-btn btn-gradient finalpayment">Pay Now</button>
+                        <button id="payNow" class="rbt-btn btn-gradient finalpayment">Pay Now</button>
                     </div>
 
                 </div>
@@ -307,6 +307,8 @@
 <script src="~/Content/assets/js/script.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
 <script type="text/javascript">
     $(document).ready(function () {
         $('#finalresult').hide();
@@ -315,6 +317,81 @@
             //localStorage.clear();
         });
     });
+  
+    var options = {
+        "key": "rzp_test_LON13f5tvxkTRW", // Enter the Key ID generated from the Dashboard
+        "amount": localStorage.getItem("plan"),
+        "currency": "INR",
+        "description": "We Make Complete Entrepreneur",
+        "image": "http://vitkund.com/Content/assets/images/logo.png",
+        "prefill":
+        {
+            "email": localStorage.getItem("email"),
+            "contact": localStorage.getItem("phone"),
+        },
+        config: {
+            display: {
+                blocks: {
+                    utib: { //name for Axis block
+                        name: "Pay using Axis Bank",
+                        instruments: [
+                            {
+                                method: "card",
+                                issuers: ["UTIB"]
+                            },
+                            {
+                                method: "netbanking",
+                                banks: ["UTIB"]
+                            },
+                        ]
+                    },
+                    other: { //  name for other block
+                        name: "Other Payment modes",
+                        instruments: [
+                            {
+                                method: "card",
+                                issuers: ["ICIC"]
+                            },
+                            {
+                                method: 'netbanking',
+                            }
+                        ]
+                    }
+                },
+                hide: [
+                    {
+                        method: "upi"
+                    }
+                ],
+                sequence: ["block.utib", "block.other"],
+                preferences: {
+                    show_default_blocks: false // Should Checkout show its default blocks?
+                }
+            }
+        },
+        "handler": function (response) {
+           
+            console.log(response);
+            SignUp(response.razorpay_payment_id);
+            //alert(response.razorpay_payment_id);
+        },
+        "modal": {
+            "ondismiss": function () {
+                if (confirm("Are you sure, you want to close the form?")) {
+                    txt = "You pressed OK!";
+                    console.log("Checkout form closed by the user");
+                } else {
+                    txt = "You pressed Cancel!";
+                    console.log("Complete the Payment")
+                }
+            }
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    document.getElementById('payNow').onclick = function (e) {
+        rzp1.open();
+        e.preventDefault();
+    }
     function result() {
         //debugger
         var totalsum = localStorage.getItem("PagesSum")
@@ -352,6 +429,7 @@
             $(".keysix").css("padding", "10px");
             $('#finalresult').show();
             $('#finalresult').text("Need Improvment for Bussiness");
+            $("#payNow").prop('disabled', true);
         }
         else if (totalsum >= 0 & totalsum <= 39) {
             $(".keyfive").css("background-color", "Red");
@@ -359,11 +437,31 @@
             $(".keyfive").css("padding", "10px");
             $('#finalresult').show();
             $('#finalresult').text("You are not Recommended for Bussiness");
+            $("#payNow").prop('disabled', true);
         }
         else {
 
         }
-
+    }
+    function SignUp(paymentId) {
+        var tblsignupdata = { Username: localStorage.getItem("email"), Password: "1234", Name: localStorage.getItem("name"), PhoneNumber: localStorage.getItem("phone"), PaymentId: paymentId, PlanAmount:(localStorage.getItem("plan") /100) }
+        $.ajax({
+            url: '/Home/AddSignupDetails',
+            type: 'POST',
+            data: JSON.stringify({ tbladmin: tblsignupdata }),
+            traditional: true,
+            contentType: 'application/json; charset=utf-8',
+            datatype: 'json',
+            success: function (response) {
+                if (response.message = "Signup successfully") {
+                    localStorage.clear();
+                    window.location.href = "/login";
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
     }
 </script>
 

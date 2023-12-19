@@ -848,6 +848,8 @@ namespace Vitkund.Controllers
                 tbladmin.RegistrationDate = DateTime.Now;
                 db.tblAdmins.Add(tbladmin);
                 db.SaveChanges();
+
+                SendWelcomeEmail(tbladmin.Name,tbladmin.Username,tbladmin.PhoneNumber,tbladmin.Password);
                 return Json(new { success = true, message = "Signup successfully" });
             }
             catch (Exception ex)
@@ -943,6 +945,59 @@ namespace Vitkund.Controllers
         //}
         #endregion
 
+        public JsonResult SendWelcomeEmail(string name, string email, string phone, string password)
+        {
+
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+
+            MailMessage mail = new MailMessage();
+
+
+            SmtpClient smtp = new SmtpClient();
+
+            mail.To.Add(new MailAddress(email));
+            mail.From = new MailAddress("hello@thebusinessbox.in", "Vitkund: ");
+
+
+
+            mail.Subject = "Login Detail";
+
+            string logoImgPath1 = Server.MapPath("~/Content/assets/images/logo.png") + "<br/>" + "<br/>";
+            string Body = "Hi " + name + "," + "<br/>";
+            Body += "Please find the login details " + "<br/>";
+            Body += "Name : " + name + "<br/>";
+            Body += "Email : " + email + "<br/>";
+            Body += "Phone No : " + phone + "<br/>";
+            Body += "Password : " + password + "<br/>";
+
+
+
+            Body += "<b>Regards</b> " + "<br/>";
+            Body += "<b>Team Vitkund</b> " + "<br/>";
+            mail.Body = Body;
+
+
+            mail.IsBodyHtml = true;
+            smtp.Host = "smtpout.secureserver.net";
+            //smtp.Port = 80;
+            smtp.Port = 80;
+            //smtp.Port = 587;
+            smtp.UseDefaultCredentials = false;
+            smtp.Credentials = new System.Net.NetworkCredential("hello@thebusinessbox.in", "Webasp@12"); // Enter seders User name and password                                                                                           //smtp.Credentials = new System.Net.NetworkCredential("oknkapil@gmail.com", "1234@Abcd");
+            smtp.EnableSsl = false;
+
+            try
+            {
+
+                smtp.Send(mail);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
         public JsonResult SendContactEmail(string name, string email, string phone, string message)
         {
 
