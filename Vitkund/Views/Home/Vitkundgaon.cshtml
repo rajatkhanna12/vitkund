@@ -37,6 +37,11 @@
                                 <span id="maxvalspanname" style="color:red"></span><span id="validationMessageforname" style="color:red"></span><span id="requiredvalidationforname" style="color:red"></span>
                             </div>
                             <div class="col-md-6 col-12">
+                                <label>Business Name*</label>
+                                <input type="text" id="Nametxtbox" placeholder="Your Name">
+                                <span id="businessname3" style="color:red"></span><span id="businessname" style="color:red"></span><span id="businessname1" style="color:red"></span>
+                            </div>
+                            @*<div class="col-md-6 col-12">
                                 <label>Mobile Number *</label>
                                 <input type="text" id="mobilenotxtbox" placeholder="Your Mobile No. ">
                                 <span id="validationMessagemobileno" style="color:red"></span><span id="maxvalmobileno" style="color:red"></span><span id="requiredvalidationformobileno" style="color:red"></span>
@@ -45,200 +50,188 @@
                                 <label> Email *</label>
                                 <input type="text" id="Usernametxtbox" placeholder="Enter Email">
                                 <span id="maxvalspanusername" style="color:red"></span><span id="validationMessageforusername" style="color:red"></span><span id="requiredvalidationforusername" style="color:red"></span>
+                            </div>*@
+                          
+                            <div class="col-md-6 col-12">
+                                <label>Age*</label>
+                                <input type="text" placeholder="Your Age" id="age">
+                                <span id="error1"></span>
                             </div>
                             <div class="col-md-6 col-12">
-                                <label> Select Plan *</label>
+                                <label>Type of Firm*</label>
                                 <div class="rbt-modern-select bg-transparent height-45">
-                                    <select class="w-100 validationcheck" id="plan" required>
-
-                                        <option value="500000" selected>Pro (Recommended) 5000 /(3 Month)</option>
-                                        <option value="750000">Clasic 7500 /(6 Month)</option>
-                                        <option value="1000000">Silver 10000 /(9 Month)</option>
-                                        <option value="1250000">Gold 12500 /(12 Month)</option>
-
+                                    <select class="w-100 validationcheck" id="firm" required>
+                                        <option selected="selected"> -- Select --</option>
+                                        <option>Sole Proprietorship</option>
+                                        <option>Partnerships</option>
+                                        <option>Company</option>
+                                        <option>One Person Company</option>
+                                        <option>Unregistered</option>
                                     </select>
-                                    </div>
                                 </div>
-                                <div class="col-md-6 col-12">
-                                    <label>Age*</label>
-                                    <input type="text" placeholder="Your Age" id="age">
-                                    <span id="error1"></span>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <label>Type of Firm*</label>
-                                    <div class="rbt-modern-select bg-transparent height-45">
-                                        <select class="w-100 validationcheck" id="firm" required>
-                                            <option selected="selected"> -- Select --</option>
-                                            <option>Sole Proprietorship</option>
-                                            <option>Partnerships</option>
-                                            <option>Company</option>
-                                            <option>One Person Company</option>
-                                            <option>Unregistered</option>
-                                        </select>
-                                    </div>
-                                    <span id="error2"></span>
-                                </div>
+                                <span id="error2"></span>
+                            </div>
 
-                                <div class="col-md-6 col-12">
-                                    <label>Education*</label>
-                                    <div class="rbt-modern-select bg-transparent height-45">
-                                        <select class="w-100 validationcheck" id="education" required>
-                                            <option selected="selected"> -- Select --</option>
-                                            <option>10th</option>
-                                            <option>12th</option>
-                                            <option>Graduate</option>
-                                            <option>Post Graduate</option>
-                                            <option>Bussiness Related Education</option>
-                                        </select>
-                                        <span id="error3"></span>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 col-12">
-                                    <label>Profit Percentage*</label>
-                                    <div class="rbt-modern-select bg-transparent height-45">
-                                        <select class="w-100 validationcheck" id="profit">
-                                            <option> -- Select --</option>
-                                            <option><= 5%</option>
-                                            <option>6 to 10%</option>
-                                            <option>11 to 20%</option>
-                                            <option>21 to 35%</option>
-                                            <option> > 35%</option>
-                                        </select>
-                                        <span id="error4"></span>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 col-12">
-                                    <label>Experience*</label>
-                                    <div class="rbt-modern-select bg-transparent height-45">
-                                        <select class="w-100 validationcheck" id="exp">
-                                            <option> -- Select --</option>
-                                            <option><=1 Year</option>
-                                            <option>1 to 3 Year</option>
-                                            <option>3 to 5 Year</option>
-                                            <option> > 5 Year</option>
-                                            <option> > 7 Year/Related</option>
-                                        </select>
-                                        <span id="error5"></span>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 col-12">
-                                    <label>Premises*</label>
-                                    <div class="rbt-modern-select bg-transparent height-45">
-                                        <select class="w-100 validationcheck" id="premises">
-                                            <option> -- Select --</option>
-                                            <option>On Rent</option>
-                                            <option>On Lease</option>
-                                            <option>Trust/Society Property</option>
-                                            <option>Property</option>
-                                            <option>Own Property</option>
-                                        </select>
-                                        <span id="error6"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <label>Capital </label>
-                                    <div class="rbt-modern-select bg-transparent height-45">
-                                        <select class="w-100 validationcheck" id="capital">
-                                            <option> -- Select --</option>
-                                            <option> <= 10%</option>
-                                            <option>11 to 25%</option>
-                                            <option>26 to 40%</option>
-                                            <option>41 to 60%</option>
-                                            <option> >60%</option>
-                                        </select>
-                                        <span id="error7"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <label>Raw Material & Labour Etc. Availability</label>
-                                    <div class="rbt-modern-select bg-transparent height-45">
-                                        <select class="w-100 validationcheck" id="material">
-                                            <option> -- Select --</option>
-                                            <option> >251KM</option>
-                                            <option>151 to 250KM</option>
-                                            <option>101 to 150KM</option>
-                                            <option>51 to 100KM</option>
-                                            <option>Less then 50KM</option>
-                                        </select>
-                                        <span id="error8"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <label>Research & Development </label>
-                                    <div class="rbt-modern-select bg-transparent height-45">
-                                        <select class="w-100 validationcheck" id="research">
-                                            <option> -- Select --</option>
-                                            <option><=1 Year</option>
-                                            <option>1 to 3 Year</option>
-                                            <option>3 to 5 Year</option>
-                                            <option> >5 to 7 Year</option>
-                                            <option> >7 Year/Related</option>
-                                        </select>
-                                        <span id="error9"></span>
-                                    </div>
-                                </div>
-
-
-                                <div class="col-md-6 col-12">
-                                    <label>Marketing & Product Selling</label>
-                                    <div class="rbt-modern-select bg-transparent height-45">
-                                        <select class="w-100 validationcheck" id="market">
-                                            <option> -- Select --</option>
-                                            <option>Untrained Worker</option>
-                                            <option>Through Social Media</option>
-                                            <option>Through Trained & Skilled Workers</option>
-                                            <option>Responsibility of partner or Manager</option>
-                                            <option>Own Responsibility</option>
-                                        </select>
-                                        <span id="error10"></span>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 col-12">
-                                    <label>Cibil Score</label>
-                                    <div class="rbt-modern-select bg-transparent height-45">
-                                        <select class="w-100" id="cibil">
-                                            <option> -- Select --</option>
-                                            <option> >= 800</option>
-                                            <option> > 775 to 799</option>
-                                            <option> > 750 to 774</option>
-                                            <option> > 715 to 749</option>
-                                            <option> < 714</option>
-                                        </select>
-                                        <span id="error11"></span>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 col-12">
-                                    <label>Business Expertise</label>
-                                    <div class="rbt-modern-select bg-transparent height-45">
-                                        <select class="w-100 validationcheck" id="experts">
-                                            <option> -- Select --</option>
-                                            <option>Self Skilled</option>
-                                            <option>Partner or Manager Specialist</option>
-                                            <option>Worker & Labour Specialist</option>
-                                            <option>Semi-trained Staff & Owners</option>
-                                            <option>Untrained Staff & Owners</option>
-                                        </select>
-                                        <span id="error12"></span>
-                                    </div>
-                                </div>
-
-                                <div class="plceholder-button mt--50">
-                                    <button class="rbt-btn btn-gradient hover-icon-reverse vit_page1">
-                                        <a href="multiple-choice" style="color:#fff;">
-                                            <span class="icon-reverse-wrapper">
-                                                <span class="btn-text">Next</span>
-                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                            </span>
-                                        </a>
-                                    </button>
+                            <div class="col-md-6 col-12">
+                                <label>Education*</label>
+                                <div class="rbt-modern-select bg-transparent height-45">
+                                    <select class="w-100 validationcheck" id="education" required>
+                                        <option selected="selected"> -- Select --</option>
+                                        <option>10th</option>
+                                        <option>12th</option>
+                                        <option>Graduate</option>
+                                        <option>Post Graduate</option>
+                                        <option>Bussiness Related Education</option>
+                                    </select>
+                                    <span id="error3"></span>
                                 </div>
                             </div>
+
+                            <div class="col-md-6 col-12">
+                                <label>Profit Percentage*</label>
+                                <div class="rbt-modern-select bg-transparent height-45">
+                                    <select class="w-100 validationcheck" id="profit">
+                                        <option> -- Select --</option>
+                                        <option><= 5%</option>
+                                        <option>6 to 10%</option>
+                                        <option>11 to 20%</option>
+                                        <option>21 to 35%</option>
+                                        <option> > 35%</option>
+                                    </select>
+                                    <span id="error4"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-12">
+                                <label>Experience*</label>
+                                <div class="rbt-modern-select bg-transparent height-45">
+                                    <select class="w-100 validationcheck" id="exp">
+                                        <option> -- Select --</option>
+                                        <option><=1 Year</option>
+                                        <option>1 to 3 Year</option>
+                                        <option>3 to 5 Year</option>
+                                        <option> > 5 Year</option>
+                                        <option> > 7 Year/Related</option>
+                                    </select>
+                                    <span id="error5"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-12">
+                                <label>Premises*</label>
+                                <div class="rbt-modern-select bg-transparent height-45">
+                                    <select class="w-100 validationcheck" id="premises">
+                                        <option> -- Select --</option>
+                                        <option>On Rent</option>
+                                        <option>On Lease</option>
+                                        <option>Trust/Society Property</option>
+                                        <option>Property</option>
+                                        <option>Own Property</option>
+                                    </select>
+                                    <span id="error6"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label>Capital </label>
+                                <div class="rbt-modern-select bg-transparent height-45">
+                                    <select class="w-100 validationcheck" id="capital">
+                                        <option> -- Select --</option>
+                                        <option> <= 10%</option>
+                                        <option>11 to 25%</option>
+                                        <option>26 to 40%</option>
+                                        <option>41 to 60%</option>
+                                        <option> >60%</option>
+                                    </select>
+                                    <span id="error7"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label>Raw Material & Labour Etc. Availability</label>
+                                <div class="rbt-modern-select bg-transparent height-45">
+                                    <select class="w-100 validationcheck" id="material">
+                                        <option> -- Select --</option>
+                                        <option> >251KM</option>
+                                        <option>151 to 250KM</option>
+                                        <option>101 to 150KM</option>
+                                        <option>51 to 100KM</option>
+                                        <option>Less then 50KM</option>
+                                    </select>
+                                    <span id="error8"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label>Research & Development </label>
+                                <div class="rbt-modern-select bg-transparent height-45">
+                                    <select class="w-100 validationcheck" id="research">
+                                        <option> -- Select --</option>
+                                        <option><=1 Year</option>
+                                        <option>1 to 3 Year</option>
+                                        <option>3 to 5 Year</option>
+                                        <option> >5 to 7 Year</option>
+                                        <option> >7 Year/Related</option>
+                                    </select>
+                                    <span id="error9"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6 col-12">
+                                <label>Marketing & Product Selling</label>
+                                <div class="rbt-modern-select bg-transparent height-45">
+                                    <select class="w-100 validationcheck" id="market">
+                                        <option> -- Select --</option>
+                                        <option>Untrained Worker</option>
+                                        <option>Through Social Media</option>
+                                        <option>Through Trained & Skilled Workers</option>
+                                        <option>Responsibility of partner or Manager</option>
+                                        <option>Own Responsibility</option>
+                                    </select>
+                                    <span id="error10"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-12">
+                                <label>Cibil Score</label>
+                                <div class="rbt-modern-select bg-transparent height-45">
+                                    <select class="w-100" id="cibil">
+                                        <option> -- Select --</option>
+                                        <option> >= 800</option>
+                                        <option> > 775 to 799</option>
+                                        <option> > 750 to 774</option>
+                                        <option> > 715 to 749</option>
+                                        <option> < 714</option>
+                                    </select>
+                                    <span id="error11"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-12">
+                                <label>Business Expertise</label>
+                                <div class="rbt-modern-select bg-transparent height-45">
+                                    <select class="w-100 validationcheck" id="experts">
+                                        <option> -- Select --</option>
+                                        <option>Self Skilled</option>
+                                        <option>Partner or Manager Specialist</option>
+                                        <option>Worker & Labour Specialist</option>
+                                        <option>Semi-trained Staff & Owners</option>
+                                        <option>Untrained Staff & Owners</option>
+                                    </select>
+                                    <span id="error12"></span>
+                                </div>
+                            </div>
+
+                            <div class="plceholder-button mt--50">
+                                <button class="rbt-btn btn-gradient hover-icon-reverse vit_page1">
+                                    <a href="multiple-choice" style="color:#fff;">
+                                        <span class="icon-reverse-wrapper">
+                                            <span class="btn-text">Next</span>
+                                            <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                            <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                        </span>
+                                    </a>
+                                </button>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
