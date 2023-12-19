@@ -90,7 +90,7 @@
                 <span><b>Go ahead.</b></span>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary closeBusinessModal" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary next" data-dismiss="modal">Next</button>
 
             </div>
         </div>
@@ -146,8 +146,11 @@
     $('.closeBusinessModal').click(function () {
         $('#modalBusiness').modal('hide');
     })
+    $(".next").click(function () {
+        window.location.href = "/vitkund-gaon";
+    });
     function ddlChange() {
-        debugger;
+       
         var selectop = $('#yourchoice :selected').text();
         if (selectop == "Job") {
             $('#modalJob').modal('toggle');
