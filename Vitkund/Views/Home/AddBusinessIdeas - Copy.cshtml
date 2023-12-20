@@ -254,10 +254,6 @@
             validation = true
         else
             validation = false;
-
-        var imagevalid = $("#imageuploader")[0].files[0];
-        if (imagevalid == undefined)
-            validation = false;
         //validation checking
         if (title == "") { $("#titlerequired").show(); requiredval = false; } else { $("#titlerequired").hide(); requiredval = true; }
         if (shortdescription == "") { $("#shortdescrequired").show(); requiredval = false; } else { $("#shortdescrequired").hide(); requiredval = true; }

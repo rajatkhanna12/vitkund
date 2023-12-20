@@ -1,10 +1,10 @@
-﻿@model List<Vitkund.Models.tblBusinessidea>
+﻿@model List<Vitkund.Models.tblCourse>
 @{
-    ViewBag.Title = "AddBusinessIdeas";
+    ViewBag.Title = "AddCourse";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>AddBusinessIdeas</h2>
+<h2>AddCourses</h2>
 <div class="page-body">
 
     <!-- Container-fluid starts-->
@@ -16,7 +16,7 @@
                         <h3 style="text-align:center;margin:0 0 12px 0;display:none" id="successaddedh3">Data Saved Successfully</h3>
 
                         <div class="card-header pb-0">
-                            <h5 class="card-title mb-0">Add Trending Business</h5>
+                            <h5 class="card-title mb-0">Add Courses</h5>
                             <div class="card-options"><a class="card-options-collapse" href="#" data-bs-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a><a class="card-options-remove" href="#" data-bs-toggle="card-remove"><i class="fe fe-x"></i></a></div>
                         </div>
                         <div class="card-body">
@@ -68,7 +68,7 @@
                             </div>
                         </div>
                         <div class="card-footer text-end">
-                            <div class="text-end"><a class="btn btn-primary me-3" id="buttonaddupdate" href="javascript:void(0);" onclick="AddBusinessIdeas()">Add</a><a class="btn btn-danger" href="#">Cancel</a></div>
+                            <div class="text-end"><a class="btn btn-primary me-3" id="buttonaddupdate" href="javascript:void(0);" onclick="AddCourses()">Add</a><a class="btn btn-danger" href="#">Cancel</a></div>
 
                         </div>
                     </form>
@@ -84,7 +84,7 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-sm-6">
-                    <h3>Business Ideas</h3>
+                    <h3>Courses</h3>
                 </div>
 
             </div>
@@ -100,36 +100,36 @@
                         <div class="row my-gallery gallery-with-description" itemscope="" data-pswp-uid="2">
                             @foreach (var item1 in Model)
                             {
-                                <figure class="col-xl-3 col-6 xl-33" itemprop="associatedMedia" itemscope="">
-                                    <div style="float:right; margin-right:38px;">
-                                        <a class="icon-wrapper" href="javascript:void(0);" onclick="DeleteVideo(@item1.Id)"><i class="icofont icofont-trash"></i></a>
-                                    </div>
-                                    <div style="float:right; margin-right:76px;">
-                                        <a class="icon-wrapper" href="javascript:void(0);" onclick="EditVideo(@item1.Id)"><i class="icofont icofont-pencil"></i></a>
-                                    </div>
-                                    <a href="!#">
+                            <figure class="col-xl-3 col-6 xl-33" itemprop="associatedMedia" itemscope="">
+                                <div style="float:right; margin-right:38px;">
+                                    <a class="icon-wrapper" href="javascript:void(0);" onclick="DeleteVideo(@item1.Id)"><i class="icofont icofont-trash"></i></a>
+                                </div>
+                                <div style="float:right; margin-right:76px;">
+                                    <a class="icon-wrapper" href="javascript:void(0);" onclick="EditVideo(@item1.Id)"><i class="icofont icofont-pencil"></i></a>
+                                </div>
+                                <a href="!#">
 
-                                        @if (@item1.Image.Contains("Content"))
+                                    @if (@item1.Image.Contains("Content"))
                                         {
-                                            <img src="@item1.Image" itemprop="thumbnail" alt="Image description">
+                                    <img src="@item1.Image" itemprop="thumbnail" alt="Image description">
                                         }
                                         else
                                         {
-                                            <img src="~/Content/Uploads/@item1.Image" itemprop="thumbnail" alt="Image description">
+                                    <img src="~/Content/Uploads/@item1.Image" itemprop="thumbnail" alt="Image description">
                                         }
 
-                                        <div class="caption">
-                                            <h4>@item1.Title</h4>
-                                            <span class="clsshortdescription">@item1.ShortDescription</span>
-                                            <br />
-                                            @if (!string.IsNullOrEmpty(item1.fromPrice.ToString()) && !string.IsNullOrEmpty(item1.toPrice.ToString()))
+                                    <div class="caption">
+                                        <h4>@item1.Title</h4>
+                                        <span class="clsshortdescription">@item1.ShortDescription</span>
+                                        <br />
+                                        @if (!string.IsNullOrEmpty(item1.FromPrice.ToString()) && !string.IsNullOrEmpty(item1.ToPrice.ToString()))
                                             {
-                                                <span class="classprice">Price Range :- @item1.fromPrice - @item1.toPrice</span>
+                                        <span class="classprice">Price Range :- @item1.FromPrice - @item1.ToPrice</span>
                                             }
-                                        </div>
-                                    </a>
+                                    </div>
+                                </a>
 
-                                </figure>
+                            </figure>
                             }
 
 
@@ -238,7 +238,7 @@
             $(this).val(numericValue);
         });
     })
-    function AddBusinessIdeas() {
+    function AddCourses() {
         //debugger
         var requiredval = true;
         var Id = $("#RecordIdhidden").val();
@@ -254,10 +254,10 @@
             validation = true
         else
             validation = false;
-
         var imagevalid = $("#imageuploader")[0].files[0];
-        if (imagevalid == undefined)
+        if (imagevalid == undefined && $("#uplaoderimagevalue").text()=="")
             validation = false;
+
         //validation checking
         if (title == "") { $("#titlerequired").show(); requiredval = false; } else { $("#titlerequired").hide(); requiredval = true; }
         if (shortdescription == "") { $("#shortdescrequired").show(); requiredval = false; } else { $("#shortdescrequired").hide(); requiredval = true; }
@@ -268,14 +268,14 @@
 
         if (requiredval ==true && validation == true) {
             $.ajax({
-                url: '@Url.Action("UploadFile", "Home")',
+                url: '@Url.Action("UploadCourseFile", "Home")',
                 type: 'POST',
                 data: formData,
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    var tblBusinessideadata = { Id: Id, Title: title, Image: response, ShortDescription: shortdescription, LongDescription: longdescription, fromprice: fromprice, toprice: toprice };
-                    finaladdmodal(tblBusinessideadata);
+                    var tblCoursedata = { Id: Id, Title: title, Image: response, ShortDescription: shortdescription, LongDescription: longdescription, Fromprice: fromprice, Toprice: toprice };
+                    finaladdmodal(tblCoursedata);
                 },
                 error: function (error) {
                     // Handle errors
@@ -286,11 +286,11 @@
         else { }
 
     }
-    function finaladdmodal(tblBusinessideadata) {
+    function finaladdmodal(tblCoursedata) {
         $.ajax({
             type: 'POST',
-            url: '/Home/AddBusinessIdeas',
-            data: JSON.stringify({ tblBusinessidea:tblBusinessideadata}),
+            url: '/Home/AddCourses',
+            data: JSON.stringify({ tblcourse:tblCoursedata}),
             traditional: true,
             contentType: 'application/json; charset=utf-8',
             datatype: 'json',
@@ -309,7 +309,7 @@
             debugger
             $.ajax({
                 type: 'POST',
-                url: '@Url.Action("GetBusinessIdeaById", "Home")',
+                url: '@Url.Action("GetCourseById", "Home")',
                 data: JSON.stringify({ Id: elm }),
                 traditional: true,
                 contentType: 'application/json; charset=utf-8',
@@ -322,8 +322,8 @@
                         $("#Longdescriptiontxtbox").val(response.message.LongDescription);
                         $("#RecordIdhidden").val(response.message.Id);
                         $("#uplaoderimagevalue").text(response.message.Image);
-                        $("#topricetxtbox").val(response.message.toPrice);
-                        $("#frompricetxtbox").val(response.message.fromPrice);
+                        $("#topricetxtbox").val(response.message.ToPrice);
+                        $("#frompricetxtbox").val(response.message.FromPrice);
                         $("#uplaoderimagevalue").show();
                         $("#buttonaddupdate").text("Update");
                         window.scrollTo(0, 0);
@@ -336,13 +336,12 @@
             });
     }
     function DeleteVideo(elm) {
-
         var result = confirm("Want to delete?");
         if (result) {
             debugger
             $.ajax({
                 type: 'POST',
-                url: '@Url.Action("DeleteBusinessIdea", "Home")',
+                url: '@Url.Action("DeleteCourse", "Home")',
                 data: JSON.stringify({ Id: elm }),
                 traditional: true,
                 contentType: 'application/json; charset=utf-8',
@@ -360,7 +359,5 @@
                 }
             });
         }
-
-
     }
 </script>

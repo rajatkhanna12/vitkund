@@ -1,52 +1,70 @@
-﻿
+﻿@model Vitkund.Models.tblCourse
 
-    <!-- Start breadcrumb Area -->
-    <div class="rbt-breadcrumb-default rbt-breadcrumb-style-3">
-        <div class="breadcrumb-inner">
-            <img src="~/Content/assets/images/bg/bg-image-10.jpg" alt="Education Images">
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="content text-start">
-                        <ul class="page-list">
-                            <li class="rbt-breadcrumb-item"><a href="index">Home</a></li>
-                            <li>
-                                <div class="icon-right"><i class="feather-chevron-right"></i></div>
-                            </li>
-                            <li class="rbt-breadcrumb-item active">Courses</li>
-                        </ul>
-                        <h2 class="title">Business Education</h2>
-                        <p class="description">
-                            "India's most practical, experienced, down to earth, no imaginary talk platform, beyond Google knowledge."
-                        </p>
+<!-- Start breadcrumb Area -->
+<div class="rbt-breadcrumb-default rbt-breadcrumb-style-3">
+    <div class="breadcrumb-inner">
+        <img src="~/Content/assets/images/bg/bg-image-10.jpg" alt="Education Images">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="content text-start">
+                    <ul class="page-list">
+                        <li class="rbt-breadcrumb-item"><a href="index">Home</a></li>
+                        <li>
+                            <div class="icon-right"><i class="feather-chevron-right"></i></div>
+                        </li>
+                        <li class="rbt-breadcrumb-item active">Courses</li>
+                    </ul>
+                    <h2 class="title">@Model.Title</h2>
+                    <p class="description">
+                        @Model.ShortDescription
+                    </p>
 
-                        <ul class="rbt-meta">
-                            <li><i class="feather-calendar"></i>Last updated 12/2023</li>
-                        </ul>
+                    <ul class="rbt-meta">
+                        <li>
+                            <i class="feather-calendar"></i>Last updated
+                            @if (Model.UpdatedDate.ToString() != null && Model.UpdatedDate.ToString() != "")
+                            {
+                                @Model.UpdatedDate.Value.ToString("dd-MM-yyyy");
+                            }
+                            else
+                            { @Model.CreatedDate.Value.ToString("dd-MM-yyyy");
 
-                    </div>
+                        }
+                        </li>
+                    </ul>
+
                 </div>
             </div>
         </div>
     </div>
-    <!-- End Breadcrumb Area -->
+</div>
+<!-- End Breadcrumb Area -->
 
-    <div class="rbt-course-details-area ptb--60">
-        <div class="container">
-            <div class="row g-5">
-
+<div class="rbt-course-details-area ptb--60">
+    <div class="container">
+        <div class="row g-5">
+            @if (Model != null)
+            {
                 <div class="col-lg-8">
                     <div class="course-details-content">
                         <div class="rbt-course-feature-box rbt-shadow-box thuumbnail">
-                            <img class="w-100" src="~/Content/assets/images/course-01.jpg" alt="Card image">
+                            @if (@Model.Image.Contains("Content"))
+                            {
+                                <img class="w-100" src="@Model.Image" alt="Card image">
+                            }
+                            else
+                            {
+                                <img class="w-100" src="~/Content/Uploads/@Model.Image" alt="Card image">
+                            }
                         </div>
 
                         <!-- Start Course Feature Box  -->
                         <div class="rbt-course-feature-box overview-wrapper rbt-shadow-box mt--30 has-show-more" id="overview">
                             <div class="rbt-course-feature-inner has-show-more-inner-content">
                                 <div class="section-title">
-                                    <h4 class="rbt-title-style-3">What you'll learn</h4>
+                                    <h4 class="rbt-title-style-3">@Model.Title</h4>
                                 </div>
                                 <p>
                                     Are you new to PHP or need a refresher? Then this course will help you get
@@ -127,255 +145,269 @@
                             <div class="rbt-show-more-btn">Show More</div>
                         </div>
                         <!-- End Course Feature Box  -->
-                   
+
                     </div>
-                
+
                 </div>
+            }
+            <div class="col-lg-4">
+                <div class="course-sidebar sticky-top rbt-shadow-box course-sidebar-top rbt-gradient-border">
+                    <div class="inner">
 
-                <div class="col-lg-4">
-                    <div class="course-sidebar sticky-top rbt-shadow-box course-sidebar-top rbt-gradient-border">
-                        <div class="inner">
-
-                            <!-- Start Viedo Wrapper 
-                            <a class="video-popup-with-text video-popup-wrapper text-center popup-video sidebar-video-hidden mb--15" href="https://www.youtube.com/watch?v=nA1Aqp0sPQo">
-                                <div class="video-content">
-                                    <img class="w-100 rbt-radius" src="~/Content/assets/images/video-01.jpg" alt="Video Images">
-                                    <div class="position-to-top">
-                                        <span class="rbt-btn rounded-player-2 with-animation">
-                                            <span class="play-icon"></span>
-                                        </span>
-                                    </div>
-                                    <span class="play-view-text d-block color-white"><i class="feather-eye"></i> Preview this course</span>
+                        <!-- Start Viedo Wrapper
+                        <a class="video-popup-with-text video-popup-wrapper text-center popup-video sidebar-video-hidden mb--15" href="https://www.youtube.com/watch?v=nA1Aqp0sPQo">
+                            <div class="video-content">
+                                <img class="w-100 rbt-radius" src="~/Content/assets/images/video-01.jpg" alt="Video Images">
+                                <div class="position-to-top">
+                                    <span class="rbt-btn rounded-player-2 with-animation">
+                                        <span class="play-icon"></span>
+                                    </span>
                                 </div>
-                            </a>
-                             End Viedo Wrapper  -->
+                                <span class="play-view-text d-block color-white"><i class="feather-eye"></i> Preview this course</span>
+                            </div>
+                        </a>
+                         End Viedo Wrapper  -->
 
-                            <div class="content-item-content">
-                                <div class="rbt-price-wrapper d-flex flex-wrap align-items-center justify-content-between">
-                                    <div class="rbt-price">
-                                        <span class="current-price">₹5000</span>
-                                    </div>
-                                    <div class="discount-time">
-                                        <span class="rbt-badge color-danger bg-color-danger-opacity">
-                                            <i class="feather-clock"></i> 3 days left!
-                                        </span>
-                                    </div>
+                        <div class="content-item-content">
+                            <div class="rbt-price-wrapper d-flex flex-wrap align-items-center justify-content-between">
+                                <div class="rbt-price">
+                                    <span class="current-price">₹@Model.FromPrice</span>
                                 </div>
+                                <div class="discount-time">
+                                    <span class="rbt-badge color-danger bg-color-danger-opacity">
+                                        <i class="feather-clock"></i> 3 days left!
+                                    </span>
+                                </div>
+                            </div>
 
-                              
-                                <div class="buy-now-btn mt--15">
-                                    <a class="rbt-btn btn-border icon-hover w-100 d-block text-center" href="#">
-                                        <span class="btn-text">Buy Now</span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+
+                            <div class="buy-now-btn mt--15">
+                                <a class="rbt-btn btn-border icon-hover w-100 d-block text-center" href="#">
+                                    <span class="btn-text">Buy Now</span>
+                                    <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                </a>
+                            </div>
+
+                            <span class="subtitle">
+                                <i class="feather-rotate-ccw"></i> 3 Day Money-Back Guarantee
+                            </span>
+
+
+                            <!----<div class="rbt-widget-details has-show-more">
+                                <ul class="has-show-more-inner-content rbt-course-details-list-wrapper">
+                                    <li>
+                                        <span>Start Date</span><span class="rbt-feature-value rbt-badge-5">5 Hrs 20 Min</span>
+                                    </li>
+                                    <li><span>Enrolled</span><span class="rbt-feature-value rbt-badge-5">100</span></li>
+                                    <li><span>Lectures</span><span class="rbt-feature-value rbt-badge-5">50</span></li>
+                                    <li><span>Skill Level</span><span class="rbt-feature-value rbt-badge-5">Basic</span></li>
+                                    <li><span>Language</span><span class="rbt-feature-value rbt-badge-5">English</span></li>
+                                    <li><span>Quizzes</span><span class="rbt-feature-value rbt-badge-5">10</span></li>
+                                    <li><span>Certificate</span><span class="rbt-feature-value rbt-badge-5">Yes</span></li>
+                                    <li><span>Pass Percentage</span><span class="rbt-feature-value rbt-badge-5">95%</span></li>
+                                </ul>
+                                <div class="rbt-show-more-btn">Show More</div>
+                            </div>--->
+
+                            <div class="social-share-wrapper mt--30 text-center">
+                                <div class="rbt-post-share d-flex align-items-center justify-content-center">
+                                    <ul class="social-icon social-default transparent-with-border justify-content-center">
+                                        <li>
+                                            <a href="https://m.facebook.com/profile.php?id=100087627835593&mibextid=ZbWKwL">
+                                                <i class="feather-facebook"></i>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="https://instagram.com/vitkund">
+                                                <i class="feather-instagram"></i>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="https://www.youtube.com/@("@vitkund")">
+                                                <i class="feather-youtube"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <hr class="mt--20">
+                                <div class="contact-with-us text-center">
+                                    <p>For details about the course</p>
+                                    <p class="rbt-badge-2 mt--10 justify-content-center w-100"><i class="feather-phone mr--5"></i> Call Us: <a href="#"><strong>+91 860 760 9898</strong></a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="rbt-separator-mid">
+    <div class="container">
+        <hr class="rbt-separator m-0">
+    </div>
+</div>
+
+<div class="rbt-related-course-area bg-color-white pt--60 rbt-section-gapBottom">
+    <div class="container">
+        <div class="section-title mb--30">
+            <h4 class="title">Related Courses</h4>
+        </div>
+        <div class="row g-5">
+            @if (ViewBag.tblcoursestop3 != null)
+            {
+                foreach (var item in ViewBag.tblcoursestop3)
+                {
+
+
+                    <!-- Start Single Card  -->
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="rbt-card variation-01 rbt-hover">
+                            <div class="rbt-card-img" style="padding-top:20px;">
+                                <a href="#">
+                                    @if (@item.Image.Contains("Content"))
+                                    {
+                                        <img src="@item.Image" alt="Card image">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Content/Uploads/@item.Image" alt="Card image">
+                                    }
+
+                                </a>
+                            </div>
+                            <div class="rbt-card-body">
+
+                                <h4 class="rbt-card-title" style="margin-top:20px;">
+                                    <a href="#">@item.Title</a>
+                                </h4>
+                                <ul class="rbt-meta">
+                                    <li><i class="feather-book"></i>8 Lessons</li>
+                                </ul>
+                                <p class="rbt-card-text">
+                                    @item.ShortDescription
+                                </p>
+
+                                <div class="rbt-card-bottom">
+
+                                    <a class="rbt-btn-link" href="/Course/@item.Id">
+                                        Learn
+                                        More<i class="feather-arrow-right"></i>
                                     </a>
                                 </div>
-
-                                <span class="subtitle">
-                                    <i class="feather-rotate-ccw"></i> 3 Day Money-Back Guarantee
-                                </span>
-
-
-                                <!----<div class="rbt-widget-details has-show-more">
-                                    <ul class="has-show-more-inner-content rbt-course-details-list-wrapper">
-                                        <li>
-                                            <span>Start Date</span><span class="rbt-feature-value rbt-badge-5">5 Hrs 20 Min</span>
-                                        </li>
-                                        <li><span>Enrolled</span><span class="rbt-feature-value rbt-badge-5">100</span></li>
-                                        <li><span>Lectures</span><span class="rbt-feature-value rbt-badge-5">50</span></li>
-                                        <li><span>Skill Level</span><span class="rbt-feature-value rbt-badge-5">Basic</span></li>
-                                        <li><span>Language</span><span class="rbt-feature-value rbt-badge-5">English</span></li>
-                                        <li><span>Quizzes</span><span class="rbt-feature-value rbt-badge-5">10</span></li>
-                                        <li><span>Certificate</span><span class="rbt-feature-value rbt-badge-5">Yes</span></li>
-                                        <li><span>Pass Percentage</span><span class="rbt-feature-value rbt-badge-5">95%</span></li>
-                                    </ul>
-                                    <div class="rbt-show-more-btn">Show More</div>
-                                </div>--->
-
-                                <div class="social-share-wrapper mt--30 text-center">
-                                    <div class="rbt-post-share d-flex align-items-center justify-content-center">
-                                        <ul class="social-icon social-default transparent-with-border justify-content-center">
-                                            <li>
-                                                <a href="https://m.facebook.com/profile.php?id=100087627835593&mibextid=ZbWKwL">
-                                                    <i class="feather-facebook"></i>
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a href="https://instagram.com/vitkund">
-                                                    <i class="feather-instagram"></i>
-                                                </a>
-                                            </li>
-
-                                            <li>
-                                                <a href="https://www.youtube.com/@("@vitkund")">
-                                                    <i class="feather-youtube"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <hr class="mt--20">
-                                    <div class="contact-with-us text-center">
-                                        <p>For details about the course</p>
-                                        <p class="rbt-badge-2 mt--10 justify-content-center w-100"><i class="feather-phone mr--5"></i> Call Us: <a href="#"><strong>+91 860 760 9898</strong></a></p>
-                                    </div>
-                                </div>
                             </div>
                         </div>
+                    </div>
+                    <!-- End Single Card  -->
+                }
+            }
+            <!-- Start Single Card  -->
+            <!--<div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                <div class="rbt-card variation-01 rbt-hover">
+                    <div class="rbt-card-img" style="padding-top:20px;">
+                        <a href="#">
+                            <img src="~/Content/assets/images/course-online-04.jpg" alt="Card image" />
+                        </a>
+                    </div>
+                    <div class="rbt-card-body">
+
+
+                        <h4 class="rbt-card-title" style="margin-top:20px;">
+                            <a href="#">Web Front To Back</a>
+                        </h4>
+                        <ul class="rbt-meta">
+                            <li><i class="feather-book"></i>20 Lessons</li>
+                        </ul>
+                        <p class="rbt-card-text">
+                            Web Js long fact that a reader will be distracted by
+                            the readable.
+                        </p>
+
+
+                        <div class="rbt-card-bottom">
+                            <a class="rbt-btn-link" href="#">
+                                Learn
+                                More<i class="feather-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <!-- End Single Card  -->
+            <!-- Start Single Card  -->
+            <!--<div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                <div class="rbt-card variation-01 rbt-hover">
+                    <div class="rbt-card-img" style="margin-top:20px;">
+                        <a href="#">
+                            <img src="~/Content/assets/images/course-online-05.jpg" alt="Card image" />
+                        </a>
+                    </div>
+                    <div class="rbt-card-body">
+
+                        <h4 class="rbt-card-title" style="margin-top:20px;">
+                            <a href="#">SQL Beginner Advanced</a>
+                        </h4>
+                        <ul class="rbt-meta">
+                            <li><i class="feather-book"></i>12 Lessons</li>
+                        </ul>
+                        <p class="rbt-card-text">
+                            It is a long established fact that a reader will be
+                            distracted
+                            by the readable.
+                        </p>
+
+                        <div class="rbt-card-bottom">
+                            <a class="rbt-btn-link" href="#">
+                                Learn
+                                More<i class="feather-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <!-- End Single Card  -->
+
+        </div>
+    </div>
+</div>
+
+<!-- Start Course Action Bottom  -->
+<div class="rbt-course-action-bottom">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-6">
+                <div class="section-title text-center text-md-start">
+                    <h5 class="title mb--0">Business Education</h5>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 mt_sm--15">
+                <div class="course-action-bottom-right rbt-single-group">
+                    <div class="rbt-single-list rbt-price large-size justify-content-center">
+                        <span class="current-price color-primary">₹5000</span>
+                    </div>
+                    <div class="rbt-single-list action-btn">
+                        <a class="rbt-btn btn-gradient hover-icon-reverse btn-md" href="#">
+                            <span class="icon-reverse-wrapper">
+                                <span class="btn-text">Purchase Now</span>
+                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                            </span>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<!-- End Course Action Bottom  -->
 
-    <div class="rbt-separator-mid">
-        <div class="container">
-            <hr class="rbt-separator m-0">
-        </div>
+<div class="rbt-separator-mid">
+    <div class="container">
+        <hr class="rbt-separator m-0">
     </div>
-
-    <div class="rbt-related-course-area bg-color-white pt--60 rbt-section-gapBottom">
-        <div class="container">
-            <div class="section-title mb--30">
-                <h4 class="title">Related Courses</h4>
-            </div>
-            <div class="row g-5">
-
-                <!-- Start Single Card  -->
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="rbt-card variation-01 rbt-hover">
-                        <div class="rbt-card-img" style="padding-top:20px;">
-                            <a href="#">
-                                <img src="~/Content/assets/images/course-online-03.jpg" alt="Card image" />
-                            </a>
-                        </div>
-                        <div class="rbt-card-body">
-                             
-                            <h4 class="rbt-card-title" style="margin-top:20px;">
-                                <a href="#">Angular Zero to Mastery</a>
-                            </h4>
-                            <ul class="rbt-meta">
-                                <li><i class="feather-book"></i>8 Lessons</li>
-                            </ul>
-                            <p class="rbt-card-text">
-                                Angular Js long fact that a reader will be distracted by
-                                the readable.
-                            </p>
-
-                            <div class="rbt-card-bottom">
-                              
-                                <a class="rbt-btn-link" href="#">
-                                    Learn
-                                    More<i class="feather-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Single Card  -->
-                <!-- Start Single Card  -->
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="rbt-card variation-01 rbt-hover">
-                        <div class="rbt-card-img" style="padding-top:20px;">
-                            <a href="#">
-                                <img src="~/Content/assets/images/course-online-04.jpg" alt="Card image" />
-                            </a>
-                        </div>
-                        <div class="rbt-card-body">
-                           
-
-                            <h4 class="rbt-card-title" style="margin-top:20px;">
-                                <a href="#">Web Front To Back</a>
-                            </h4>
-                            <ul class="rbt-meta">
-                                <li><i class="feather-book"></i>20 Lessons</li>
-                            </ul>
-                            <p class="rbt-card-text">
-                                Web Js long fact that a reader will be distracted by
-                                the readable.
-                            </p>
-                           
-
-                            <div class="rbt-card-bottom">
-                                <a class="rbt-btn-link" href="#">
-                                    Learn
-                                    More<i class="feather-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Single Card  -->
-                <!-- Start Single Card  -->
-                <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="rbt-card variation-01 rbt-hover">
-                        <div class="rbt-card-img" style="margin-top:20px;">
-                            <a href="#">
-                                <img src="~/Content/assets/images/course-online-05.jpg" alt="Card image" />
-                            </a>
-                        </div>
-                        <div class="rbt-card-body">
-                            
-                            <h4 class="rbt-card-title" style="margin-top:20px;">
-                                <a href="#">SQL Beginner Advanced</a>
-                            </h4>
-                            <ul class="rbt-meta">
-                                <li><i class="feather-book"></i>12 Lessons</li>
-                            </ul>
-                            <p class="rbt-card-text">
-                                It is a long established fact that a reader will be
-                                distracted
-                                by the readable.
-                            </p>
-                           
-                            <div class="rbt-card-bottom">
-                                <a class="rbt-btn-link" href="#">
-                                    Learn
-                                    More<i class="feather-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Single Card  -->
-
-            </div>
-        </div>
-    </div>
-
-    <!-- Start Course Action Bottom  -->
-    <div class="rbt-course-action-bottom">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 col-md-6">
-                    <div class="section-title text-center text-md-start">
-                        <h5 class="title mb--0">Business Education</h5>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 mt_sm--15">
-                    <div class="course-action-bottom-right rbt-single-group">
-                        <div class="rbt-single-list rbt-price large-size justify-content-center">
-                            <span class="current-price color-primary">₹5000</span>
-                        </div>
-                        <div class="rbt-single-list action-btn">
-                            <a class="rbt-btn btn-gradient hover-icon-reverse btn-md" href="#">
-                                <span class="icon-reverse-wrapper">
-                                    <span class="btn-text">Purchase Now</span>
-                                    <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                    <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Course Action Bottom  -->
-
-    <div class="rbt-separator-mid">
-        <div class="container">
-            <hr class="rbt-separator m-0">
-        </div>
-    </div>
+</div>
 
 

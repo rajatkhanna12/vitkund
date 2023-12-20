@@ -16,13 +16,23 @@
                         </li>
                         <li class="rbt-breadcrumb-item active">Business Details</li>
                     </ul>
-                    <h2 class="title">Business Education</h2>
+                    <h2 class="title">@Model.Title</h2>
                     <p class="description">
-                        "India's most practical, experienced, down to earth, no imaginary talk platform, beyond Google knowledge."
+                        @Model.ShortDescription
                     </p>
 
                     <ul class="rbt-meta">
-                        <li><i class="feather-calendar"></i>Last updated 12/2023</li>
+                        <li>
+                            <i class="feather-calendar"></i>Last updated
+                            @if (Model.UpdateDate.ToString() != null && Model.UpdateDate.ToString() != "")
+                            {
+                                @Model.UpdateDate.Value.ToString("dd-MM-yyyy");
+                            }
+                            else
+                            { @Model.createDate.Value.ToString("dd-MM-yyyy");
+
+                        }
+                        </li>
                     </ul>
 
                 </div>
@@ -39,39 +49,39 @@
             <div class="col-lg-8">
                 @if (Model != null)
                 {
-                  
 
-                <div class="rbt-card variation-01 rbt-hover">
 
-                    <div class="thuumbnail" style="padding-top:15px;">
-                        <a href="#">
-                            @if (@Model.Image.Contains("Content"))
-                            {
-                                <img src="@Model.Image" alt="Card image">
-                            }
-                            else
-                            {
-                                <img src="~/Content/Uploads/@Model.Image" alt="Card image">
-                            }
+                    <div class="rbt-card variation-01 rbt-hover">
 
-                        </a>
-                    </div>
+                        <div class="thuumbnail" style="padding-top:15px;">
+                            <a href="#">
+                                @if (@Model.Image.Contains("Content"))
+                                {
+                                    <img src="@Model.Image" alt="Card image">
+                                }
+                                else
+                                {
+                                    <img src="~/Content/Uploads/@Model.Image" alt="Card image">
+                                }
 
-                    <div class="rbt-card-body" style="padding-top:30px;">
-                        <div class="rbt-card-top">
+                            </a>
                         </div>
 
-                        <h4 class="rbt-card-title">
-                            <a href="#">@Model.Title</a>
-                        </h4>
-                        <p class="rbt-card-text">
-                            @Model.ShortDescription
-                        </p>
+                        <div class="rbt-card-body" style="padding-top:30px;">
+                            <div class="rbt-card-top">
+                            </div>
 
-                        <p>@Model.LongDescription</p>
+                            <h4 class="rbt-card-title">
+                                <a href="#">@Model.Title</a>
+                            </h4>
+                            <p class="rbt-card-text">
+                                @Model.ShortDescription
+                            </p>
 
+                            <p>@Model.LongDescription</p>
+
+                        </div>
                     </div>
-                </div>
 
                 }
                 <!-- End Single Card  -->
@@ -100,7 +110,7 @@
                         <div class="content-item-content">
                             <div class="rbt-price-wrapper d-flex flex-wrap align-items-center justify-content-between">
                                 <div class="rbt-price">
-                                    <span class="current-price">₹5000</span>
+                                    <span class="current-price">₹@Model.fromPrice</span>
                                 </div>
                                 <div class="discount-time">
                                     <span class="rbt-badge color-danger bg-color-danger-opacity">
@@ -186,41 +196,54 @@
             <h4 class="title">Related Courses</h4>
         </div>
         <div class="row g-5">
+            @if (ViewBag.tblcoursestop3 != null)
+            {
+                foreach (var item in ViewBag.tblcoursestop3)
+                {
+                    <!-- Start Single Card  -->
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+                        <div class="rbt-card variation-01 rbt-hover">
+                            <div class="rbt-card-img" style="padding-top:20px;">
+                                <a href="#">
+                                    @if (@item.Image.Contains("Content"))
+                                    {
+                                        <img src="@item.Image" alt="Card image">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Content/Uploads/@item.Image" alt="Card image">
+                                    }
+                                </a>
+                            </div>
+                            <div class="rbt-card-body">
 
-            <!-- Start Single Card  -->
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
-                <div class="rbt-card variation-01 rbt-hover">
-                    <div class="rbt-card-img" style="padding-top:20px;">
-                        <a href="#">
-                            <img src="~/Content/assets/images/course-online-03.jpg" alt="Card image" />
-                        </a>
-                    </div>
-                    <div class="rbt-card-body">
+                                <h4 class="rbt-card-title" style="margin-top:20px;">
+                                    <a href="#">@item.Title</a>
+                                </h4>
+                                <ul class="rbt-meta">
+                                    <li><i class="feather-book"></i>8 Lessons</li>
+                                </ul>
+                                <p class="rbt-card-text">
+                                   @item.ShortDescription
+                                </p>
 
-                        <h4 class="rbt-card-title" style="margin-top:20px;">
-                            <a href="#">Angular Zero to Mastery</a>
-                        </h4>
-                        <ul class="rbt-meta">
-                            <li><i class="feather-book"></i>8 Lessons</li>
-                        </ul>
-                        <p class="rbt-card-text">
-                            Angular Js long fact that a reader will be distracted by
-                            the readable.
-                        </p>
+                                <div class="rbt-card-bottom">
 
-                        <div class="rbt-card-bottom">
-
-                            <a class="rbt-btn-link" href="#">
-                                Learn
-                                More<i class="feather-arrow-right"></i>
-                            </a>
+                                    <a class="rbt-btn-link"  href="/Course/@item.Id">
+                                        Learn
+                                        More<i class="feather-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <!-- End Single Card  -->
+                    <!-- End Single Card  -->
+
+                }
+            }
+
             <!-- Start Single Card  -->
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+            <!--<div class="col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="rbt-card variation-01 rbt-hover">
                     <div class="rbt-card-img" style="padding-top:20px;">
                         <a href="#">
@@ -250,10 +273,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <!-- End Single Card  -->
             <!-- Start Single Card  -->
-            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
+            <!--<div class="col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="rbt-card variation-01 rbt-hover">
                     <div class="rbt-card-img" style="margin-top:20px;">
                         <a href="#">
@@ -282,7 +305,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <!-- End Single Card  -->
 
         </div>

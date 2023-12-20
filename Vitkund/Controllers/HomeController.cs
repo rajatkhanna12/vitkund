@@ -41,20 +41,6 @@ namespace Vitkund.Controllers
 
             return View();
         }
-        [Route("Course")]
-        public ActionResult Course()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-        [Route("Course-details")]
-        public ActionResult CourseDetails()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
         [Route("Faq")]
         public ActionResult Faq()
         {
@@ -241,6 +227,10 @@ namespace Vitkund.Controllers
             {
                 VitkundEntities db = new VitkundEntities();
                 tblBusinessidea tblbusinessidea = db.tblBusinessideas.Find(Convert.ToInt32(Id));
+                int id = Convert.ToInt32(Id);
+                var data = db.tblCourses.Where(x => x.Id != id).Take(3).ToList();
+                if (data != null)
+                    ViewBag.tblcoursestop3 = data;
                 if (tblbusinessidea == null)
                     return HttpNotFound();
                 else
@@ -864,7 +854,7 @@ namespace Vitkund.Controllers
                 db.tblAdmins.Add(tbladmin);
                 db.SaveChanges();
 
-                SendWelcomeEmail(tbladmin.Name, tbladmin.Email, tbladmin.PhoneNumber, tbladmin.Password,tbladmin.ReferCode, tbladmin.Username);
+                SendWelcomeEmail(tbladmin.Name, tbladmin.Email, tbladmin.PhoneNumber, tbladmin.Password, tbladmin.ReferCode, tbladmin.Username);
                 return Json(new { success = true, message = "Signup successfully", id = tbladmin.Id });
             }
             catch (Exception ex)
@@ -967,9 +957,221 @@ namespace Vitkund.Controllers
         }
         #endregion
 
+        #region Courses
+        [Route("Course")]
+        public ActionResult Course()
+        {
+            VitkundEntities db = new VitkundEntities();
+            var result = db.tblCourses.ToList();
+            return View(result);
+        }
+        [Route("Course/{Id}")]
+        public ActionResult CourseDetails(string Id)
+        {
+            Random random = new Random();
+            VitkundEntities db = new VitkundEntities();
+            tblCourse tblcourse = db.tblCourses.Find(Convert.ToInt32(Id));
+            int id = Convert.ToInt32(Id);
+            var result = db.tblCourses.Where(x => x.Id != id).Take(3).ToList();
+            if (result != null)
+                ViewBag.tblcoursestop3 = result;
+            if (tblcourse == null)
+                return HttpNotFound();
+            else
+            {
+                return View(tblcourse);
+            }
+        }
+        [HttpPost]
+        public ActionResult FilterCourses(string filtervalue)
+        {
+            VitkundEntities db = new VitkundEntities();
+            if (filtervalue == "Popularity")
+            {
+                var orderbypopularitty = db.tblCourses.OrderByDescending(x => x.Id).ToList();
+                if (string.IsNullOrEmpty(orderbypopularitty.ToString()))
+                {
+
+                    return Json(new { data = "No Data Found!" });
+                }
+                else
+                {
+                    return Json(new { data = orderbypopularitty });
+                }
+            }
+            else if (filtervalue == "Price: low to high")
+            {
+                var orderbypopularitty = db.tblCourses.OrderBy(x => x.FromPrice).ToList();
+                if (string.IsNullOrEmpty(orderbypopularitty.ToString()))
+                {
+
+                    return Json(new { data = "No Data Found!" });
+                }
+                else
+                {
+                    return Json(new { data = orderbypopularitty });
+                }
+            }
+            else if (filtervalue == "Price: high to low")
+            {
+                var orderbypopularitty = db.tblCourses.OrderByDescending(x => x.FromPrice).ToList();
+                if (string.IsNullOrEmpty(orderbypopularitty.ToString()))
+                {
+
+                    return Json(new { data = "No Data Found!" });
+                }
+                else
+                {
+                    return Json(new { data = orderbypopularitty });
+                }
+            }
+            else if (filtervalue == "Latest")
+            {
+                var orderbypopularitty = db.tblCourses.OrderByDescending(x => x.CreatedDate).ThenByDescending(y => y.UpdatedDate).ToList();
+                if (string.IsNullOrEmpty(orderbypopularitty.ToString()))
+                {
+
+                    return Json(new { data = "No Data Found!" });
+                }
+                else
+                {
+                    return Json(new { data = orderbypopularitty });
+                }
+            }
+            else
+            {
+                return Json(new { data = "No Data Found!" });
+            }
+        }
+        [HttpPost]
+        public ActionResult FilterCoursesbypricerange(string minprice, string maxprice)
+        {
+            decimal minprices = Convert.ToDecimal(minprice);
+            decimal maxprices = Convert.ToDecimal(maxprice);
+            VitkundEntities db = new VitkundEntities();
+            var databypricerange = db.tblCourses.Where(p => p.FromPrice >= minprices && p.FromPrice <= maxprices).ToList();
+            if (databypricerange == null || databypricerange.Count <= 0)
+            {
+
+                return Json(new { data = "No Data Found!" });
+            }
+            else
+            {
+                return Json(new { data = databypricerange });
+            }
+        }
+
+
+        [Route("Add-Courses")]
+        public ActionResult AddCourses()
+        {
+            if (Session["LoggedIn"] == "true")
+            {
+                if (Session["Role"] == "Admin")
+                {
+
+                    VitkundEntities db = new VitkundEntities();
+                    var res = db.tblCourses.ToList();
+                    return View(res);
+                }
+                else
+                {
+                    Session.Remove("lastaccesspage");
+                    //Session["lastaccesspage"] = "Add-Chapters";
+                    return Redirect("/Login");
+                    //return Json(new { success = true, message = "Access Denied,You Cannot Access this page. ( Add-Businessideas )" });
+                }
+            }
+            else
+            {
+                Session["lastaccesspage"] = "Add-Courses";
+                return Redirect("/Login");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult AddCourses(tblCourse tblcourse)
+        {
+            VitkundEntities db = new VitkundEntities();
+            if (tblcourse.Id == null || tblcourse.Id == 0)
+            {
+                tblcourse.CreatedDate = DateTime.Now;
+                db.tblCourses.Add(tblcourse);
+                db.SaveChanges();
+                return Json(new { success = true, message = "Data saved successfully" });
+            }
+            else
+            {
+                var data = db.tblCourses.FirstOrDefault(x => x.Id == tblcourse.Id);
+                if (data != null)
+                {
+                    data.Title = tblcourse.Title;
+                    data.ShortDescription = tblcourse.ShortDescription;
+                    if (tblcourse.Image.ToLower().Contains(".png") || tblcourse.Image.ToLower().Contains(".jpeg"))
+                        data.Image = tblcourse.Image;
+                    data.LongDescription = tblcourse.LongDescription;
+                    data.FromPrice = tblcourse.FromPrice;
+                    data.ToPrice = tblcourse.ToPrice;
+                    data.UpdatedDate = DateTime.Now;
+                    db.SaveChanges();
+                    return Json(new { success = true, message = "Data Updated successfully" });
+                }
+                return Json(new { success = true, message = "Something Error Found !!" });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult UploadCourseFile(HttpPostedFileBase file)
+        {
+            if (file != null && file.ContentLength > 0)
+            {
+                var firstfilename = string.Format(@"{0}", Guid.NewGuid());// For Create random path for prevent duplicate name.
+                var fileName = Path.GetFileName(file.FileName);
+                var filePath = Path.Combine(Server.MapPath("~/Content/Uploads"), firstfilename + fileName);
+                var imagepathforserver = firstfilename + fileName;
+                file.SaveAs(filePath);
+                return Content(imagepathforserver);
+            }
+
+            return Content("No file selected.");
+        }
+
+        [HttpPost]
+        public ActionResult GetCourseById(string Id)
+        {
+            VitkundEntities db = new VitkundEntities();
+            tblCourse tblcourse = db.tblCourses.Find(Convert.ToInt32(Id));
+            if (tblcourse == null)
+                return HttpNotFound();
+            else
+            {
+                return Json(new { success = true, message = tblcourse });
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult DeleteCourse(string Id)
+        {
+            VitkundEntities db = new VitkundEntities();
+            tblCourse tblcourse = db.tblCourses.Find(Convert.ToInt32(Id));
+            if (tblcourse == null)
+                return HttpNotFound();
+            else
+            {
+                db.tblCourses.Remove(tblcourse);
+                db.SaveChanges();
+            }
+            return Json(new { success = true, message = "Data Deleted successfully" });
+        }
+
+        #endregion
+
+
+
         #region Logout
 
-       [Route("Logout")]
+        [Route("Logout")]
         public ActionResult Logout()
         {
             Session.Remove("Role");
@@ -979,7 +1181,7 @@ namespace Vitkund.Controllers
         }
         #endregion
 
-        public JsonResult SendWelcomeEmail(string name, string email, string phone, string password,string refercode, string username)
+        public JsonResult SendWelcomeEmail(string name, string email, string phone, string password, string refercode, string username)
         {
 
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;

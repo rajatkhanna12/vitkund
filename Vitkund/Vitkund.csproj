@@ -658,6 +658,7 @@
     <Content Include="Views\Home\AdminIndex.cshtml" />
     <Content Include="Views\Home\BusinessIdeaDetail.cshtml" />
     <Content Include="Views\Home\myaccount.cshtml" />
+    <Content Include="Views\Home\AddCourses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

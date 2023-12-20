@@ -1,4 +1,4 @@
-﻿
+﻿@model List<Vitkund.Models.tblCourse>
 
 <div class="rbt-page-banner-wrapper">
     <!-- Start Banner BG Image  -->
@@ -40,13 +40,13 @@
                                     <li class="course-switch-item"><button class="rbt-list-view" title="List Layout"><i class="feather-list"></i> <span class="text">List</span></button></li>
                                 </ul>
                             </div>
-                           
+
                         </div>
                     </div>
 
                     <div class="col-lg-7 col-md-12">
                         <div class="rbt-sorting-list d-flex flex-wrap align-items-center justify-content-start justify-content-lg-end">
-                           
+
                             <div class="rbt-short-item">
                                 <div class="view-more-btn text-start text-sm-end">
                                     <button class="discover-filter-button discover-filter-activation rbt-btn btn-white btn-md radius-round">Filter<i class="feather-filter"></i></button>
@@ -62,7 +62,7 @@
                         <div class="filter-select-option">
                             <div class="filter-select rbt-modern-select">
                                 <span class="select-label d-block">Short By</span>
-                                <select>
+                                <select id="Shortbyddl">
                                     <option>Default</option>
                                     <option>Latest</option>
                                     <option>Popularity</option>
@@ -72,6 +72,10 @@
                                 </select>
                             </div>
                         </div>
+
+
+
+
 
                         <div class="filter-select-option">
                             <div class="filter-select">
@@ -86,12 +90,14 @@
                                                     <span>Price :</span><input type="text" id="amount">
                                                 </div>
                                                 <div class="price--filter">
-                                                    <a class="rbt-btn btn-gradient btn-sm" href="#">Filter</a>
+                                                    <a class="rbt-btn btn-gradient btn-sm" href="javascript:void(0);" onclick="FilterbyPriceRange()">Filter</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -109,134 +115,55 @@
         <div class="container">
             <div class="rbt-course-grid-column">
 
-                <!-- Start Single Card  -->
-                <div class="course-grid-3">
-                    <div class="rbt-card variation-01 rbt-hover">
-                        <div class="rbt-card-img">
-                            <a href="#">
-                                <img src="~/Content/assets/images/course-online-01.jpg" alt="Card image" />
-                            </a>
-                        </div>
-                        <div class="rbt-card-body">
+                @if (Model != null)
+                {
+                    foreach (var item in Model)
+                    {<!-- Start Single Card  -->
+                        <div class="course-grid-3">
+                            <div class="rbt-card variation-01 rbt-hover">
+                                <div class="rbt-card-img">
 
-                            <h4 class="rbt-card-title">
-                                <a href="#">Business Education</a>
-                            </h4>
+                                    @if (@item.Image.Contains("Content"))
+                                    {
+                                        <img src="@item.Image" alt="Card image">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Content/Uploads/@item.Image" alt="Card image">
+                                    }
+
+                                </div>
+                                <div class="rbt-card-body">
 
 
-                            <p class="rbt-card-text">
-                                It is a long established fact that a reader will be
-                                distracted.
-                            </p>
+                                    <h4 class="rbt-card-title" style="padding-top:10px;">
+                                        @item.Title
+                                    </h4>
+                                    @if (item.FromPrice != null && item.ToPrice != null)
+                                    {
+                                        <h6>
+                                            Price Range :- @item.FromPrice - @item.ToPrice
+                                        </h6>
+                                    }
+                                    <p class="rbt-card-text">
+                                        @item.ShortDescription
+                                    </p>
 
-                            <div class="rbt-card-bottom">
-                                <!-- <div class="rbt-price"> -->
-                                <!-- <span class="current-price">$60</span> -->
-                                <!-- <span class="off-price">$120</span> -->
-                                <!-- </div> -->
-                                <a class="rbt-btn-link" href="#">
-                                    Learn
-                                    More<i class="feather-arrow-right"></i>
-                                </a>
+                                    <div class="rbt-card-bottom" style="padding-bottom: 20px;">
+                                        <!-- <div class="rbt-price"> -->
+                                        <!-- <span class="current-price">$60</span> -->
+                                        <!-- <span class="off-price">$120</span> -->
+                                        <!-- </div> -->
+                                        <a class="rbt-btn-link" href="/Course/@item.Id">
+                                            Learn More<i class="feather-arrow-right"></i>
+                                        </a>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <!-- End Single Card  -->
-                <!-- Start Single Card  -->
-                <div class="course-grid-3">
-                    <div class="rbt-card variation-01 rbt-hover">
-                        <div class="rbt-card-img">
-                            <a href="#">
-                                <img src="~/Content/assets/images/course-online-02.jpg" alt="Card image" />
-                            </a>
-                        </div>
-                        <div class="rbt-card-body">
-                         
-                            <h4 class="rbt-card-title">
-                                <a href="#">Ten Quick Tips For Business Education.</a>
-                            </h4>
-
-                            <p class="rbt-card-text">
-                                It is a long established fact that a reader will be
-                                distracted.
-                            </p>
-
-                            <div class="rbt-card-bottom">
-                                <!-- <div class="rbt-price"> -->
-                                <!-- <span class="current-price">$60</span> -->
-                                <!-- <span class="off-price">$120</span> -->
-                                <!-- </div> -->
-                                <a class="rbt-btn-link" href="#">
-                                    Learn
-                                    More<i class="feather-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Single Card  -->
-                <!-- Start Single Card  -->
-                <div class="course-grid-3">
-                    <div class="rbt-card variation-01 rbt-hover">
-                        <div class="rbt-card-img">
-                            <a href="#">
-                                <img src="~/Content/assets/images/course-online-03.jpg" alt="Card image" />
-                               
-                            </a>
-                        </div>
-                        <div class="rbt-card-body">
-                            
-                            <h4 class="rbt-card-title">
-                                <a href="#">What Will Business Education Be Like</a>
-                            </h4>
-
-                            <p class="rbt-card-text">
-                                Angular Js long fact that a reader will be distracted by
-                                the readable.
-                            </p>
-
-
-                            <div class="rbt-card-bottom">
-
-                                <a class="rbt-btn-link" href="#">
-                                    Learn
-                                    More<i class="feather-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Single Card  -->
-                <!-- Start Single Card  -->
-                <div class="course-grid-3">
-                    <div class="rbt-card variation-01 rbt-hover">
-                        <div class="rbt-card-img">
-                            <a href="#">
-                                <img src="~/Content/assets/images/course-online-04.jpg" alt="Card image" />
-                               
-                            </a>
-                        </div>
-                        <div class="rbt-card-body">
-                           
-                            <h4 class="rbt-card-title">
-                                <a href="#">Difficult Things About Business Education.</a>
-                            </h4>
-
-                            <p class="rbt-card-text">
-                                Web Js long fact that a reader will be distracted by
-                                the readable.
-                            </p>
-
-                            <div class="rbt-card-bottom">
-                                <a class="rbt-btn-link" href="#">Learn More<i class="feather-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Single Card  -->
-
-
+                    }
+                }
             </div>
 
         </div>
@@ -251,6 +178,108 @@
     </div>
 </div>
 
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    $("#Shortbyddl").on("change", function () {
+        var value = $("#Shortbyddl :selected").val();
+        Filterfired(value)
+    })
+    function Filterfired(elm) {
+        //alert('Fired');
+        //var shortbyddlvalue = $("#Shortbyddl :selected").val();
+        //var shortbyauthorddlvalue = $("#shortbyauthorddl :selected").val();
+        //var shortbyoffervalue = $("#shortbyoffer :selected").val();
+        //var shortbycategoryvalue = $("#shortbycategory :selected").val();
+        //var pricerange = $("#amount").val().replaceAll("$", "");
+        $.ajax({
+                type: 'POST',
+                url: '@Url.Action("FilterCourses", "Home")',
+                data: JSON.stringify({ filtervalue: elm }),
+                traditional: true,
+                contentType: 'application/json; charset=utf-8',
+                datatype:'json',
+                success: function (response) {
+                    debugger
+                    var html = "";
+                    if (response.data != null) {
+                        if (response.data == "No Data Found!") {
+                            $(".rbt-course-grid-column").html("<p class='notdatafoundcls'>" + response.data + "</p>");
+                        }
+                        else {
+                            $(".rbt-course-grid-column").html('');
+                            for (var i = 0; i < response.data.length; i++) {
+                                var Id = response.data[i].Id;
+                                var Title = response.data[i].Title;
+                                var Image = response.data[i].Image;
+                                var ShortDesc = response.data[i].ShortDescription;
+                                var LongDesc = response.data[i].LongDescription;
+                                var Fromprice = response.data[i].fromPrice;
+                                var Toprice = response.data[i].toPrice;
+
+                                html += '<div class="course-grid-3"> <div class="rbt-card variation-01 rbt-hover"> <div class="rbt-card-img"> <a href="#">';
+                                if (Image.toLowerCase().includes("content"))
+                                    html += '<img src="' + Image + '" alt="Card image">';
+                                else
+                                    html += '<img src="/Content/Uploads/' + Image + '" alt="Card image">';
+                                html += ' </a> </div > <div class="rbt-card-body"> <div class="rbt-card-top">  </div> <h4 class="rbt-card-title"> <a href="#">' + Title + '</a> </h4><h6>Price Range :- ' + Fromprice + ' - ' + Toprice + '</h6> <p class="rbt-card-text">' + ShortDesc + '</p> <div class="rbt-card-bottom"><a class="rbt-btn-link" href="/Course/' + Id + '"> Learn More<i class="feather-arrow-right"></i> </a></div></div></div ></div > '
+                            }
+                            $(".rbt-course-grid-column").html(html);
+                        }
+                    }
+                },
+                error: function (error) {
+                    // Handle errors
+                    console.log(error);
+                }
+            });
+    }
+    function FilterbyPriceRange() {
+        debugger
+        var value = $("#amount").val().replaceAll("INR ", "");
+        var minprice = value.split(" - ")[0];
+        var maxprice = value.split(" - ")[1];
+        $.ajax({
+                type: 'POST',
+            url: '@Url.Action("FilterCoursesbypricerange", "Home")',
+            data: JSON.stringify({ minprice: minprice, maxprice: maxprice }),
+                traditional: true,
+                contentType: 'application/json; charset=utf-8',
+                datatype:'json',
+                success: function (response) {
+                    debugger
+                    var html = "";
+                    if (response.data != null) {
+                        if (response.data == "No Data Found!") {
+                            $(".rbt-course-grid-column").html("<p class='notdatafoundcls'>" + response.data + "</p>");
+                        }
+                        else {
+                            $(".rbt-course-grid-column").html('');
+                            for (var i = 0; i < response.data.length; i++) {
+                                var Id = response.data[i].Id;
+                                var Title = response.data[i].Title;
+                                var Image = response.data[i].Image;
+                                var ShortDesc = response.data[i].ShortDescription;
+                                var LongDesc = response.data[i].LongDescription;
+                                var Fromprice = response.data[i].fromPrice;
+                                var Toprice = response.data[i].toPrice;
 
 
+                                html += '<div class="course-grid-3"> <div class="rbt-card variation-01 rbt-hover"> <div class="rbt-card-img"> <a href="#">';
+                                if (Image.toLowerCase().includes("content"))
+                                    html += '<img src="' + Image + '" alt="Card image">';
+                                else
+                                    html += '<img src="/Content/Uploads/' + Image + '" alt="Card image">';
+                                html += ' </a> </div > <div class="rbt-card-body"> <div class="rbt-card-top">  </div> <h4 class="rbt-card-title" style="padding-top:10px;"> <a href="#">' + Title + '</a> </h4><h6>Price Range :- ' + Fromprice + ' - ' + Toprice + '</h6> <p class="rbt-card-text">' + ShortDesc + '</p> <div class="rbt-card-bottom"><a class="rbt-btn-link" href="/Course/' + Id + '"> Learn More<i class="feather-arrow-right"></i> </a></div></div></div ></div > '
+                            }
+                            $(".rbt-course-grid-column").html(html);
+                        }
+                    }
+                },
+                error: function (error) {
+                    // Handle errors
+                    console.log(error);
+                }
+            });
+    }
+</script>
 
