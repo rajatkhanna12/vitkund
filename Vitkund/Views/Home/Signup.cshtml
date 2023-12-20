@@ -261,7 +261,7 @@
             if (validationreq) {
                 debugger;
                 $("#btnSignup").prop('disabled', true);
-                $("#loaderGif").show();
+              
                 var tblsignupdata = { Username: username, Password: password, Name: name, Email: fathername, PhoneNumber: mobileno, PaymentId: (localStorage.getItem("paymentId")), PlanAmount: (localStorage.getItem("plan") / 100), ReferBy: $("#referBy").val() }
                 $.ajax({
                     url: '/Home/AddSignupDetails',
@@ -310,7 +310,7 @@
                 contentType: 'application/json; charset=utf-8',
                 datatype: 'json',
                 success: function (response) {
-                    $("#loaderGif").hide();
+                  
                     localStorage.clear();
                     window.location.href = "/login";
 
