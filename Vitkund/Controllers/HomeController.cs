@@ -216,7 +216,7 @@ namespace Vitkund.Controllers
 
         #region BusinessIdeasFrontend
 
-        [Route("Business-ideas")]
+        [Route("Trending-Business")]
         public ActionResult BusinessIdeas()
         {
             if (Session["LoggedIn"] == "true" && (Session["Role"] == "Admin" || Session["Role"] == "User"))
@@ -234,7 +234,7 @@ namespace Vitkund.Controllers
             }
         }
 
-        [Route("Business-Ideas/{Id}")]
+        [Route("Trending-Business/{Id}")]
         public ActionResult BusinessIdeaDetail(string Id)
         {
             if (Session["LoggedIn"] == "true" && (Session["Role"] == "Admin" || Session["Role"] == "User"))
@@ -749,7 +749,7 @@ namespace Vitkund.Controllers
         }
 
         //FrontEnd
-        [Route("Trending-Business")]
+        [Route("Business-Ideas")]
         public ActionResult TrendingBusiness()
         {
             if (Session["LoggedIn"] == "true" && (Session["Role"] == "Admin" || Session["Role"] == "User"))
@@ -860,10 +860,11 @@ namespace Vitkund.Controllers
                 VitkundEntities db = new VitkundEntities();
                 tbladmin.IsRole = true;
                 tbladmin.RegistrationDate = DateTime.Now;
+                tbladmin.ReferCode = tbladmin.Username + "-" + tbladmin.PhoneNumber.Substring(0, 3);
                 db.tblAdmins.Add(tbladmin);
                 db.SaveChanges();
 
-                SendWelcomeEmail(tbladmin.Name, tbladmin.Email, tbladmin.PhoneNumber, tbladmin.Password);
+                SendWelcomeEmail(tbladmin.Name, tbladmin.Email, tbladmin.PhoneNumber, tbladmin.Password,tbladmin.ReferCode, tbladmin.Username);
                 return Json(new { success = true, message = "Signup successfully", id = tbladmin.Id });
             }
             catch (Exception ex)
@@ -978,7 +979,7 @@ namespace Vitkund.Controllers
         }
         #endregion
 
-        public JsonResult SendWelcomeEmail(string name, string email, string phone, string password)
+        public JsonResult SendWelcomeEmail(string name, string email, string phone, string password,string refercode, string username)
         {
 
             System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
@@ -1001,7 +1002,9 @@ namespace Vitkund.Controllers
             Body += "Name : " + name + "<br/>";
             Body += "Email : " + email + "<br/>";
             Body += "Phone No : " + phone + "<br/>";
+            Body += "User Name  : " + username + "<br/>";
             Body += "Password : " + password + "<br/>";
+            Body += "Refer Code : " + refercode + "<br/>";
 
 
 

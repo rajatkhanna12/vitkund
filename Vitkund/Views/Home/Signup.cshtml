@@ -87,6 +87,11 @@
                                     <input type="password" id="Passwordtxtbox" placeholder="Your Password">
                                     <span id="passwordError" style="color: red;"></span><span id="requiredvalidationforpassword" style="color:red"></span>
                                 </div>
+                                <div class="col-md-6 col-12">
+                                    <label>Refer By </label>
+                                    <input type="text" id="referBy" placeholder="Refer Code">
+                                  
+                                </div>
                                 <div class="plceholder-button mt--50">
                                     <button id="btnSignup" onclick="Signup()" type="button" class="rbt-btn btn-gradient hover-icon-reverse">
                                         <a href="#" style="color:#fff;">
@@ -257,7 +262,7 @@
                 debugger;
                 $("#btnSignup").prop('disabled', true);
                 $("#loaderGif").show();
-                var tblsignupdata = { Username: username, Password: password, Name: name, Email: fathername, PhoneNumber: mobileno, PaymentId: (localStorage.getItem("paymentId")), PlanAmount: (localStorage.getItem("plan") / 100) }
+                var tblsignupdata = { Username: username, Password: password, Name: name, Email: fathername, PhoneNumber: mobileno, PaymentId: (localStorage.getItem("paymentId")), PlanAmount: (localStorage.getItem("plan") / 100), ReferBy: $("#referBy").val() }
                 $.ajax({
                     url: '/Home/AddSignupDetails',
                     type: 'POST',

@@ -565,18 +565,34 @@
                                 </ul>
                             </div>
                             <div class="pricing-btn">
-                                <a class="rbt-btn btn-gradient hover-icon-reverse w-100" href="/vitkund">
-                                    <div class="icon-reverse-wrapper">
-                                        <span class="btn-text">Buy Now</span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                    </div>
-                                </a>
+                                @if (Session["Role"] != null)
+                                {
+                                    if (Session["Role"] != "Admin")
+                                    {
+                                        <a class="rbt-btn btn-gradient hover-icon-reverse w-100" href="/result">
+                                            <div class="icon-reverse-wrapper">
+                                                <span class="btn-text">Buy Now</span>
+                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                            </div>
+                                        </a>
+                                    }
+                                }
+                                else
+                                {
+                                    <a class="rbt-btn btn-gradient hover-icon-reverse w-100" href="/vitkund">
+                                        <div class="icon-reverse-wrapper">
+                                            <span class="btn-text">Buy Now</span>
+                                            <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                            <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                        </div>
+                                    </a>
+                                }
+
                             </div>
                         </div>
                     </div>
                     <!-- End Single Pricing  -->
-
                     <!-- Start Single Pricing  -->
                     <div class="col-xl-3 col-lg-6 col-md-6 col-12">
                         <div class="pricing-table active">
@@ -606,14 +622,30 @@
                                 </ul>
                             </div>
                             <div class="pricing-btn">
-                                <a class="rbt-btn btn-gradient hover-icon-reverse w-100" href="/vitkund">
-                                    <div class="icon-reverse-wrapper">
-                                        <span class="btn-text">Buy Now</span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                    </div>
-                                </a>
-                            </div>
+                                @if (Session["Role"] != null)
+                                {
+                                    if (Session["Role"] != "Admin")
+                                    {
+                                        <a class="rbt-btn btn-gradient hover-icon-reverse w-100" href="/result">
+                                            <div class="icon-reverse-wrapper">
+                                                <span class="btn-text">Buy Now</span>
+                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                            </div>
+                                        </a>
+                                        }
+                                    } 
+                                else 
+                                {
+                                        <a class="rbt-btn btn-gradient hover-icon-reverse w-100" href="/vitkund">
+                                            <div class="icon-reverse-wrapper">
+                                                <span class="btn-text">Buy Now</span>
+                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                            </div>
+                                        </a>
+                                }
+                                </div>
                         </div>
                     </div>
                     <!-- End Single Pricing  -->
@@ -645,14 +677,30 @@
                                 </ul>
                             </div>
                             <div class="pricing-btn">
-                                <a class="rbt-btn btn-gradient hover-icon-reverse w-100" href="/vitkund">
-                                    <div class="icon-reverse-wrapper">
-                                        <span class="btn-text">Buy Now</span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                    </div>
-                                </a>
-                            </div>
+                                @if (Session["Role"] != null)
+                                {
+                                    if (Session["Role"] != "Admin")
+                                    {
+                                        <a class="rbt-btn btn-gradient hover-icon-reverse w-100" href="/result">
+                                            <div class="icon-reverse-wrapper">
+                                                <span class="btn-text">Buy Now</span>
+                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                            </div>
+                                        </a>
+                                    }
+                                }
+                                else 
+                                {
+                                        <a class="rbt-btn btn-gradient hover-icon-reverse w-100" href="/vitkund">
+                                            <div class="icon-reverse-wrapper">
+                                                <span class="btn-text">Buy Now</span>
+                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                            </div>
+                                        </a>
+                                }
+                                </div>
                         </div>
                     </div>
                     <!-- End Single Pricing  -->
@@ -685,13 +733,29 @@
                             </div>
 
                             <div class="pricing-btn">
-                                <a class="rbt-btn btn-gradient hover-icon-reverse w-100" href="/vitkund">
-                                    <div class="icon-reverse-wrapper">
-                                        <span class="btn-text">Buy Now</span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                        <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                    </div>
-                                </a>
+                                @if (Session["Role"] != null)
+                                {
+                                    if (Session["Role"] != "Admin")
+                                    {
+                                        <a class="rbt-btn btn-gradient hover-icon-reverse w-100" href="/result">
+                                            <div class="icon-reverse-wrapper">
+                                                <span class="btn-text">Buy Now</span>
+                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                            </div>
+                                        </a>
+                                    }
+                                }
+                                else
+                                {
+                                    <a class="rbt-btn btn-gradient hover-icon-reverse w-100" href="/vitkund">
+                                        <div class="icon-reverse-wrapper">
+                                            <span class="btn-text">Buy Now</span>
+                                            <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                            <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                        </div>
+                                    </a>
+                                }
                             </div>
                         </div>
                     </div>
@@ -1248,7 +1312,7 @@
                             <span id="spanMsg" style="color:red;display:none;">Thank you for contact us.</span>
                         </div>
                     </form>
-                
+
                 </div>
 
             </div>
