@@ -1,4 +1,9 @@
-﻿<style>
+﻿@model Vitkund.Models.tblResult
+   
+@{
+  
+}
+<style>
 
 
     .header {
@@ -98,11 +103,11 @@
     <div class="checkout_area bg-color-white" style="padding-top:30px; padding-bottom:50px;">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 text-center"><h5>Name: Anil Jangra</h5></div>
-                <div class="col-lg-6 text-center"><h5>Business : Restaurant</h5> </div>
+                <div class="col-lg-3 text-center"><h5 id="name"></h5></div>
+                <div class="col-lg-6 text-center"><h5 id="businessName"></h5> </div>
                 <div class="col-lg-3 text-center" style="margin-bottom:30px;">
-                    <a class="rbt-btn blink btn-border-gradient radius-round btn-sm hover-transform-none" style="background: linear-gradient(90deg, #CFA2E8, #f9ba34);">
-                        Score: 68
+                    <a id="score" class="rbt-btn blink btn-border-gradient radius-round btn-sm hover-transform-none" style="background: linear-gradient(90deg, #CFA2E8, #f9ba34);">
+
                     </a>
                 </div>
                 <br />
@@ -125,162 +130,226 @@
                     </figure>
 
                     <!-- partial -->
-                    <script>
-                        Highcharts.chart('chartdiv', {
-                            chart: {
-                                type: 'variablepie'
-                            },
-                            title: {
-                                text: '',
-                                align: 'left'
-                            },
-                            tooltip: {
-                                headerFormat: '',
-                                pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
-                                    '</b><br/>' +
-                                    '</b><br/>'
-                            },
-                            series: [{
-                                minPointSize: 10,
-                                innerSize: '20%',
-                                zMin: 0,
-                                name: 'countries',
-                                borderRadius: 5,
-                                enableMouseTracking: false,
-                                data: [{
-                                    name: 'वयः ' + parseInt(localStorage.getItem("Age")) + '',
-                                    y: 505992,
-                                    z: 230
-                                }, {
-                                    name: 'निर्मिमीते: ' + parseInt(localStorage.getItem("Firms")) + '',
-                                    y: 551695,
-                                    z: 240
-                                }, {
-                                    name: 'पठन: ' + parseInt(localStorage.getItem("Education")) + '',
-                                    y: 312679,
-                                    z: 250
-                                }, {
-                                    name: 'लाभ प्रतिशतः ' + parseInt(localStorage.getItem("Percent")) + '',
-                                    y: 423231,
-                                    z: 240
-                                }, {
-                                    name: 'अनुभव: ' + parseInt(localStorage.getItem("Experience")) + '',
-                                    y: 301336,
-                                    z: 230
-                                }, {
-                                    name: 'परिसर: ' + parseInt(localStorage.getItem("Premises")) + '',
-                                    y: 412841,
-                                    z: 220
-                                }, {
-                                    name: 'वित्त: ' + parseInt(localStorage.getItem("Capital")) + '',
-                                    y: 365415,
-                                    z: 235
-                                }
-                                    , {
-                                    name: 'मालस्य उपलब्धता: ' + parseInt(localStorage.getItem("Material")) + '',
-                                    y: 250454,
-                                    z: 245
-                                }
-                                    , {
-                                    name: 'अनुसंधानम: ' + parseInt(localStorage.getItem("Research")) + '',
-                                    y: 365453,
-                                    z: 255
-                                }
-                                    , {
-                                    name: 'विपणनम्: ' + parseInt(localStorage.getItem("Market")) + '',
-                                    y: 254545,
-                                    z: 280
-                                }
-                                    , {
-                                    name: 'अंक: ' + parseInt(localStorage.getItem("Cibil")) + '',
-                                    y: 432341,
-                                    z: 301
-                                }
-                                    , {
-                                    name: 'विशेषज्ञाः ' + parseInt(localStorage.getItem("Expertise")) + '',
-                                    y: 423231,
-                                    z: 314
-                                }
+                    @if (Model != null)
+                    {
+                        <script>
 
-
-
-                                ],
-                                "export": {
-                                    "enabled": false
+                            Highcharts.chart('chartdiv', {
+                                chart: {
+                                    type: 'variablepie'
                                 },
-                                colors: [
-                                    '#4caefe',
-                                    '#3dc3e8',
-                                    '#2dd9db',
-                                    '#1feeaf',
-                                    '#0ff3a0',
-                                    '#00e887',
-                                    '#23e274',
-                                    '#DE3163',
-                                    '#CCCCFF',
-                                    '#6495ED',
-                                    '#40E0D0',
-                                    '#FFBF00'
-                                ]
-                            }]
-                            , exporting: {
-                                enabled: false
-                            }
-                        });
+                                title: {
+                                    text: '',
+                                    align: 'left'
+                                },
+                                tooltip: {
+                                    headerFormat: '',
+                                    pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                                        '</b><br/>' +
+                                        '</b><br/>'
+                                },
+                                series: [{
+                                    minPointSize: 10,
+                                    innerSize: '20%',
+                                    zMin: 0,
+                                    name: 'countries',
+                                    borderRadius: 5,
+                                    enableMouseTracking: false,
+                                    data: [{
+                                        name: 'वयः ' + @Model.Age + '',
+                                        y: 505992,
+                                        z: 230
+                                    }, {
+                                            name: 'निर्मिमीते: ' + @Model.Firm + '',
+                                        y: 551695,
+                                        z: 240
+                                        }, {
+                                            name: 'पठन: ' + @Model.Education + '',
+                                        y: 312679,
+                                        z: 250
+                                        }, {
+                                            name: 'लाभ प्रतिशतः ' + @Model.Profit + '',
+                                        y: 423231,
+                                        z: 240
+                                        }, {
+                                            name: 'अनुभव: ' + @Model.Experience + '',
+                                        y: 301336,
+                                        z: 230
+                                        }, {
+                                            name: 'परिसर: ' + @Model.Premises + '',
+                                        y: 412841,
+                                        z: 220
+                                        }, {
+                                            name: 'वित्त: ' + @Model.Capital + '',
+                                        y: 365415,
+                                        z: 235
+                                    }
+                                        , {
+                                        name: 'मालस्य उपलब्धता: ' + @Model.Raw + '',
+                                        y: 250454,
+                                        z: 245
+                                    }
+                                        , {
+                                            name: 'अनुसंधानम: ' + @Model.Research + '',
+                                        y: 365453,
+                                        z: 255
+                                    }
+                                        , {
+                                            name: 'विपणनम्: ' + @Model.Marketing + '',
+                                        y: 254545,
+                                        z: 280
+                                    }
+                                        , {
+                                            name: 'अंक: ' + @Model.Cibil + '',
+                                        y: 432341,
+                                        z: 301
+                                    }
+                                        , {
+                                            name: 'विशेषज्ञाः ' + @Model.BusinessExpertise + '',
+                                        y: 423231,
+                                        z: 314
+                                    }
 
-                        //var chart = AmCharts.makeChart("chartdiv", {
-                        //    "type": "pie",
-                        //    "theme": "light",
-                        //    "dataProvider": [{
-                        //        "country": "वयः",
-                        //        "sales": parseInt(localStorage.getItem("Age"))
-                        //    }, {
-                        //        "country": "निर्मिमीते",
-                        //        "sales": parseInt(localStorage.getItem("Firms"))
-                        //    }, {
-                        //        "country": "पठन ",
-                        //        "sales": parseInt(localStorage.getItem("Education"))
-                        //    }, {
-                        //        "country": "लाभः प्रतिशतः",
-                        //        "sales": parseInt(localStorage.getItem("Percent"))
-                        //    }, {
-                        //        "country": "अनुभव: ",
-                        //        "sales": parseInt(localStorage.getItem("Experience"))
-                        //    }, {
-                        //        "country": "परिसर",
-                        //        "sales": parseInt(localStorage.getItem("Premises"))
-                        //    }, {
-                        //        "country": "वित्त",
-                        //        "sales": parseInt(localStorage.getItem("Capital"))
-                        //    }, {
-                        //        "country": "मालस्य उपलब्धता",
-                        //        "sales": parseInt(localStorage.getItem("Material"))
-                        //    }, {
-                        //        "country": "अनुसंधानम:",
-                        //        "sales": parseInt(localStorage.getItem("Research"))
-                        //    },
-                        //    {
-                        //        "country": "विपणनम्",
-                        //        "sales": parseInt(localStorage.getItem("Market"))
-                        //    },
-                        //    {
-                        //        "country": "अंक",
-                        //        "sales": parseInt(localStorage.getItem("Cibil"))
-                        //    },
-                        //    {
-                        //        "country": "विशेषज्ञाः",
-                        //        "sales": parseInt(localStorage.getItem("Expertise"))
-                        //    }],
-                        //    "valueField": "sales",
-                        //    "titleField": "country",
-                        //    "balloon": {
-                        //        "fixedPosition": true
-                        //    },
-                        //    "export": {
-                        //        "enabled": true
-                        //    }
-                        //});
-                    </script>
+
+
+                                    ],
+                                    "export": {
+                                        "enabled": false
+                                    },
+                                    colors: [
+                                        '#4caefe',
+                                        '#3dc3e8',
+                                        '#2dd9db',
+                                        '#1feeaf',
+                                        '#0ff3a0',
+                                        '#00e887',
+                                        '#23e274',
+                                        '#DE3163',
+                                        '#CCCCFF',
+                                        '#6495ED',
+                                        '#40E0D0',
+                                        '#FFBF00'
+                                    ]
+                                }]
+                                , exporting: {
+                                    enabled: false
+                                }
+                            });
+
+
+                        </script>
+
+                    }
+                    else
+                    {
+                        <script>
+
+                            Highcharts.chart('chartdiv', {
+                                chart: {
+                                    type: 'variablepie'
+                                },
+                                title: {
+                                    text: '',
+                                    align: 'left'
+                                },
+                                tooltip: {
+                                    headerFormat: '',
+                                    pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
+                                        '</b><br/>' +
+                                        '</b><br/>'
+                                },
+                                series: [{
+                                    minPointSize: 10,
+                                    innerSize: '20%',
+                                    zMin: 0,
+                                    name: 'countries',
+                                    borderRadius: 5,
+                                    enableMouseTracking: false,
+                                    data: [{
+                                        name: 'वयः ' + parseInt(localStorage.getItem("Age")) + '',
+                                        y: 505992,
+                                        z: 230
+                                    }, {
+                                        name: 'निर्मिमीते: ' + parseInt(localStorage.getItem("Firms")) + '',
+                                        y: 551695,
+                                        z: 240
+                                    }, {
+                                        name: 'पठन: ' + parseInt(localStorage.getItem("Education")) + '',
+                                        y: 312679,
+                                        z: 250
+                                    }, {
+                                        name: 'लाभ प्रतिशतः ' + parseInt(localStorage.getItem("Percent")) + '',
+                                        y: 423231,
+                                        z: 240
+                                    }, {
+                                        name: 'अनुभव: ' + parseInt(localStorage.getItem("Experience")) + '',
+                                        y: 301336,
+                                        z: 230
+                                    }, {
+                                        name: 'परिसर: ' + parseInt(localStorage.getItem("Premises")) + '',
+                                        y: 412841,
+                                        z: 220
+                                    }, {
+                                        name: 'वित्त: ' + parseInt(localStorage.getItem("Capital")) + '',
+                                        y: 365415,
+                                        z: 235
+                                    }
+                                        , {
+                                        name: 'मालस्य उपलब्धता: ' + parseInt(localStorage.getItem("Material")) + '',
+                                        y: 250454,
+                                        z: 245
+                                    }
+                                        , {
+                                        name: 'अनुसंधानम: ' + parseInt(localStorage.getItem("Research")) + '',
+                                        y: 365453,
+                                        z: 255
+                                    }
+                                        , {
+                                        name: 'विपणनम्: ' + parseInt(localStorage.getItem("Market")) + '',
+                                        y: 254545,
+                                        z: 280
+                                    }
+                                        , {
+                                        name: 'अंक: ' + parseInt(localStorage.getItem("Cibil")) + '',
+                                        y: 432341,
+                                        z: 301
+                                    }
+                                        , {
+                                        name: 'विशेषज्ञाः ' + parseInt(localStorage.getItem("Expertise")) + '',
+                                        y: 423231,
+                                        z: 314
+                                    }
+
+
+
+                                    ],
+                                    "export": {
+                                        "enabled": false
+                                    },
+                                    colors: [
+                                        '#4caefe',
+                                        '#3dc3e8',
+                                        '#2dd9db',
+                                        '#1feeaf',
+                                        '#0ff3a0',
+                                        '#00e887',
+                                        '#23e274',
+                                        '#DE3163',
+                                        '#CCCCFF',
+                                        '#6495ED',
+                                        '#40E0D0',
+                                        '#FFBF00'
+                                    ]
+                                }]
+                                , exporting: {
+                                    enabled: false
+                                }
+                            });
+
+
+                        </script>
+
+                    }
                 </div>
 
                 <div class="col-lg-6" style="padding-top:50px;">
@@ -298,31 +367,39 @@
                 <h1 style="color:#f9ba34;text-align:center"><i>Congratulation</i></h1>
                 <span id="finalresult" style="color:red;text-align:center"></span>
                 <br />
-                <form>
-                    <div class="row g-5 checkout-form">
-                        <div class="col-lg-4 offset-lg-4">
-                            <label>&nbsp;</label>
-                            <div class="rbt-modern-select bg-transparent height-45">
-                                <select class="w-100 validationcheck" id="plan" required>
-                                    <option value="">-- Select Plan --</option>
-                                    <option value="500000" >Pro (Recommended) 5000 /(3 Month)</option>
-                                    <option value="750000">Clasic 7500 /(6 Month)</option>
-                                    <option value="1000000">Silver 10000 /(9 Month)</option>
-                                    <option value="1250000">Gold 12500 /(12 Month)</option>
+                @if (Model != null)
+                {
 
-                                </select>
+                }
+                else
+                {
+                    <form>
+                        <div class="row g-5 checkout-form">
+                            <div class="col-lg-4 offset-lg-4">
+                                <label>&nbsp;</label>
+                                <div class="rbt-modern-select bg-transparent height-45">
+                                    <select class="w-100 validationcheck" id="plan" required>
+                                        @*<option value="">-- Select Plan --</option>*@
+                                        <option value="500000">Pro (Recommended) 5000 /(3 Month)</option>
+                                        <option value="750000">Clasic 7500 /(6 Month)</option>
+                                        <option value="1000000">Silver 10000 /(9 Month)</option>
+                                        <option value="1250000">Gold 12500 /(12 Month)</option>
+
+                                    </select>
+                                    <span id="spanPlan" style="color:red;display:none">Please select plan</span>
+                                </div>
                             </div>
                         </div>
+                    </form>
+                    <div class="col-lg-12">
+                        <div class="pricing-btn-group text-center" style="margin-top:50px;">
+                            <button id="payNow" class="rbt-btn btn-gradient finalpayment">Pay Now</button>
                         </div>
-                </form>
-                <div class="col-lg-12">
-                    <div class="pricing-btn-group text-center" style="margin-top:50px;">
-                        <button id="payNow" class="rbt-btn btn-gradient finalpayment">Pay Now</button>
-                    </div>
 
-                </div>
+                    </div>
+                }
             </div>
-            </div>
+        </div>
     </div>
 
     <div class="rbt-separator-mid">
@@ -341,24 +418,55 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+
+
         $('#finalresult').hide();
-        result();
+      
         $('.finalpayment').click(function () {
             //localStorage.clear();
         });
+       
+        if ('@Model' == '') {
+            var name = localStorage.getItem("name");
+            if (name == null) {
+                window.location.href = "/index";
+            }
+            result();
+            var busname = localStorage.getItem("businessName");
+
+            var score = localStorage.getItem("PagesSum");
+            $("#name").html("Name : " + name);
+            $("#businessName").html("Business : " + busname);
+            $("#score").html("Score : " + score);
+            var plan = localStorage.getItem("plan");
+            
+            if (plan != null) {
+
+                rzp1.open();
+                e.preventDefault();
+                localStorage.setItem("plan", "");
+            }
+        } else {
+            localStorage.setItem("PagesSum", '@ViewBag.Score');
+            $("#name").html("Name : " + '@ViewBag.Name');
+            $("#businessName").html("Business : " + '@ViewBag.BusinessName');
+            $("#score").html("Score : " + '@ViewBag.Score');
+            result();
+        }
+
     });
-  
+
     var options = {
         "key": "rzp_test_LON13f5tvxkTRW", // Enter the Key ID generated from the Dashboard
         "amount": localStorage.getItem("plan"),
         "currency": "INR",
         "description": "We Make Complete Entrepreneur",
         "image": "http://vitkund.com/Content/assets/images/logo.png",
-        "prefill":
-        {
-            "email": localStorage.getItem("email"),
-            "contact": localStorage.getItem("phone"),
-        },
+        //"prefill":
+        //{
+        //    "email": localStorage.getItem("email"),
+        //    "contact": localStorage.getItem("phone"),
+        //},
         config: {
             display: {
                 blocks: {
@@ -400,9 +508,11 @@
             }
         },
         "handler": function (response) {
-           
+
             console.log(response);
-            SignUp(response.razorpay_payment_id);
+            localStorage.setItem("paymentId", response.razorpay_payment_id);
+            window.location.href = "/Thank-you";
+            //SignUp(response.razorpay_payment_id);
             //alert(response.razorpay_payment_id);
         },
         "modal": {
@@ -419,8 +529,16 @@
     };
     var rzp1 = new Razorpay(options);
     document.getElementById('payNow').onclick = function (e) {
-        rzp1.open();
-        e.preventDefault();
+        var plan = $("#plan option:selected").val();
+        if (plan != "") {
+            localStorage.setItem("plan", $("#plan option:selected").val());
+
+            location.reload();
+            //rzp1.open();
+            //e.preventDefault();
+        } else {
+            $("#spanPlan").show();
+        }
     }
     function result() {
         //debugger
@@ -473,25 +591,6 @@
 
         }
     }
-    function SignUp(paymentId) {
-        var tblsignupdata = { Username: localStorage.getItem("email"), Password: "1234", Name: localStorage.getItem("name"), PhoneNumber: localStorage.getItem("phone"), PaymentId: paymentId, PlanAmount:(localStorage.getItem("plan") /100) }
-        $.ajax({
-            url: '/Home/AddSignupDetails',
-            type: 'POST',
-            data: JSON.stringify({ tbladmin: tblsignupdata }),
-            traditional: true,
-            contentType: 'application/json; charset=utf-8',
-            datatype: 'json',
-            success: function (response) {
-                if (response.message = "Signup successfully") {
-                    localStorage.clear();
-                    window.location.href = "/login";
-                }
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-    }
+
 </script>
 

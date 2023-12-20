@@ -22,6 +22,7 @@
           <Property Name="City" Type="varchar" MaxLength="50" />
           <Property Name="PaymentId" Type="nvarchar" MaxLength="200" />
           <Property Name="PlanAmount" Type="nvarchar" MaxLength="200" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tblBusinessideas">
           <Key>
@@ -58,6 +59,28 @@
           <Property Name="CreatedDate" Type="datetime" />
           <Property Name="UpdatedDate" Type="datetime" />
         </EntityType>
+        <EntityType Name="tblResult">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Firm" Type="int" />
+          <Property Name="Education" Type="int" />
+          <Property Name="Profit" Type="int" />
+          <Property Name="Experience" Type="int" />
+          <Property Name="Premises" Type="int" />
+          <Property Name="Capital" Type="int" />
+          <Property Name="Raw" Type="int" />
+          <Property Name="Research" Type="int" />
+          <Property Name="Marketing" Type="int" />
+          <Property Name="Cibil" Type="int" />
+          <Property Name="BusinessExpertise" Type="int" />
+          <Property Name="BusinessName" Type="nvarchar" MaxLength="50" />
+          <Property Name="fk_admin" Type="int" />
+          <Property Name="Score" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="tblTrendingBusiness">
           <Key>
             <PropertyRef Name="Id" />
@@ -85,6 +108,7 @@
           <EntitySet Name="tblBusinessideas" EntityType="Self.tblBusinessideas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblChapter" EntityType="Self.tblChapter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblCourse" EntityType="Self.tblCourse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblResult" EntityType="Self.tblResult" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblTrendingBusiness" EntityType="Self.tblTrendingBusiness" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblVideos" EntityType="Self.tblVideos" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -97,8 +121,9 @@
           <EntitySet Name="tblChapters" EntityType="VitkundModel.tblChapter" />
           <EntitySet Name="tblTrendingBusinesses" EntityType="VitkundModel.tblTrendingBusiness" />
           <EntitySet Name="tblVideos" EntityType="VitkundModel.tblVideo" />
-          <EntitySet Name="tblAdmins" EntityType="VitkundModel.tblAdmin" />
           <EntitySet Name="tblCourses" EntityType="VitkundModel.tblCourse" />
+          <EntitySet Name="tblAdmins" EntityType="VitkundModel.tblAdmin" />
+          <EntitySet Name="tblResults" EntityType="VitkundModel.tblResult" />
         </EntityContainer>
         <EntityType Name="tblBusinessidea">
           <Key>
@@ -143,6 +168,20 @@
           <Property Name="VideoFile" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="VideoImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="tblCourse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ShortDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LongDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FromPrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ToPrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+        </EntityType>
         <EntityType Name="tblAdmin">
           <Key>
             <PropertyRef Name="Id" />
@@ -160,20 +199,29 @@
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PaymentId" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="PlanAmount" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="tblCourse">
+        <EntityType Name="tblResult">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ShortDescription" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="LongDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="FromPrice" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="ToPrice" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Firm" Type="Int32" />
+          <Property Name="Education" Type="Int32" />
+          <Property Name="Profit" Type="Int32" />
+          <Property Name="Experience" Type="Int32" />
+          <Property Name="Premises" Type="Int32" />
+          <Property Name="Capital" Type="Int32" />
+          <Property Name="Raw" Type="Int32" />
+          <Property Name="Research" Type="Int32" />
+          <Property Name="Marketing" Type="Int32" />
+          <Property Name="Cibil" Type="Int32" />
+          <Property Name="BusinessExpertise" Type="Int32" />
+          <Property Name="BusinessName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fk_admin" Type="Int32" />
+          <Property Name="Score" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -228,9 +276,25 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tblCourses">
+            <EntityTypeMapping TypeName="VitkundModel.tblCourse">
+              <MappingFragment StoreEntitySet="tblCourse">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ToPrice" ColumnName="ToPrice" />
+                <ScalarProperty Name="FromPrice" ColumnName="FromPrice" />
+                <ScalarProperty Name="LongDescription" ColumnName="LongDescription" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblAdmins">
             <EntityTypeMapping TypeName="VitkundModel.tblAdmin">
               <MappingFragment StoreEntitySet="tblAdmin">
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="PlanAmount" ColumnName="PlanAmount" />
                 <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
                 <ScalarProperty Name="City" ColumnName="City" />
@@ -247,17 +311,25 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblCourses">
-            <EntityTypeMapping TypeName="VitkundModel.tblCourse">
-              <MappingFragment StoreEntitySet="tblCourse">
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="ToPrice" ColumnName="ToPrice" />
-                <ScalarProperty Name="FromPrice" ColumnName="FromPrice" />
-                <ScalarProperty Name="LongDescription" ColumnName="LongDescription" />
-                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
+          <EntitySetMapping Name="tblResults">
+            <EntityTypeMapping TypeName="VitkundModel.tblResult">
+              <MappingFragment StoreEntitySet="tblResult">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="fk_admin" ColumnName="fk_admin" />
+                <ScalarProperty Name="BusinessName" ColumnName="BusinessName" />
+                <ScalarProperty Name="BusinessExpertise" ColumnName="BusinessExpertise" />
+                <ScalarProperty Name="Cibil" ColumnName="Cibil" />
+                <ScalarProperty Name="Marketing" ColumnName="Marketing" />
+                <ScalarProperty Name="Research" ColumnName="Research" />
+                <ScalarProperty Name="Raw" ColumnName="Raw" />
+                <ScalarProperty Name="Capital" ColumnName="Capital" />
+                <ScalarProperty Name="Premises" ColumnName="Premises" />
+                <ScalarProperty Name="Experience" ColumnName="Experience" />
+                <ScalarProperty Name="Profit" ColumnName="Profit" />
+                <ScalarProperty Name="Education" ColumnName="Education" />
+                <ScalarProperty Name="Firm" ColumnName="Firm" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

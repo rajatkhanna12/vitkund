@@ -27,5 +27,6 @@ namespace Vitkund.Models
         public string City { get; set; }
         public string PaymentId { get; set; }
         public string PlanAmount { get; set; }
+        public string Email { get; set; }
     }
 }

@@ -148,8 +148,22 @@ namespace Vitkund.Controllers
         public ActionResult Result()
         {
             ViewBag.Message = "Your contact page.";
+            VitkundEntities db = new VitkundEntities();
+            var userId = Session["UserLoggedInId"];
+            if (userId != null)
+            {
+                int id = Convert.ToInt32(userId);
+                var result = db.tblResults.FirstOrDefault(x => x.fk_admin == id);
+                ViewBag.Name = result.Name;
+                ViewBag.BusinessName = result.BusinessName;
+                ViewBag.Score = result.Score.ToString();
+                return View(result);
+            }
+            else
+            {
+                return View();
+            }
 
-            return View();
         }
 
         [Route("Videos")]
@@ -833,7 +847,7 @@ namespace Vitkund.Controllers
         #endregion
 
         #region Signup
-        [Route("Signup")]
+        [Route("Thank-you")]
         public ActionResult Signup()
         {
             return View();
@@ -849,8 +863,26 @@ namespace Vitkund.Controllers
                 db.tblAdmins.Add(tbladmin);
                 db.SaveChanges();
 
-                SendWelcomeEmail(tbladmin.Name,tbladmin.Username,tbladmin.PhoneNumber,tbladmin.Password);
-                return Json(new { success = true, message = "Signup successfully" });
+                SendWelcomeEmail(tbladmin.Name, tbladmin.Email, tbladmin.PhoneNumber, tbladmin.Password);
+                return Json(new { success = true, message = "Signup successfully", id = tbladmin.Id });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = true, message = ex });
+            }
+
+        }
+        [HttpPost]
+        public ActionResult SaveResult(tblResult tblresult)
+        {
+            try
+            {
+                VitkundEntities db = new VitkundEntities();
+
+                db.tblResults.Add(tblresult);
+                db.SaveChanges();
+
+                return Json(new { success = true });
             }
             catch (Exception ex)
             {
@@ -936,13 +968,14 @@ namespace Vitkund.Controllers
 
         #region Logout
 
-        //[HttpPost]
-        //public ActionResult Logout()
-        //{
-        //    Session.Remove("Role");
-        //    Session.Remove("LoggedIn");
-        //    return Redirect("/Login");
-        //}
+       [Route("Logout")]
+        public ActionResult Logout()
+        {
+            Session.Remove("Role");
+            Session.Remove("LoggedIn");
+            Session.Clear();
+            return Redirect("/Index");
+        }
         #endregion
 
         public JsonResult SendWelcomeEmail(string name, string email, string phone, string password)

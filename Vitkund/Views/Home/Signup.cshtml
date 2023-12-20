@@ -1,7 +1,7 @@
 ﻿
 <style>
     span {
-    font-size:15px;
+        font-size: 15px;
     }
 </style>
 <!-- Start breadcrumb Area -->
@@ -54,7 +54,7 @@
                                 <span id="maxvalspanfathername" style="color:red"></span><span id="validationMessageforfathername" style="color:red"></span><span id="requiredvalidationforfathername" style="color:red"></span>
                             </div>
 
-                           
+
                             <div class="col-md-6 col-12">
                                 <label>Mobile Number *</label>
                                 <input type="text" id="mobilenotxtbox" placeholder="Your Mobile No. ">
@@ -148,69 +148,7 @@
                 $('#validationMessageforname').text('');
             }
         });
-        $('#fathernametxtbox').on('input', function () {
-            var maxLength = 20;
-            var inputValue = $(this).val();
-            var containsSpecialChars = /[!#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(inputValue);
-            if (inputValue.length > maxLength) {
-                var trimmedValue = inputValue.substring(0, maxLength);
-                $(this).val(trimmedValue);
-                $("#maxvalspanfathername").text("Only " + maxLength + " characters allowed.");
-            }
-            else {
-                $("#maxvalspanfathername").text("");
-            }
-            if (containsSpecialChars) {
-                fathernamevalidation = false;
-                $('#validationMessageforfathername').text('Special characters are not allowed.');
-            }
-            else {
-                fathernamevalidation = true;
-                $('#validationMessageforfathername').text('');
-            }
-        });
-        $('#districttxbox').on('input', function () {
-            var maxLength = 20;
-            var inputValue = $(this).val();
-            var containsSpecialChars = /[!#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(inputValue);
-            if (inputValue.length > maxLength) {
-                var trimmedValue = inputValue.substring(0, maxLength);
-                $(this).val(trimmedValue);
-                $("#maxvalspandistrict").text("Only " + maxLength + " characters allowed.");
-            }
-            else {
-                $("#maxvalspandistrict").text("");
-            }
-            if (containsSpecialChars) {
-                districtvalidation = false;
-                $('#validationMessagefordistrict').text('Special characters are not allowed.');
-            }
-            else {
-                districtvalidation = true;
-                $('#validationMessagefordistrict').text('');
-            }
-        });
-        $('#statetxtbox').on('input', function () {
-            var maxLength = 20;
-            var inputValue = $(this).val();
-            var containsSpecialChars = /[!#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(inputValue);
-            if (inputValue.length > maxLength) {
-                var trimmedValue = inputValue.substring(0, maxLength);
-                $(this).val(trimmedValue);
-                $("#maxvalspanstate").text("Only " + maxLength + " characters allowed.");
-            }
-            else {
-                $("#maxvalspanstate").text("");
-            }
-            if (containsSpecialChars) {
-                statevalidation = false;
-                $('#validationMessageforstate').text('Special characters are not allowed.');
-            }
-            else {
-                statevalidation = true;
-                $('#validationMessageforstate').text('');
-            }
-        });
+       
         $('#Usernametxtbox').on('input', function () {
             var maxLength = 50;
             var inputValue = $(this).val();
@@ -250,7 +188,7 @@
                 hasDigit &&
                 hasSpecialChar;
         }
-        
+
     })
     function Signup() {
         var validationreq = false;
@@ -268,23 +206,12 @@
             $("#requiredvalidationforname").text("");
         }
         if (fathername == "") {
-            $("#requiredvalidationforfathername").text("Enter Father Name!");
+            $("#requiredvalidationforfathername").text("Enter Email!");
         }
         else {
             $("#requiredvalidationforfathername").text("");
         }
-        if (district == "") {
-            $("#requiredvalidationfordistrict").text("Enter City!");
-        }
-        else {
-            $("#requiredvalidationfordistrict").text("");
-        }
-        if (state == "") {
-            $("#requiredvalidationforstate").text("Enter State!");
-        }
-        else {
-            $("#requiredvalidationforstate").text("");
-        }
+
         if (mobileno == "") {
             $("#requiredvalidationformobileno").text("Enter Mobile No!");
         }
@@ -303,14 +230,15 @@
         else {
             $("#requiredvalidationforpassword").text("");
         }
-        if (name == "" || fathername == "" || district == "" || state == "" || mobileno == "" || username == "" || password == "") {
+        if (name == "" || fathername == "" || mobileno == "" || username == "" || password == "") {
             validationreq = false;
         }
         else {
             validationreq = true;
         }
         if (validationreq) {
-            var tblsignupdata = { Username: username, Password: password, Name: name, FatherName: fathername, City: district, State: state, PhoneNumber: mobileno }
+            debugger;
+            var tblsignupdata = { Username: username, Password: password, Name: name, Email: fathername, PhoneNumber: mobileno, PaymentId: (localStorage.getItem("paymentId")), PlanAmount: (localStorage.getItem("plan") / 100) }
             $.ajax({
                 url: '/Home/AddSignupDetails',
                 type: 'POST',
@@ -320,7 +248,9 @@
                 datatype: 'json',
                 success: function (response) {
                     if (response.message = "Signup successfully") {
-                        window.location.href = "/login";
+                        debugger;
+                        SaveResult(response.id);
+                        //window.location.href = "/login";
                     }
                 },
                 error: function (error) {
@@ -330,5 +260,61 @@
         }
 
     }
+    function SaveResult(id) {
+        var age = parseInt(localStorage.getItem("Age"));
+        var firms = parseInt(localStorage.getItem("Firms"));
+        var education = parseInt(localStorage.getItem("Education"));
+        var percent = parseInt(localStorage.getItem("Percent"));
+        var experience = parseInt(localStorage.getItem("Experience"));
+        var premises = parseInt(localStorage.getItem("Premises"));
+        var capital = parseInt(localStorage.getItem("Capital"));
+        var material = parseInt(localStorage.getItem("Material"));
+        var research = parseInt(localStorage.getItem("Research"));
+        var market = parseInt(localStorage.getItem("Market"));
+        var cibil = parseInt(localStorage.getItem("Cibil"));
+        var expertise = parseInt(localStorage.getItem("Expertise"));
+        var name = localStorage.getItem("name");
+        var busname = localStorage.getItem("businessName");
+        var score = localStorage.getItem("PagesSum");
+       
+        var tblsignupdata = { Age: age, Firm: firms, Education: education, Profit: percent, Experience: experience, Premises: premises, Capital: capital, Raw: material, Research: research, Marketing: market, Cibil: cibil, BusinessExpertise: expertise, BusinessName: busname,Name:name, fk_admin : id,Score:score  }
+        $.ajax({
+            url: '/Home/SaveResult',
+            type: 'POST',
+            data: JSON.stringify({ tblresult: tblsignupdata }),
+            traditional: true,
+            contentType: 'application/json; charset=utf-8',
+            datatype: 'json',
+            success: function (response) {
+               
+                    localStorage.clear();
+                    window.location.href = "/login";
+                
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+    //function SignUp(paymentId) {
+    //    var tblsignupdata = { Username: localStorage.getItem("email"), Password: "1234", Name: localStorage.getItem("name"), PhoneNumber: localStorage.getItem("phone"), PaymentId: paymentId, PlanAmount: (localStorage.getItem("plan") / 100) }
+    //    $.ajax({
+    //        url: '/Home/AddSignupDetails',
+    //        type: 'POST',
+    //        data: JSON.stringify({ tbladmin: tblsignupdata }),
+    //        traditional: true,
+    //        contentType: 'application/json; charset=utf-8',
+    //        datatype: 'json',
+    //        success: function (response) {
+    //            if (response.message = "Signup successfully") {
+    //                localStorage.clear();
+    //                window.location.href = "/login";
+    //            }
+    //        },
+    //        error: function (error) {
+    //            console.log(error);
+    //        }
+    //    });
+    //}
 </script>
 

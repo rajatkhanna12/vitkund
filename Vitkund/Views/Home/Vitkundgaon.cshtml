@@ -38,8 +38,8 @@
                             </div>
                             <div class="col-md-6 col-12">
                                 <label>Business Name*</label>
-                                <input type="text" id="Nametxtbox" placeholder="Your Name">
-                                <span id="businessname3" style="color:red"></span><span id="businessname" style="color:red"></span><span id="businessname1" style="color:red"></span>
+                                <input type="text" id="businessName" placeholder="Your Business Name">
+                                <span id="businessname3" style="color:red"></span><span id="validationMessageforbusname" style="color:red"></span><span id="requiredvalidationforbusname" style="color:red"></span>
                             </div>
                             @*<div class="col-md-6 col-12">
                                 <label>Mobile Number *</label>
@@ -319,18 +319,25 @@
             else {
                 $("#requiredvalidationforname").text("");
             }
-            if ($("#mobilenotxtbox").val() == "") {
-                $("#requiredvalidationformobileno").text("Please Enter Mobile No");
+            if ($("#businessName").val() == "") {
+                $("#requiredvalidationforbusname").text("Please Enter Business Name");
+                isselect = false;
             }
             else {
-                $("#requiredvalidationformobileno").text("");
+                $("#requiredvalidationforbusname").text("");
             }
-            if ($("#Usernametxtbox").val() == "") {
-                $("#requiredvalidationforusername").text("Please Enter EmailId");
-            }
-            else {
-                $("#requiredvalidationforusername").text("");
-            }
+            //if ($("#mobilenotxtbox").val() == "") {
+            //    $("#requiredvalidationformobileno").text("Please Enter Mobile No");
+            //}
+            //else {
+            //    $("#requiredvalidationformobileno").text("");
+            //}
+            //if ($("#Usernametxtbox").val() == "") {
+            //    $("#requiredvalidationforusername").text("Please Enter EmailId");
+            //}
+            //else {
+            //    $("#requiredvalidationforusername").text("");
+            //}
 
             //age
             if ($('#age').val() == "") {
@@ -752,11 +759,11 @@
         //name
         localStorage.setItem("name", $("#Nametxtbox").val());
         //email
-        localStorage.setItem("email", $("#Usernametxtbox").val());
-        //mobile
-        localStorage.setItem("phone", $("#mobilenotxtbox").val());
-        //plan
-        localStorage.setItem("plan", $("#plan option:selected").val());
+        localStorage.setItem("businessName", $("#businessName").val());
+        ////mobile
+        //localStorage.setItem("phone", $("#mobilenotxtbox").val());
+        ////plan
+        //localStorage.setItem("plan", $("#plan option:selected").val());
     }
     
 </script>

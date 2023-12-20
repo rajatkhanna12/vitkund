@@ -29,7 +29,8 @@ namespace Vitkund.Models
         public virtual DbSet<tblChapter> tblChapters { get; set; }
         public virtual DbSet<tblTrendingBusiness> tblTrendingBusinesses { get; set; }
         public virtual DbSet<tblVideo> tblVideos { get; set; }
-        public virtual DbSet<tblAdmin> tblAdmins { get; set; }
         public virtual DbSet<tblCourse> tblCourses { get; set; }
+        public virtual DbSet<tblAdmin> tblAdmins { get; set; }
+        public virtual DbSet<tblResult> tblResults { get; set; }
     }
 }
