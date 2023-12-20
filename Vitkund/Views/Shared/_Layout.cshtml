@@ -296,7 +296,14 @@
 
                                 @if (Session["LoggedIn"] == "true")
                                 {
-                                    <a href="#"><i class="feather-user"></i> Login</a>
+                                    if (Session["Role"] == "Admin")
+                                    {
+                                        <a href="#"><i class="feather-user"></i> Admin</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#"><i class="feather-user"></i> User</a>
+                                    }
                                     <div class="rbt-user-menu-list-wrapper">
                                         <div class="inner">
                                             <div class="rbt-admin-profile">
@@ -309,7 +316,7 @@
                                                     <a class="rbt-btn-link color-primary" href="profile">View Profile</a>
                                                 </div>
                                             </div>
-                                            @if (Session["Role"] == "Admin")
+                                            @*@if (Session["Role"] == "Admin")
                                             {
                                                 <ul class="user-list-wrapper">
                                                     <li>
@@ -321,7 +328,7 @@
 
                                                 </ul>
                                             }
-                                            else { }
+                                            else { }*@
                                             <hr class="mt--10 mb--10">
 
                                             <ul class="user-list-wrapper">
@@ -454,6 +461,12 @@
                                     <a class="rbt-btn blink btn-border-gradient radius-round btn-sm hover-transform-none" href="/result">
                                         Result
                                     </a>
+                                }
+                                else
+                                { <a class="rbt-btn blink btn-border-gradient radius-round btn-sm hover-transform-none" href="/AdminIndex">
+                                        <i class="feather-home"></i> Dashboard
+                                    </a>
+                                    
                                 }
                             }
                         </div>

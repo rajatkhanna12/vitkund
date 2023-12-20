@@ -4,82 +4,100 @@
         font-size: 15px;
     }
 </style>
-<!-- Start breadcrumb Area -->
-<div class="rbt-breadcrumb-default ptb--50 ptb_md--50 ptb_sm--30 bg-gradient-1">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="breadcrumb-inner text-center">
-                    <img src="~/Content/assets/images/happy.png" style="max-width:100px;" />
-                    <h2 class="title">Thank You</h2>
-                    <ul class="page-list">
-                        <li class="rbt-breadcrumb-item"><a href="index">Home</a></li>
-                        <li>
-                            <div class="icon-right"><i class="feather-chevron-right"></i></div>
-                        </li>
-                        <li class="rbt-breadcrumb-item active">Thank You</li>
-                    </ul>
+
+
+    <!-- Start breadcrumb Area -->
+    <div class="rbt-breadcrumb-default ptb--50 ptb_md--50 ptb_sm--30 bg-gradient-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-inner text-center">
+                        <img src="~/Content/assets/images/happy.png" style="max-width:100px;" />
+                        <h2 class="title">Thank You</h2>
+                        <ul class="page-list">
+                            <li class="rbt-breadcrumb-item"><a href="index">Home</a></li>
+                            <li>
+                                <div class="icon-right"><i class="feather-chevron-right"></i></div>
+                            </li>
+                            <li class="rbt-breadcrumb-item active">Thank You</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- End Breadcrumb Area -->
+    <!-- End Breadcrumb Area -->
 
 
-<div class="checkout_area bg-color-white" style="padding-top:30px; padding-bottom:50px;">
-    <div class="container">
-        <div class="row g-5 checkout-form">
 
-            <div class="col-lg-8 offset-lg-2">
-                <div class="checkout-content-wrapper">
-                    <div class="text-center">
-                        <h5>Please create your Username & Password for Login.</h5>
-                        <hr style="max-width:150px; text-align:center; margin:0 auto;" />
-                        <br />
-                    </div>
-                    <!-- Billing Address -->
-                    <div id="billing-form">
+        <div class="container">
+            <div class="row g-5 checkout-form">
 
-                        <div class="row g-5">
-                            <div class="col-md-6 col-12">
-                                <label>Name*</label>
-                                <input type="text" id="Nametxtbox" placeholder="Your Name">
-                                <span id="maxvalspanname" style="color:red"></span><span id="validationMessageforname" style="color:red"></span><span id="requiredvalidationforname" style="color:red"></span>
-                            </div>
+                <div class="col-lg-8 offset-lg-2" style="padding-top:30px; padding-bottom:30px;">
+                    <div class="checkout-content-wrapper">
+                       
+                        <div id="container" class="loader">
+                            <div class="round0 init"></div>
+                            <div class="round1"></div>
+                            <div class="round2"></div>
+                            <div class="round3"></div>
+                            <div class="round4"></div>
+                            <div class="round5"></div>
+                            <div class="round6"></div>
+                            <div class="round7"></div>
+                            <div class="round8"></div>
+                            <div class="round9"></div>
+                            <div class="round10"></div>
+                        </div>
 
-                            <div class="col-md-6 col-12">
-                                <label>Your Email*</label>
-                                <input type="text" id="fathernametxtbox" placeholder="Email Id">
-                                <span id="maxvalspanfathername" style="color:red"></span><span id="validationMessageforfathername" style="color:red"></span><span id="requiredvalidationforfathername" style="color:red"></span>
-                            </div>
+                        <div class="text-center">
+                            <h5>Please create your Username & Password for Login.</h5>
+                            <hr style="max-width:150px; text-align:center; margin:0 auto;" />
+                            <br />
+                        </div>
+                        <!-- Billing Address -->
+                        <div id="billing-form">
+
+                            <div class="row g-5">
+                                <div class="col-md-6 col-12">
+                                    <label>Name*</label>
+                                    <input type="text" id="Nametxtbox" placeholder="Your Name">
+                                    <span id="maxvalspanname" style="color:red"></span><span id="validationMessageforname" style="color:red"></span><span id="requiredvalidationforname" style="color:red"></span>
+                                </div>
+
+                                <div class="col-md-6 col-12">
+                                    <label>Your Email*</label>
+                                    <input type="text" id="fathernametxtbox" placeholder="Email Id">
+                                    <span id="maxvalspanfathername" style="color:red"></span><span id="validationMessageforfathername" style="color:red"></span><span id="requiredvalidationforfathername" style="color:red"></span>
+                                </div>
 
 
-                            <div class="col-md-6 col-12">
-                                <label>Mobile Number *</label>
-                                <input type="text" id="mobilenotxtbox" placeholder="Your Mobile No. ">
-                                <span id="validationMessagemobileno" style="color:red"></span><span id="maxvalmobileno" style="color:red"></span><span id="requiredvalidationformobileno" style="color:red"></span>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <label>User Name / Email *</label>
-                                <input type="text" id="Usernametxtbox" placeholder="Enter User Name">
-                                <span id="maxvalspanusername" style="color:red"></span><span id="validationMessageforusername" style="color:red"></span><span id="requiredvalidationforusername" style="color:red"></span>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <label>Password *</label>
-                                <input type="password" id="Passwordtxtbox" placeholder="Your Password">
-                                <span id="passwordError" style="color: red;"></span><span id="requiredvalidationforpassword" style="color:red"></span>
-                            </div>
-                            <div class="plceholder-button mt--50">
-                                <button onclick="Signup()" type="button" class="rbt-btn btn-gradient hover-icon-reverse">
-                                    <a href="#" style="color:#fff;">
-                                        <span class="icon-reverse-wrapper">
-                                            <span class="btn-text">Signup</span>
-                                            <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                            <span class="btn-icon"><i class="feather-arrow-right"></i></span>
-                                        </span>
-                                    </a>
-                                </button>
+                                <div class="col-md-6 col-12">
+                                    <label>Mobile Number *</label>
+                                    <input type="text" id="mobilenotxtbox" placeholder="Your Mobile No. ">
+                                    <span id="validationMessagemobileno" style="color:red"></span><span id="maxvalmobileno" style="color:red"></span><span id="requiredvalidationformobileno" style="color:red"></span>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <label>User Name / Email *</label>
+                                    <input type="text" id="Usernametxtbox" placeholder="Enter User Name">
+                                    <span id="maxvalspanusername" style="color:red"></span><span id="validationMessageforusername" style="color:red"></span><span id="requiredvalidationforusername" style="color:red"></span>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <label>Password *</label>
+                                    <input type="password" id="Passwordtxtbox" placeholder="Your Password">
+                                    <span id="passwordError" style="color: red;"></span><span id="requiredvalidationforpassword" style="color:red"></span>
+                                </div>
+                                <div class="plceholder-button mt--50">
+                                    <button id="btnSignup" onclick="Signup()" type="button" class="rbt-btn btn-gradient hover-icon-reverse">
+                                        <a href="#" style="color:#fff;">
+                                            <span class="icon-reverse-wrapper">
+                                                <span class="btn-text">Signup</span>
+                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                                <span class="btn-icon"><i class="feather-arrow-right"></i></span>
+                                            </span>
+                                        </a>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -87,234 +105,235 @@
             </div>
         </div>
     </div>
-</div>
 
-<div class="rbt-separator-mid">
-    <div class="container">
-        <hr class="rbt-separator m-0">
+    <div class="rbt-separator-mid">
+        <div class="container">
+            <hr class="rbt-separator m-0">
+        </div>
     </div>
-</div>
-<script src="~/Scripts/jquery-3.4.1.js"></script>
-<script>
-    $(document).ready(function () {
-        var namevalidation = false;
-        var fathernamevalidation = false;
-        var districtvalidation = false;
-        var statevalidation = false;
-        var usernamevalidation = false;
-        var passwordvalidation = false;
-        $('#mobilenotxtbox').on('input', function () {
-            var maxLength = 10;
-            var inputValue = $(this).val();
-            if (/[^0-9]/g.test(inputValue)) {
-                topricevalidation = false;
-                $('#validationMessagemobileno').text('Only numbers allowed (0-9)');
-            }
-            else {
-                topricevalidation = true;
-                $('#validationMessagemobileno').text('');
-            }
-            // Allow only numbers (0-9)
-            var numericValue = inputValue.replace(/[^0-9]/g, '');
-            $(this).val(numericValue);
-            if (inputValue.length > maxLength) {
-                // Trim the input to the maximum length
-                var trimmedValue = inputValue.substring(0, maxLength);
-                $(this).val(trimmedValue);
-                $("#maxvalmobileno").text("Only " + maxLength + " Digits allowed.");
-            }
-            else {
-                $("#maxvalmobileno").text("");
-            }
-        });
-        $('#Nametxtbox').on('input', function () {
-            var maxLength = 20;
-            var inputValue = $(this).val();
-            var containsSpecialChars = /[!#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(inputValue);
-            if (inputValue.length > maxLength) {
-                var trimmedValue = inputValue.substring(0, maxLength);
-                $(this).val(trimmedValue);
-                $("#maxvalspanname").text("Only " + maxLength + " characters allowed.");
-            }
-            else {
-                $("#maxvalspanname").text("");
-            }
-            if (containsSpecialChars) {
-                namevalidation = false;
-                $('#validationMessageforname').text('Special characters are not allowed.');
-            }
-            else {
-                namevalidation = true;
-                $('#validationMessageforname').text('');
-            }
-        });
-       
-        $('#Usernametxtbox').on('input', function () {
-            var maxLength = 50;
-            var inputValue = $(this).val();
-            if (inputValue.length > maxLength) {
-                var trimmedValue = inputValue.substring(0, maxLength);
-                $(this).val(trimmedValue);
-                $("#maxvalspanusername").text("Only " + maxLength + " characters allowed.");
-            }
-            else {
-                $("#maxvalspanusername").text("");
-            }
-        });
-        $('#Passwordtxtbox').on('input', function () {
-            var password = $(this).val();
-            var isValid = validatePassword(password);
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script>
+        $(document).ready(function () {
+            var namevalidation = false;
+            var fathernamevalidation = false;
+            var districtvalidation = false;
+            var statevalidation = false;
+            var usernamevalidation = false;
+            var passwordvalidation = false;
+            $('#mobilenotxtbox').on('input', function () {
+                var maxLength = 10;
+                var inputValue = $(this).val();
+                if (/[^0-9]/g.test(inputValue)) {
+                    topricevalidation = false;
+                    $('#validationMessagemobileno').text('Only numbers allowed (0-9)');
+                }
+                else {
+                    topricevalidation = true;
+                    $('#validationMessagemobileno').text('');
+                }
+                // Allow only numbers (0-9)
+                var numericValue = inputValue.replace(/[^0-9]/g, '');
+                $(this).val(numericValue);
+                if (inputValue.length > maxLength) {
+                    // Trim the input to the maximum length
+                    var trimmedValue = inputValue.substring(0, maxLength);
+                    $(this).val(trimmedValue);
+                    $("#maxvalmobileno").text("Only " + maxLength + " Digits allowed.");
+                }
+                else {
+                    $("#maxvalmobileno").text("");
+                }
+            });
+            $('#Nametxtbox').on('input', function () {
+                var maxLength = 20;
+                var inputValue = $(this).val();
+                var containsSpecialChars = /[!#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(inputValue);
+                if (inputValue.length > maxLength) {
+                    var trimmedValue = inputValue.substring(0, maxLength);
+                    $(this).val(trimmedValue);
+                    $("#maxvalspanname").text("Only " + maxLength + " characters allowed.");
+                }
+                else {
+                    $("#maxvalspanname").text("");
+                }
+                if (containsSpecialChars) {
+                    namevalidation = false;
+                    $('#validationMessageforname').text('Special characters are not allowed.');
+                }
+                else {
+                    namevalidation = true;
+                    $('#validationMessageforname').text('');
+                }
+            });
 
-            if (isValid) {
-                passwordvalidation = true;
-                $('#passwordError').text('');
-            } else {
-                passwordvalidation = false;
-                $('#passwordError').text('Password must meet the criteria.');
+            $('#Usernametxtbox').on('input', function () {
+                var maxLength = 50;
+                var inputValue = $(this).val();
+                if (inputValue.length > maxLength) {
+                    var trimmedValue = inputValue.substring(0, maxLength);
+                    $(this).val(trimmedValue);
+                    $("#maxvalspanusername").text("Only " + maxLength + " characters allowed.");
+                }
+                else {
+                    $("#maxvalspanusername").text("");
+                }
+            });
+            $('#Passwordtxtbox').on('input', function () {
+                var password = $(this).val();
+                var isValid = validatePassword(password);
+
+                if (isValid) {
+                    passwordvalidation = true;
+                    $('#passwordError').text('');
+                } else {
+                    passwordvalidation = false;
+                    $('#passwordError').text('Password must meet the criteria.');
+                }
+            });
+            function validatePassword(password) {
+                // Define your password criteria
+                var minLength = 6;
+                var hasUppercase = /[A-Z]/.test(password);
+                var hasLowercase = /[a-z]/.test(password);
+                var hasDigit = /\d/.test(password);
+                var hasSpecialChar = /[!@@#$%^&*(),.?":{}|<>]/.test(password);
+
+                // Check if the password meets all criteria
+                return password.length >= minLength &&
+                    hasUppercase &&
+                    hasLowercase &&
+                    hasDigit &&
+                    hasSpecialChar;
             }
-        });
-        function validatePassword(password) {
-            // Define your password criteria
-            var minLength = 8;
-            var hasUppercase = /[A-Z]/.test(password);
-            var hasLowercase = /[a-z]/.test(password);
-            var hasDigit = /\d/.test(password);
-            var hasSpecialChar = /[!@@#$%^&*(),.?":{}|<>]/.test(password);
 
-            // Check if the password meets all criteria
-            return password.length >= minLength &&
-                hasUppercase &&
-                hasLowercase &&
-                hasDigit &&
-                hasSpecialChar;
-        }
+        })
+        function Signup() {
+            var validationreq = false;
+            var name = $("#Nametxtbox").val();
+            var fathername = $("#fathernametxtbox").val();
+            var district = $("#districttxbox").val();
+            var state = $("#statetxtbox").val();
+            var mobileno = $("#mobilenotxtbox").val();
+            var username = $("#Usernametxtbox").val();
+            var password = $("#Passwordtxtbox").val();
+            if (name == "") {
+                $("#requiredvalidationforname").text("Enter Name!");
+            }
+            else {
+                $("#requiredvalidationforname").text("");
+            }
+            if (fathername == "") {
+                $("#requiredvalidationforfathername").text("Enter Email!");
+            }
+            else {
+                $("#requiredvalidationforfathername").text("");
+            }
 
-    })
-    function Signup() {
-        var validationreq = false;
-        var name = $("#Nametxtbox").val();
-        var fathername = $("#fathernametxtbox").val();
-        var district = $("#districttxbox").val();
-        var state = $("#statetxtbox").val();
-        var mobileno = $("#mobilenotxtbox").val();
-        var username = $("#Usernametxtbox").val();
-        var password = $("#Passwordtxtbox").val();
-        if (name == "") {
-            $("#requiredvalidationforname").text("Enter Name!");
-        }
-        else {
-            $("#requiredvalidationforname").text("");
-        }
-        if (fathername == "") {
-            $("#requiredvalidationforfathername").text("Enter Email!");
-        }
-        else {
-            $("#requiredvalidationforfathername").text("");
-        }
+            if (mobileno == "") {
+                $("#requiredvalidationformobileno").text("Enter Mobile No!");
+            }
+            else {
+                $("#requiredvalidationformobileno").text("");
+            }
+            if (username == "") {
+                $("#requiredvalidationforusername").text("Enter Username!");
+            }
+            else {
+                $("#requiredvalidationforusername").text("");
+            }
+            if (password == "") {
+                $("#requiredvalidationforpassword").text("Enter Password!");
+            }
+            else {
+                $("#requiredvalidationforpassword").text("");
+            }
+            if (name == "" || fathername == "" || mobileno == "" || username == "" || password == "") {
+                validationreq = false;
+            }
+            else {
+                validationreq = true;
+            }
+            if (validationreq) {
+                debugger;
+                $("#btnSignup").prop('disabled', true);
+                $("#loaderGif").show();
+                var tblsignupdata = { Username: username, Password: password, Name: name, Email: fathername, PhoneNumber: mobileno, PaymentId: (localStorage.getItem("paymentId")), PlanAmount: (localStorage.getItem("plan") / 100) }
+                $.ajax({
+                    url: '/Home/AddSignupDetails',
+                    type: 'POST',
+                    data: JSON.stringify({ tbladmin: tblsignupdata }),
+                    traditional: true,
+                    contentType: 'application/json; charset=utf-8',
+                    datatype: 'json',
+                    success: function (response) {
+                        if (response.message = "Signup successfully") {
+                            debugger;
+                            SaveResult(response.id);
+                            //window.location.href = "/login";
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
 
-        if (mobileno == "") {
-            $("#requiredvalidationformobileno").text("Enter Mobile No!");
         }
-        else {
-            $("#requiredvalidationformobileno").text("");
-        }
-        if (username == "") {
-            $("#requiredvalidationforusername").text("Enter Username!");
-        }
-        else {
-            $("#requiredvalidationforusername").text("");
-        }
-        if (password == "") {
-            $("#requiredvalidationforpassword").text("Enter Password!");
-        }
-        else {
-            $("#requiredvalidationforpassword").text("");
-        }
-        if (name == "" || fathername == "" || mobileno == "" || username == "" || password == "") {
-            validationreq = false;
-        }
-        else {
-            validationreq = true;
-        }
-        if (validationreq) {
-            debugger;
-            var tblsignupdata = { Username: username, Password: password, Name: name, Email: fathername, PhoneNumber: mobileno, PaymentId: (localStorage.getItem("paymentId")), PlanAmount: (localStorage.getItem("plan") / 100) }
+        function SaveResult(id) {
+            var age = parseInt(localStorage.getItem("Age"));
+            var firms = parseInt(localStorage.getItem("Firms"));
+            var education = parseInt(localStorage.getItem("Education"));
+            var percent = parseInt(localStorage.getItem("Percent"));
+            var experience = parseInt(localStorage.getItem("Experience"));
+            var premises = parseInt(localStorage.getItem("Premises"));
+            var capital = parseInt(localStorage.getItem("Capital"));
+            var material = parseInt(localStorage.getItem("Material"));
+            var research = parseInt(localStorage.getItem("Research"));
+            var market = parseInt(localStorage.getItem("Market"));
+            var cibil = parseInt(localStorage.getItem("Cibil"));
+            var expertise = parseInt(localStorage.getItem("Expertise"));
+            var name = localStorage.getItem("name");
+            var busname = localStorage.getItem("businessName");
+            var score = localStorage.getItem("PagesSum");
+
+            var tblsignupdata = { Age: age, Firm: firms, Education: education, Profit: percent, Experience: experience, Premises: premises, Capital: capital, Raw: material, Research: research, Marketing: market, Cibil: cibil, BusinessExpertise: expertise, BusinessName: busname, Name: name, fk_admin: id, Score: score }
             $.ajax({
-                url: '/Home/AddSignupDetails',
+                url: '/Home/SaveResult',
                 type: 'POST',
-                data: JSON.stringify({ tbladmin: tblsignupdata }),
+                data: JSON.stringify({ tblresult: tblsignupdata }),
                 traditional: true,
                 contentType: 'application/json; charset=utf-8',
                 datatype: 'json',
                 success: function (response) {
-                    if (response.message = "Signup successfully") {
-                        debugger;
-                        SaveResult(response.id);
-                        //window.location.href = "/login";
-                    }
+                    $("#loaderGif").hide();
+                    localStorage.clear();
+                    window.location.href = "/login";
+
                 },
                 error: function (error) {
                     console.log(error);
                 }
             });
         }
-
-    }
-    function SaveResult(id) {
-        var age = parseInt(localStorage.getItem("Age"));
-        var firms = parseInt(localStorage.getItem("Firms"));
-        var education = parseInt(localStorage.getItem("Education"));
-        var percent = parseInt(localStorage.getItem("Percent"));
-        var experience = parseInt(localStorage.getItem("Experience"));
-        var premises = parseInt(localStorage.getItem("Premises"));
-        var capital = parseInt(localStorage.getItem("Capital"));
-        var material = parseInt(localStorage.getItem("Material"));
-        var research = parseInt(localStorage.getItem("Research"));
-        var market = parseInt(localStorage.getItem("Market"));
-        var cibil = parseInt(localStorage.getItem("Cibil"));
-        var expertise = parseInt(localStorage.getItem("Expertise"));
-        var name = localStorage.getItem("name");
-        var busname = localStorage.getItem("businessName");
-        var score = localStorage.getItem("PagesSum");
-       
-        var tblsignupdata = { Age: age, Firm: firms, Education: education, Profit: percent, Experience: experience, Premises: premises, Capital: capital, Raw: material, Research: research, Marketing: market, Cibil: cibil, BusinessExpertise: expertise, BusinessName: busname,Name:name, fk_admin : id,Score:score  }
-        $.ajax({
-            url: '/Home/SaveResult',
-            type: 'POST',
-            data: JSON.stringify({ tblresult: tblsignupdata }),
-            traditional: true,
-            contentType: 'application/json; charset=utf-8',
-            datatype: 'json',
-            success: function (response) {
-               
-                    localStorage.clear();
-                    window.location.href = "/login";
-                
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-    }
-    //function SignUp(paymentId) {
-    //    var tblsignupdata = { Username: localStorage.getItem("email"), Password: "1234", Name: localStorage.getItem("name"), PhoneNumber: localStorage.getItem("phone"), PaymentId: paymentId, PlanAmount: (localStorage.getItem("plan") / 100) }
-    //    $.ajax({
-    //        url: '/Home/AddSignupDetails',
-    //        type: 'POST',
-    //        data: JSON.stringify({ tbladmin: tblsignupdata }),
-    //        traditional: true,
-    //        contentType: 'application/json; charset=utf-8',
-    //        datatype: 'json',
-    //        success: function (response) {
-    //            if (response.message = "Signup successfully") {
-    //                localStorage.clear();
-    //                window.location.href = "/login";
-    //            }
-    //        },
-    //        error: function (error) {
-    //            console.log(error);
-    //        }
-    //    });
-    //}
-</script>
+        //function SignUp(paymentId) {
+        //    var tblsignupdata = { Username: localStorage.getItem("email"), Password: "1234", Name: localStorage.getItem("name"), PhoneNumber: localStorage.getItem("phone"), PaymentId: paymentId, PlanAmount: (localStorage.getItem("plan") / 100) }
+        //    $.ajax({
+        //        url: '/Home/AddSignupDetails',
+        //        type: 'POST',
+        //        data: JSON.stringify({ tbladmin: tblsignupdata }),
+        //        traditional: true,
+        //        contentType: 'application/json; charset=utf-8',
+        //        datatype: 'json',
+        //        success: function (response) {
+        //            if (response.message = "Signup successfully") {
+        //                localStorage.clear();
+        //                window.location.href = "/login";
+        //            }
+        //        },
+        //        error: function (error) {
+        //            console.log(error);
+        //        }
+        //    });
+        //}
+    </script>
 
