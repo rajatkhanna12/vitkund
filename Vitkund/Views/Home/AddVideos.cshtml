@@ -149,10 +149,95 @@
         </div>
     }
 
-</div>
-<script src="~/Scripts/jquery-3.4.1.js"></script>
 
-<script>
+
+
+    <style>
+        #col-container {
+            display: inline-flex;
+            justify-content: space-between;
+        }
+
+        .col .title {
+            text-align: center;
+            font-weight: bold;
+            padding: 10px;
+            border-top-left-radius: 9px;
+            border-top-right-radius: 9px;
+            border: solid grey 2px;
+            cursor: move;
+        }
+
+        .col {
+            padding: 10px;
+        }
+    </style>
+    <!-- partial:index.partial.html -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header pb-0">
+                        <h6>Chapter1 (Videos)</h6>
+                        </div>
+                        <div id="col-container" class="card-body">
+                            <div class="row">
+                                <!-- COL 1 -->
+                                <div id="col1" class="col col-lg-3" draggable="true">
+                                    <div class="title">Apple</div>
+                                </div>
+                                <!-- COL 2 -->
+                                <div id="col2" class="col col-lg-3" draggable="true">
+                                    <div class="title">Orange</div>
+                                </div>
+                                <!-- COL 3 -->
+                                <div id="col3" class="col col-lg-3" draggable="true">
+                                    <div class="title">Banana</div>
+                                </div>
+                                <!-- COL 4 -->
+                                <div id="col4" class="col col-lg-3" draggable="true">
+                                    <div class="title">Kiwi</div>
+                                </div>
+                                <!-- COL 1 -->
+                                <div id="col8" class="col col-lg-3" draggable="true">
+                                    <div class="title">assa</div>
+                                </div>
+                                <!-- COL 2 -->
+                                <div id="col5" class="col col-lg-3" draggable="true">
+                                    <div class="title">Orvddange</div>
+                                </div>
+                                <!-- COL 3 -->
+                                <div id="col6" class="col col-lg-3" draggable="true">
+                                    <div class="title">sdcdcs</div>
+                                </div>
+                                <!-- COL 4 -->
+                                <div id="col7" class="col col-lg-3" draggable="true">
+                                    <div class="title">Kidcscdswi</div>
+                                </div>
+                                <!-- COL 4 -->
+                                <div id="col9" class="col col-lg-3" draggable="true">
+                                    <div class="title">Kidcscdswi</div>
+                                </div>
+                                <!-- COL 4 -->
+                                <div id="col10" class="col col-lg-3" draggable="true">
+                                    <div class="title">Kidcscdswi</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+ 
+               
+                    <!-- partial -->
+                
+                    <script src="~/Content/admin/assets/js/drag-script.js"></script>
+                </div>
+                <script src="~/Scripts/jquery-3.4.1.js"></script>
+
+                <script>
     $(document).ready(function () {
         $("#Videofiletitle").on('change', function () {
             var maxLength = 30;
@@ -235,7 +320,7 @@
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                  
+
                     var imageUploader = "no file selected";
                     var videouploader = "no file selected";
                     if (response.includes(",")) {
@@ -328,4 +413,4 @@
 
 
     }
-</script>
+                </script>
