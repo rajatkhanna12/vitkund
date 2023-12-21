@@ -1293,6 +1293,52 @@ namespace Vitkund.Controllers
 
             return Json(true, JsonRequestBehavior.AllowGet);
         }
+        [Route("Video-Sequence")]
+        public ActionResult ManageVideoSequence()
+        {
+            if (Session["LoggedIn"] == "true")
+            {
+                if (Session["Role"] == "Admin")
+                {
 
+                    VitkundEntities db = new VitkundEntities();
+                    ViewBag.tblchapters = db.tblChapters.ToList();
+                    var res = db.tblVideos.ToList();
+                    return View(res);
+                }
+                else
+                {
+                    Session.Remove("lastaccesspage");
+                    //Session["lastaccesspage"] = "Add-Chapters";
+                    return Json(new { success = true, message = "You Cannot Access this page. ( Video-Sequence )" });
+                }
+            }
+            else
+            {
+                return Redirect("/Login");
+                Session["lastaccesspage"] = "Video-Sequence";
+            }
+        }
+        public JsonResult changePosition(List<tblVideo> pos)
+        {
+            VitkundEntities db = new VitkundEntities();
+            if (pos != null)
+            {
+                if (pos.Count > 0)
+                {
+                    foreach (var item in pos)
+                    {
+                        var video = db.tblVideos.FirstOrDefault(x => x.Id == item.Id);
+                        if (video != null)
+                        {
+                            video.Position = item.Position;
+                        }
+                    }
+                    db.SaveChanges();
+                }
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
     }
+   
 }

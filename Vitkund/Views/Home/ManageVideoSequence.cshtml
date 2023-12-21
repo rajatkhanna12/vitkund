@@ -1,0 +1,158 @@
+﻿@model List<Vitkund.Models.tblVideo>
+@{
+    ViewBag.Title = "ManageVideoSequence";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>ManageVideoSequence</h2>
+
+<style>
+    #sortable-head, #sortable {
+        padding: 0;
+    }
+
+        #sortable > li {
+            list-style-type: none;
+            border: 1px solid #f4f4f4;
+            padding: 10px 0;
+            background: #fdfdfd;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            #sortable > li:hover {
+                background: #f5f5f5;
+            }
+
+            #sortable > li > div {
+                text-align: center;
+            }
+
+    #sortable-head {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+        #sortable-head > li {
+            padding: 25px 0;
+            font-weight: bold;
+            text-align: center;
+            list-style-type: none;
+        }
+</style>
+<div class="page-body">
+    <style>
+        #col-container {
+            display: inline-flex;
+            justify-content: space-between;
+        }
+
+        .col .title {
+            text-align: center;
+            font-weight: bold;
+            padding: 10px;
+            border-top-left-radius: 9px;
+            border-top-right-radius: 9px;
+            border: solid grey 2px;
+            cursor: move;
+        }
+
+        .col {
+            padding: 10px;
+        }
+    </style>
+    <!-- partial:index.partial.html -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    @foreach (var item in ViewBag.tblchapters)
+                    {
+                        <div class="card-header pb-0">
+                            <h6>
+                                @item.Name
+                            </h6>
+                        </div>
+                        <div id="col-container" class="card-body">
+                            <div class="row" id="ChapterRow_@item.Id">
+                                @foreach (var item1 in Model.Where(x => x.fK_Chapter == item.Id).OrderBy(x=>x.Position))
+                                {
+                                    <div id="@item1.Id" class="col col-lg-3" draggable="true">
+
+                                        @if (item1.VideoImage != null)
+                                        {
+                                            if (item1.VideoImage.Contains("Content"))
+                                            {
+                                                <img src="@item1.VideoImage" class="title" itemprop="thumbnail" style="height:90px;width:200px" alt="Image description">
+                                            }
+                                            else
+                                            {
+                                                <img src="~/Content/Uploads/@item1.VideoImage" class="title" style="height:90px;width:200px" itemprop="thumbnail" alt="Image description">
+
+                                            }
+                                        }
+                                       <p>@item1.FileTitle</p>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        
+                        <div class="card-footer text-end">
+                            <span style="color:red;display:none" id="spnConfirmMsg">Video Sequence Updated!</span><br />
+                            <input type="button" id="btnaddupdate" class="btn btn-primary" onclick="UpdateOrderSeq(@item.Id)" value="Update Order Sequence" />
+                            @*<button class="btn btn-primary" id="Uploadvideobutton" onclick="AddVideos()">Upload Video</button>*@
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- partial -->
+
+    <script src="~/Content/admin/assets/js/drag-script.js"></script>
+
+
+</div>
+<script src="~/Content/Userjs/ManageSeq.js"></script>
+<script>
+    function UpdateOrderSeq(ChapterId) {
+        var list = {};
+        var dc = [];
+        var sequence = 1;
+        $("#ChapterRow_" + ChapterId + "").each(function () {
+           
+            $('#ChapterRow_' + ChapterId + ' > div').each(function () {
+                
+                var a = $(this).attr('style').match(/\d+/);
+              
+                dc.push({ Id: $(this).attr('id'), Position: a[0] });
+                sequence++;
+            });
+           
+            $.ajax({
+                type: "POST",
+                url: "/Home/changePosition",
+                data: '{pos : ' + JSON.stringify(dc) + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    $("#spnConfirmMsg").show();
+                    setTimeout(location.reload(),4000);
+                   
+                },
+                failure: function (response) {
+                },
+                error: function (response) {
+                }
+            });
+
+        });
+    }
+</script>
+
+
+

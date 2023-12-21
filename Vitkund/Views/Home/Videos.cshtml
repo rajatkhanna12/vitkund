@@ -62,7 +62,7 @@
                                     <div class="row g-5 align-items-center" style="padding-top:30px; padding-bottom:50px;">
                                         @if (Model != null)
                                         {
-                                            foreach (var item2 in Model.Where(x => x.fK_Chapter == @item.Id))
+                                            foreach (var item2 in Model.Where(x => x.fK_Chapter == @item.Id).OrderBy(x=>x.Position))
                                             {
                                                 <div class="col-lg-3">
                                                     <div class="video-popup-wrapper">
