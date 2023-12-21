@@ -36,7 +36,7 @@
                 <div class="col-lg-8 offset-lg-2" style="padding-top:30px; padding-bottom:30px;">
                     <div class="checkout-content-wrapper">
                        
-                        <div id="container" class="loader">
+                        <div id="container" style="display:none;" class="loader">
                             <div class="round0 init"></div>
                             <div class="round1"></div>
                             <div class="round2"></div>
@@ -192,7 +192,7 @@
                     $('#passwordError').text('');
                 } else {
                     passwordvalidation = false;
-                    $('#passwordError').text('Password must meet the criteria.');
+                    $('#passwordError').text('Password must be One letter in Uppercase, Lowercase, Number and Special characters. Password Min Length 6. Eg: #Ram12');
                 }
             });
             function validatePassword(password) {
@@ -261,6 +261,7 @@
             if (validationreq) {
                 debugger;
                 $("#btnSignup").prop('disabled', true);
+                $(".loader").show();
               
                 var tblsignupdata = { Username: username, Password: password, Name: name, Email: fathername, PhoneNumber: mobileno, PaymentId: (localStorage.getItem("paymentId")), PlanAmount: (localStorage.getItem("plan") / 100), ReferBy: $("#referBy").val() }
                 $.ajax({
@@ -310,7 +311,7 @@
                 contentType: 'application/json; charset=utf-8',
                 datatype: 'json',
                 success: function (response) {
-                  
+                    $(".loader").hide();
                     localStorage.clear();
                     window.location.href = "/login";
 
