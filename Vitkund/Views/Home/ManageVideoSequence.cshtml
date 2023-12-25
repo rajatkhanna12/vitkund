@@ -4,7 +4,6 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>ManageVideoSequence</h2>
 
 <style>
     #sortable-head, #sortable {
@@ -41,9 +40,10 @@
             list-style-type: none;
         }
 </style>
+
 <div class="page-body">
     <style>
-        #col-container {
+        .col-container {
             display: inline-flex;
             justify-content: space-between;
         }
@@ -52,8 +52,7 @@
             text-align: center;
             font-weight: bold;
             padding: 10px;
-            border-top-left-radius: 9px;
-            border-top-right-radius: 9px;
+            border-radius: 9px;
             border: solid grey 2px;
             cursor: move;
         }
@@ -63,21 +62,31 @@
         }
     </style>
     <!-- partial:index.partial.html -->
-
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    @foreach (var item in ViewBag.tblchapters)
-                    {
+        <div class="page-title">
+            <div class="row">
+                <div class="col-12 col-sm-6">
+                    <h3>Manage Video Sequence</h3>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    @foreach (var item in ViewBag.tblchapters)
+    {
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card" style="margin-bottom:50px;">
                         <div class="card-header pb-0">
                             <h6>
                                 @item.Name
                             </h6>
                         </div>
-                        <div id="col-container" class="card-body">
+                        <div class="card-body">
                             <div class="row" id="ChapterRow_@item.Id">
-                                @foreach (var item1 in Model.Where(x => x.fK_Chapter == item.Id).OrderBy(x=>x.Position))
+                                @foreach (var item1 in Model.Where(x => x.fK_Chapter == item.Id).OrderBy(x => x.Position))
                                 {
                                     <div id="@item1.Id" class="col col-lg-3" draggable="true">
 
@@ -85,38 +94,43 @@
                                         {
                                             if (item1.VideoImage.Contains("Content"))
                                             {
-                                                <img src="@item1.VideoImage" class="title" itemprop="thumbnail" style="height:90px;width:200px" alt="Image description">
+                                                <img src="@item1.VideoImage" class="title" itemprop="thumbnail" style="height:90px; width:100%;" alt="Image description">
                                             }
                                             else
                                             {
-                                                <img src="~/Content/Uploads/@item1.VideoImage" class="title" style="height:90px;width:200px" itemprop="thumbnail" alt="Image description">
+                                                <img src="~/Content/Uploads/@item1.VideoImage" class="title" style="height:90px; width:100%;" itemprop="thumbnail" alt="Image description">
 
                                             }
                                         }
-                                       <p>@item1.FileTitle</p>
+                                        <hr />
+
+                                        <p>@item1.FileTitle</p>
                                     </div>
                                 }
                             </div>
                         </div>
-                        
+
                         <div class="card-footer text-end">
                             <span style="color:red;display:none" id="spnConfirmMsg">Video Sequence Updated!</span><br />
                             <input type="button" id="btnaddupdate" class="btn btn-primary" onclick="UpdateOrderSeq(@item.Id)" value="Update Order Sequence" />
                             @*<button class="btn btn-primary" id="Uploadvideobutton" onclick="AddVideos()">Upload Video</button>*@
                         </div>
-                    }
+                        
+                    </div>
                 </div>
             </div>
         </div>
+    }
+
+        <!-- partial -->
+
+        <script src="~/Content/admin/assets/js/drag-script.js"></script>
+
+
     </div>
 
 
-    <!-- partial -->
 
-    <script src="~/Content/admin/assets/js/drag-script.js"></script>
-
-
-</div>
 <script src="~/Content/Userjs/ManageSeq.js"></script>
 <script>
     function UpdateOrderSeq(ChapterId) {
