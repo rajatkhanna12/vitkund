@@ -189,7 +189,17 @@ namespace Vitkund.Controllers
         {
             if (Session["LoggedIn"] == "true" && Session["Role"] == "Admin")
             {
+                VitkundEntities db = new VitkundEntities();
+            ViewBag.TotalAmount=    db.tblAdmins.ToList().Sum(x => Convert.ToInt32(x.PlanAmount));
+                ViewBag.TotalUser = db.tblAdmins.Where(x => x.IsRole == true).ToList().Count;
+              
+                var users = db.tblAdmins.Where(x=>x.IsRole == true).ToList();
+                ViewBag.Referral = db.tblAdmins.Where(x => x.ReferBy != null).ToList().Count;
 
+                if(users.Count > 0)
+                {
+                   ViewBag.NewUser= users.Where(x => x.CreatedDate.Value.ToShortDateString() == DateTime.Now.ToString("dd-MM-yyyy")).ToList().Count;
+                }
                 ViewBag.Message = "Your Admin Index page.";
                 return View();
             }
@@ -1339,6 +1349,46 @@ namespace Vitkund.Controllers
             }
             return Json(true, JsonRequestBehavior.AllowGet);
         }
+
+        [Route("User-List")]
+        public ActionResult UserList()
+        {
+            if (Session["LoggedIn"] == "true" && Session["Role"] == "Admin")
+            {
+                VitkundEntities db = new VitkundEntities();
+                var q = (from u in db.tblAdmins
+                         join r in db.tblResults on u.Id equals r.fk_admin
+                         orderby u.Id
+                         select new UserList
+                         {
+                             Email = u.Email,
+                             Phone = u.PhoneNumber,
+                             Username = u.Username,
+                             Name = u.Name,
+                             Score = r.Score,
+                             ReferBy= u.ReferBy,
+                             ReferCode= u.ReferCode
+
+                         }).ToList();
+                return View(q);
+            }
+            else
+            {
+                Session["lastaccesspage"] = "User-list"; return Redirect("/Login");
+            }
+            
+        }
+
     }
-   
+    public class UserList
+    {
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string Username { get; set; }
+        public string Name { get; set; }
+        public string ReferCode { get; set; }
+        public string ReferBy { get; set; }
+        public int? Score { get; set; }
+    }
+
 }

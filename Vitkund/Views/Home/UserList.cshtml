@@ -1,0 +1,83 @@
+﻿@model List<Vitkund.Controllers.UserList>
+@{
+    ViewBag.Title = "UserList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+
+<div class="page-body">
+    <div class="col-xl-12 col-md-12">
+        <div class="card ongoing-project recent-orders">
+            <div class="card-header card-no-border">
+                <div class="media media-dashboard">
+                    <div class="media-body">
+                        <h5 class="mb-0">User List</h5>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card-body pt-0">
+                <div class="table-responsive">
+                    <table class="table table-bordernone" id="tblUserList">
+                        <thead>
+                            <tr>
+                                <th> <span> Name</span></th>
+
+                                <th> <span>User Name</span></th>
+                                <th> <span>Email</span></th>
+                                <th> <span>Phone Number</span></th>
+                                <th> <span>Refer Code</span></th>
+                                <th> <span>Refer By</span></th>
+
+                                <th> <span>Score</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>
+                                    @item.Name
+                                </td>
+
+                                <td>
+                                    @item.Username
+                                </td>
+                                <td>
+                                    @item.Email
+                                </td>
+                                <td>
+                                    @item.Phone
+                                </td>
+                                <td>@item.ReferCode</td>
+                                <td>
+                                    @item.ReferBy
+                                </td>
+                                <td>
+                                    @item.Score
+                                </td>
+
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    //$(document).ready(function () {
+
+
+
+    //    $('#tblUserList').DataTable();
+
+
+
+    //});
+</script>

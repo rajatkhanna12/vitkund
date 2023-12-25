@@ -660,6 +660,7 @@
     <Content Include="Views\Home\myaccount.cshtml" />
     <Content Include="Views\Home\AddCourses.cshtml" />
     <Content Include="Views\Home\ManageVideoSequence.cshtml" />
+    <Content Include="Views\Home\UserList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
