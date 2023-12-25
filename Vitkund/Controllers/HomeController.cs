@@ -522,6 +522,8 @@ namespace Vitkund.Controllers
             VitkundEntities db = new VitkundEntities();
             if (tblvideo.Id == null || tblvideo.Id == 0)
             {
+                int lastPos=  db.tblVideos.ToList().Count;
+                tblvideo.Position = lastPos + 1;
                 db.tblVideos.Add(tblvideo);
                 db.SaveChanges();
                 return Json(new { success = true, message = "Data saved successfully" });
