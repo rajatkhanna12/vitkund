@@ -7,6 +7,7 @@ using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Configuration;
@@ -24,7 +25,52 @@ namespace Vitkund.Controllers
         [Route("")]
         public ActionResult Index()
         {
+            //SendOTPVerification("Rajat", "9034748660", "123456");
             return View();
+        }
+        public string SendOTPVerification(string Name, string MobileNo, string OTP)
+        {
+            Stream data = null;
+            StreamReader reader = null;
+            try
+            {
+                if (MobileNo != "")
+                {
+                    Random objRandom = new Random();
+                    String AuthCode = objRandom.Next(100000, 999999).ToString();
+                    WebClient client = new WebClient();
+
+
+                    string url = "http://mysmsshop.in/http-api.php?username=99st&password=99st@&senderid=statio&route=1&number=91"
+                       + MobileNo + "&message=" + "Hi \n" + "Please enter " + OTP + " the One Time Password sent on your mobile number 91 - XXXXXX" + MobileNo.Substring(6) +
+                        "\nThank you,\nretailonline.in";
+
+                    data = client.OpenRead(url);
+                    reader = new StreamReader(data);
+                    string s = reader.ReadToEnd();
+                    if (s.Contains("Message Submitted Successfully"))
+                    {
+                        return AuthCode;
+                    }
+                    else
+                    {
+                        return "Error";
+                    }
+                }
+                else
+                {
+                    return "No Mobile no. found";
+                }
+            }
+            catch (Exception ex)
+            {
+                return "SMSError";
+            }
+            finally
+            {
+                data.Close();
+                reader.Close();
+            }
         }
 
         [Route("About-us")]

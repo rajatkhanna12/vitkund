@@ -3,8 +3,10 @@
     ViewBag.Title = "AddBusinessIdeas";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<link href="~/Content/jquery.tag-editor.css" rel="stylesheet" />
 
-<h2>AddBusinessIdeas</h2>
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.0/dist/trix.css">
+@*<h2>AddBusinessIdeas</h2>*@
 <div class="page-body">
 
     <!-- Container-fluid starts-->
@@ -46,7 +48,9 @@
                                 <div class="col-sm-12">
                                     <div class="mb-3">
                                         <label>Long Description</label>&nbsp;<span style="color:red" id="maxvalspanlongdesc"></span><span style="color:red;display:none" id="longdescrequired">Required !!</span>
-                                        <textarea class="form-control" type="text" id="Longdescriptiontxtbox" placeholder="Long Description"></textarea>
+                                        @*<textarea class="form-control" type="text" id="Longdescriptiontxtbox" placeholder="Long Description"></textarea>*@
+                                        <trix-editor id="Longdescriptiontxtbox" angular-trix ng-model="trix" class="trix-content" placeholder="Long Description"></trix-editor>
+
                                     </div>
                                 </div>
                                 <div class="col-sm-4">
@@ -144,6 +148,8 @@
 </div>
 
 <script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery.tag-editor.js"></script>
+<script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
 <script>
     var validation = false;
     var titlevalidation = true;
@@ -207,6 +213,7 @@
             } else {
                 $('#validationMessageimageupload').text('');
             }
+            $("#uplaoderimagevalue").text("");
             $("#uplaoderimagevalue").hide();
         });
         $('#frompricetxtbox').on('input', function () {
@@ -245,19 +252,25 @@
         var title = $("#EventTitletxtbox").val();
         var image = $("#imagetitletxtbox").val();
         var shortdescription = $("#shortDescriptiontxtbox").val();
-        var longdescription = $("#Longdescriptiontxtbox").val();
+        debugger;
+        var longdescription = $("#Longdescriptiontxtbox").html();
         var fromprice = $("#frompricetxtbox").val();
         var toprice = $("#topricetxtbox").val();
-        var formData = new FormData();
-        formData.append('file', $("#imageuploader")[0].files[0]);
-        if (titlevalidation == true && shortdescvalidation == true && formpricevalidation == true && topricevalidation == true)
-            validation = true
-        else
-            validation = false;
+        var fileImage = $("#uplaoderimagevalue").text();
+        if (fileImage == null || fileImage == "") {
+            var formData = new FormData();
+            formData.append('file', $("#imageuploader")[0].files[0]);
+            if (titlevalidation == true && shortdescvalidation == true && formpricevalidation == true && topricevalidation == true)
+                validation = true
+            else
+                validation = false;
 
-        var imagevalid = $("#imageuploader")[0].files[0];
-        if (imagevalid == undefined)
-            validation = false;
+            var imagevalid = $("#imageuploader")[0].files[0];
+            if (imagevalid == undefined)
+                validation = false;
+        } else {
+            validation = true;
+        }
         //validation checking
         if (title == "") { $("#titlerequired").show(); requiredval = false; } else { $("#titlerequired").hide(); requiredval = true; }
         if (shortdescription == "") { $("#shortdescrequired").show(); requiredval = false; } else { $("#shortdescrequired").hide(); requiredval = true; }
@@ -266,22 +279,27 @@
         if (toprice == "") { $("#topricerequired").show(); requiredval = false; } else { $("#topricerequired").hide(); requiredval = true; }
         //validation checking
 
-        if (requiredval ==true && validation == true) {
-            $.ajax({
-                url: '@Url.Action("UploadFile", "Home")',
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    var tblBusinessideadata = { Id: Id, Title: title, Image: response, ShortDescription: shortdescription, LongDescription: longdescription, fromprice: fromprice, toprice: toprice };
-                    finaladdmodal(tblBusinessideadata);
-                },
-                error: function (error) {
-                    // Handle errors
-                    console.log(error);
-                }
-            });
+        if (requiredval == true && validation == true) {
+            if (fileImage != "") {
+                var tblBusinessideadata = { Id: Id, Title: title, Image: fileImage, ShortDescription: shortdescription, LongDescription: longdescription, fromprice: fromprice, toprice: toprice };
+                finaladdmodal(tblBusinessideadata);
+            } else {
+                $.ajax({
+                    url: '@Url.Action("UploadFile", "Home")',
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        var tblBusinessideadata = { Id: Id, Title: title, Image: response, ShortDescription: shortdescription, LongDescription: longdescription, fromprice: fromprice, toprice: toprice };
+                        finaladdmodal(tblBusinessideadata);
+                    },
+                    error: function (error) {
+                        // Handle errors
+                        console.log(error);
+                    }
+                });
+            }
         }
         else { }
 
