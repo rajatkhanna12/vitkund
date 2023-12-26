@@ -20698,6 +20698,18 @@ ul.testimonial-thumb-wrapper li a.active .thumb img {
   width: 100%;
   border-radius: 100%;
 }
+
+    .thumb img {
+        height: 40px;
+        padding: 2px;
+        max-width: 70px;
+        height: 100%;
+        border:2px solid #eee;
+        object-fit: cover;
+        width: 100%;
+        border-radius: 100%;
+    }
+
 .rbt-testimonial-box.style-2 .clint-info-wrapper .client-info {
   padding-left: 15px;
 }
