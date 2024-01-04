@@ -97,14 +97,14 @@
 <script>
     $(document).ready(function () {
         $('#Chapternametxtbox').on('input', function () {
-            var maxLength = 10; // Adjust the maximum length as needed
+            var maxLength = 20; // Adjust the maximum length as needed
             var inputValue = $(this).val();
 
             if (inputValue.length > maxLength) {
                 // Trim the input to the maximum length
                 var trimmedValue = inputValue.substring(0, maxLength);
                 $(this).val(trimmedValue);
-                $("#maxvalspan").text("Only 10 characters allowed.");
+                $("#maxvalspan").text("Only 20 characters allowed.");
             }
             else {
                 $("#maxvalspan").text("");

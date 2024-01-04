@@ -159,13 +159,13 @@
                 <script>
     $(document).ready(function () {
         $("#Videofiletitle").on('change', function () {
-            var maxLength = 30;
+            var maxLength = 50;
             var inputValue = $(this).val();
             if (inputValue.length > maxLength) {
                 // Trim the input to the maximum length
                 var trimmedValue = inputValue.substring(0, maxLength);
                 $(this).val(trimmedValue);
-                $("#maxvalspanvideotitle").text("Only 30 characters allowed.");
+                $("#maxvalspanvideotitle").text("Only 50 characters allowed.");
             }
             else {
                 $("#maxvalspanvideotitle").text("");
