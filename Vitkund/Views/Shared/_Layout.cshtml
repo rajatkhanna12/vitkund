@@ -62,7 +62,7 @@
                                         <li>
                                             <a href="#"><i class="fab fa-youtube-square"></i>35k <span class="d-none d-xxl-block">Subscriber</span></a>
                                         </li>
-                                        
+
                                     </ul>
                                 </div>
                                 <!-- End Header Information List  -->
@@ -265,13 +265,20 @@
                             <ul class="mainmenu">
 
                                 <li><a href="/index">Home</a></li>
-                                <li><a href="/about-us">About Us</a></li>
-                                <li><a href="/course">Courses</a></li>
-                                <li><a href="/plan">Plan</a></li>
+                                <li><a href="/about-us">About</a></li>
+                                <li><a href="/Business-Ideas">Business Ideas</a></li>
+
+                                <li>
+                                    <a href="/Trending-Business">Trending Business </a>
+                                </li>
+
+                                <li>
+                                    <a href="/motivational-story">Motivational Story</a>
+                                </li>
                                 <li><a href="/videos">Course Videos</a></li>
-                                <li><a href="/our-services">Our Services</a></li>
-                                <li><a href="/faq">FAQ</a></li>
-                                <li><a href="/contact-us">Contact Us</a></li>
+
+
+                                <li><a href="/contact-us">Contact</a></li>
 
 
                             </ul>
@@ -322,18 +329,18 @@
                                                 </div>
                                             </div>
                                             @*@if (Session["Role"] == "Admin")
-                                            {
-                                                <ul class="user-list-wrapper">
-                                                    <li>
-                                                        <a href="/AdminIndex">
-                                                            <i class="feather-home"></i>
-                                                            <span>My Dashboard</span>
-                                                        </a>
-                                                    </li>
+                                                {
+                                                    <ul class="user-list-wrapper">
+                                                        <li>
+                                                            <a href="/AdminIndex">
+                                                                <i class="feather-home"></i>
+                                                                <span>My Dashboard</span>
+                                                            </a>
+                                                        </li>
 
-                                                </ul>
-                                            }
-                                            else { }*@
+                                                    </ul>
+                                                }
+                                                else { }*@
                                             <hr class="mt--10 mb--10">
 
                                             <ul class="user-list-wrapper">
@@ -471,7 +478,7 @@
                                 { <a class="rbt-btn blink btn-border-gradient radius-round btn-sm hover-transform-none" href="/AdminIndex">
                                         <i class="feather-home"></i> Dashboard
                                     </a>
-                                    
+
                                 }
                             }
                         </div>
@@ -538,13 +545,20 @@
             <nav class="mainmenu-nav">
                 <ul class="mainmenu">
                     <li><a href="/index">Home</a></li>
-                    <li><a href="/about-us">About Us</a></li>
-                    <li><a href="/course">Courses</a></li>
-                    <li><a href="/our-services">Our Services</a></li>
-                    <li><a href="/plan">Plan</a></li>
+                    <li><a href="/about-us">About</a></li>
+                    <li><a href="/Business-Ideas">Business Ideas</a></li>
+
+                    <li>
+                        <a href="/Trending-Business">Trending Business </a>
+                    </li>
+
+                    <li>
+                        <a href="/motivational-story">Motivational Story</a>
+                    </li>
                     <li><a href="/videos">Course Videos</a></li>
-                    <li><a href="/faq">FAQ</a></li>
-                    <li><a href="/contact-us">Contact Us</a></li>
+
+
+                    <li><a href="/contact-us">Contact</a></li>
                 </ul>
             </nav>
 
@@ -669,13 +683,11 @@
                                     <li>
                                         <a href="/contact-us">Contact Us</a>
                                     </li>
-                                    <li>
-                                        <a href="/Business-Ideas">Business Ideas</a>
-                                    </li>
+                                    <li><a href="/course">Courses</a></li>
+                                    <li><a href="/plan">Plan</a></li>
 
-                                    <li>
-                                        <a href="/Trending-Business">Trending Business </a>
-                                    </li>
+                                    <li><a href="/our-services">Our Services</a></li>
+                                    <li><a href="/faq">FAQ</a></li>
                                     <li>
                                         <a href="/gallery">Gallery</a>
                                     </li>
@@ -753,6 +765,28 @@
         </div>
     </div>
 
+    <style>
+        .enquiry_btn_link {
+            position: fixed;
+            right: 30px;
+            bottom: 45px;
+            z-index: 564;
+            width: 194px;
+            color: #fff !important;
+            padding: 6px 10px;
+            text-transform: uppercase;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 17px;
+            border-top: 3px solid #fadb4b;
+            text-align: center;
+            background-color: #333;
+            box-shadow: 0 0 18px rgba(0,0,0,0.3);
+        }
+    </style>
+
+    <a href="https://api.whatsapp.com/send?phone=+918607609898&text=Hi,%20Virtual%20and%20Integrated%20Technical%20Assistant,%20I%20checked%20your%20Website.%20Can%20we%20discuss%20further?" class="enquiry_btn_link" target="_blank" title="page hit counter">
+        <img src="~/Content/assets/images/whatsapp.png" style="max-width:50px;" border="0" title="WhatsApp chat with VITA" alt="WhatsApp chat with VITA"><br>WhatsApp chat with VITA
+    </a>
 
     <!-- JS
        ============================================ -->
