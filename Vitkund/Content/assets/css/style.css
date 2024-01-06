@@ -12466,7 +12466,7 @@ ul.rbt-dropdown-menu.currency-menu li .sub-menu {
 }
 .rbt-header .mainmenu-nav .mainmenu > li > a {
   color: var(--color-heading);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
   padding: 0 17px;
   display: flex;
