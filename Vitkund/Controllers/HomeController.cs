@@ -907,7 +907,7 @@ namespace Vitkund.Controllers
             {
                 VitkundEntities db = new VitkundEntities();
                 tbladmin.IsRole = true;
-                tbladmin.RegistrationDate = DateTime.Now;
+                tbladmin.RegistrationDate = DateTime.Now; tbladmin.CreatedDate = DateTime.Now;
                 tbladmin.ReferCode = tbladmin.Username + "-" + tbladmin.PhoneNumber.Substring(0, 3);
                 db.tblAdmins.Add(tbladmin);
                 db.SaveChanges();
