@@ -14,6 +14,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using Vitkund.Models;
+using static System.Net.WebRequestMethods;
 
 namespace Vitkund.Controllers
 {
@@ -236,15 +237,15 @@ namespace Vitkund.Controllers
             if (Session["LoggedIn"] == "true" && Session["Role"] == "Admin")
             {
                 VitkundEntities db = new VitkundEntities();
-            ViewBag.TotalAmount=    db.tblAdmins.ToList().Sum(x => Convert.ToInt32(x.PlanAmount));
+                ViewBag.TotalAmount = db.tblAdmins.ToList().Sum(x => Convert.ToInt32(x.PlanAmount));
                 ViewBag.TotalUser = db.tblAdmins.Where(x => x.IsRole == true).ToList().Count;
-              
-                var users = db.tblAdmins.Where(x=>x.IsRole == true).ToList();
+
+                var users = db.tblAdmins.Where(x => x.IsRole == true).ToList();
                 ViewBag.Referral = db.tblAdmins.Where(x => x.ReferBy != null).ToList().Count;
 
-                if(users.Count > 0)
+                if (users.Count > 0)
                 {
-                   ViewBag.NewUser= users.Where(x => x.CreatedDate.Value.ToShortDateString() == DateTime.Now.ToString("dd-MM-yyyy")).ToList().Count;
+                    ViewBag.NewUser = users.Where(x => x.CreatedDate.Value.ToShortDateString() == DateTime.Now.ToString("dd-MM-yyyy")).ToList().Count;
                 }
                 ViewBag.Message = "Your Admin Index page.";
                 return View();
@@ -522,7 +523,7 @@ namespace Vitkund.Controllers
             VitkundEntities db = new VitkundEntities();
             if (tblvideo.Id == null || tblvideo.Id == 0)
             {
-                int lastPos=  db.tblVideos.ToList().Count;
+                int lastPos = db.tblVideos.ToList().Count;
                 tblvideo.Position = lastPos + 1;
                 db.tblVideos.Add(tblvideo);
                 db.SaveChanges();
@@ -688,28 +689,60 @@ namespace Vitkund.Controllers
         [HttpPost]
         public ActionResult LoginAdmin(tblAdmin tbladmin)
         {
-            VitkundEntities db = new VitkundEntities();
-            tblAdmin tblAdmin = db.tblAdmins.FirstOrDefault(x => x.Username == tbladmin.Username && x.Password == tbladmin.Password);
-            if (tblAdmin == null)
-                return Json(new { success = true, message = "User Not Found" });
+            string generatedotp = Session["OTP"].ToString();
+            if (tbladmin.Password == generatedotp)
+            {
+                VitkundEntities db = new VitkundEntities();
+                tblAdmin tblAdmin = db.tblAdmins.FirstOrDefault(x => x.PhoneNumber == tbladmin.PhoneNumber);
+                if (tblAdmin == null)
+                    return Json(new { success = true, message = "User Not Found" });
+                else
+                {
+                    string planamout = tblAdmin.PlanAmount;
+                    DateTime validdate = new DateTime();
+                    DateTime purchaseddate = Convert.ToDateTime(tblAdmin.RegistrationDate);
+                    DateTime currentdatetime = DateTime.Now;
+                    validdate = purchaseddate;
+                    if (planamout == "5000")
+                        validdate = validdate.AddMonths(3);
+                    else if (planamout == "7500")
+                        validdate = validdate.AddMonths(6);
+                    else if (planamout == "10000")
+                        validdate = validdate.AddMonths(9);
+                    else if (planamout == "12500")
+                        validdate = validdate.AddMonths(12);
+
+                    if (tblAdmin.IsRole == true)
+                    {
+                        if (currentdatetime >= validdate)
+                        {
+                            return Json(new { success = true, message = "Your Plan is expired." });
+                        }
+                        else
+                        {
+                            Session["LoggedIn"] = "true";
+                            Session["Role"] = "User";
+                            Session["Usernameloggedin"] = tblAdmin.Name;
+                            Session["UserLoggedInId"] = tblAdmin.Id;
+                        }
+                    }
+                    else if (tblAdmin.IsAdmin == true)
+                    {
+                        Session["LoggedIn"] = "true";
+                        Session["Role"] = "Admin";
+                        Session["Usernameloggedin"] = tblAdmin.Name;
+                        Session["UserLoggedInId"] = tblAdmin.Id;
+                    }
+                    return Json(new { success = true, message = "Logged In," + Session["Role"] + "," + Session["lastaccesspage"] });
+                }
+            }
             else
             {
-                if (tblAdmin.IsRole == true)
-                {
-                    Session["LoggedIn"] = "true";
-                    Session["Role"] = "User";
-                    Session["Usernameloggedin"] = tblAdmin.Name;
-                    Session["UserLoggedInId"] = tblAdmin.Id;
-                }
-                else if (tblAdmin.IsAdmin == true)
-                {
-                    Session["LoggedIn"] = "true";
-                    Session["Role"] = "Admin";
-                    Session["Usernameloggedin"] = tblAdmin.Name;
-                    Session["UserLoggedInId"] = tblAdmin.Id;
-                }
-                return Json(new { success = true, message = "Logged In," + Session["Role"] + "," + Session["lastaccesspage"] });
+                return Json(new { success = true, message = "Wrong OTP or Phone Number" });
+
             }
+
+
 
 
         }
@@ -952,9 +985,29 @@ namespace Vitkund.Controllers
                 VitkundEntities db = new VitkundEntities();
                 tblAdmin tbladmin = new tblAdmin();
                 tbladmin = db.tblAdmins.Find(Convert.ToInt32(id));
+
                 if (tbladmin.RegistrationDate.HasValue)
                 {
+
+                    string planamout = tbladmin.PlanAmount;
+                    DateTime validdate = new DateTime();
+                    DateTime purchaseddate = Convert.ToDateTime(tbladmin.RegistrationDate);
+                    DateTime dateTime = DateTime.Now;
+                    validdate = purchaseddate;
+                    if (planamout == "5000")
+                        validdate = validdate.AddMonths(3);
+                    else if (planamout == "7500")
+                        validdate = validdate.AddMonths(6);
+                    else if (planamout == "10000")
+                        validdate = validdate.AddMonths(9);
+                    else if (planamout == "12500")
+                        validdate = validdate.AddMonths(12);
                     String vall = tbladmin.RegistrationDate.Value.ToString("MMMM dd, yyyy");
+                    if (dateTime <= validdate)
+                    {
+                        var diff = validdate - dateTime;
+                        TempData["leftdays"] = diff.Days.ToString();
+                    }
                 }
                 return View(tbladmin);
             }
@@ -1239,6 +1292,48 @@ namespace Vitkund.Controllers
         }
         #endregion
 
+
+
+        #region OTP
+
+        public ActionResult SendOTP(string Phonenum, string OTP)
+        {
+            Session["OTP"] = OTP;
+            VitkundEntities db = new VitkundEntities();
+            tblAdmin tbladmin = db.tblAdmins.FirstOrDefault(x => x.PhoneNumber == Phonenum);
+            if (tbladmin == null)
+            {
+                return Json(new { success = true, message = "This PhoneNumber doesn't exist." });
+            }
+            else
+            {
+                //send otp code here
+
+                string Message = "Hi Web Aspiration," + "\n" + " You have received one new inquiry on Web Aspiration from" + "\n" +
+                                 "Your OTP is : " + OTP + "\n";
+                Phonenum = "91" + Phonenum;
+                string apiurl = "http://mysmsshop.in/http-api.php?username=vitkund1&password=%23Vitkund@123&senderid=Mobitq&route=1&unicode=2&number=" + Phonenum + "&message=" + OTP + "" +
+                "%20is%20your%20OTP.%20OTP%20is%20confidential.%20For%20security%20reasons,%20Do%20not%20share%20this%20OTP%20with%20anyone%20Vitkund%20Mobitq";
+
+                try
+                {
+                    using (WebClient client = new WebClient())
+                    {
+                        string s = client.DownloadString(apiurl);
+                        return Json(new { success = true, message = "OTP sent successfully" });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return Json(new { success = true, message = "Something Error Found" });
+                    ex.ToString();
+                }
+            }
+            //return Json(new { success = true, message = "Something Error Found" });
+        }
+
+        #endregion
+
         public JsonResult SendWelcomeEmail(string name, string email, string phone, string password, string refercode, string username)
         {
 
@@ -1414,8 +1509,8 @@ namespace Vitkund.Controllers
                              Username = u.Username,
                              Name = u.Name,
                              Score = r.Score,
-                             ReferBy= u.ReferBy,
-                             ReferCode= u.ReferCode
+                             ReferBy = u.ReferBy,
+                             ReferCode = u.ReferCode
 
                          }).ToList();
                 return View(q);
@@ -1424,7 +1519,7 @@ namespace Vitkund.Controllers
             {
                 Session["lastaccesspage"] = "User-list"; return Redirect("/Login");
             }
-            
+
         }
 
     }

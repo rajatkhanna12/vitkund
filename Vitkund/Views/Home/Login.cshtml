@@ -27,15 +27,17 @@
             <div class="col-lg-6 offset-lg-3">
                 <div class="rbt-contact-form contact-form-style-1 max-width-auto">
 
-                    <form class="max-width-auto" >
+                    <form class="max-width-auto">
                         <div class="form-group">
+                            <span id="validationMessagemobileno" style="color:red"></span><span id="maxvalmobileno" style="color:red"></span><span id="requiredvalidationformobileno" style="color:red"></span>
                             <input name="con_name" type="text" id="usernametxtbox" required>
-                            <label>Username or email *</label>
+                            <label>Phone *</label>
                             <span class="focus-border"></span>
+                            <a href="javascript:void(0);" style="text-align: right; float: right; font-size: 15px;" onclick="GenerateOTP()">Get OTP.</a>
                         </div>
                         <div class="form-group">
                             <input name="con_email" id="passwordtxtbox" type="password" required>
-                            <label>Password *</label>
+                            <label>OTP *</label>
                             <span class="focus-border"></span>
                         </div>
 
@@ -47,10 +49,10 @@
                                 </div>
                             </div>
                             @*<div class="col-lg-6">
-                                <div class="rbt-lost-password text-end">
-                                    <a class="rbt-btn-link" href="#">Lost your password?</a>
-                                </div>
-                            </div>*@
+                                    <div class="rbt-lost-password text-end">
+                                        <a class="rbt-btn-link" href="#">Lost your password?</a>
+                                    </div>
+                                </div>*@
                         </div>
 
                         <div class="form-submit-group">
@@ -66,7 +68,7 @@
 
                         </div>
                         <br />
-                       
+
                     </form>
                 </div>
 
@@ -82,8 +84,32 @@
         <hr class="rbt-separator m-0">
     </div>
 </div>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
 <script>
-
+    $('#usernametxtbox').on('input', function () {
+        var maxLength = 10;
+        var inputValue = $(this).val();
+        if (/[^0-9]/g.test(inputValue)) {
+            topricevalidation = false;
+            $('#validationMessagemobileno').text('Only numbers allowed (0-9)');
+        }
+        else {
+            topricevalidation = true;
+            $('#validationMessagemobileno').text('');
+        }
+        // Allow only numbers (0-9)
+        var numericValue = inputValue.replace(/[^0-9]/g, '');
+        $(this).val(numericValue);
+        if (inputValue.length > maxLength) {
+            // Trim the input to the maximum length
+            var trimmedValue = inputValue.substring(0, maxLength);
+            $(this).val(trimmedValue);
+            $("#maxvalmobileno").text("Only " + maxLength + " Digits allowed.");
+        }
+        else {
+            $("#maxvalmobileno").text("");
+        }
+    });
     function LoginAdmin() {
         var username = $("#usernametxtbox").val();
         var password = $("#passwordtxtbox").val();
@@ -122,6 +148,73 @@
         }
         else {
             alert('Please Enter Login Details.');
+        }
+    }
+    
+    function LoginAdmin() {
+        var username = $("#usernametxtbox").val();
+        var OTP = $("#passwordtxtbox").val();
+        var tbladmin = { PhoneNumber: username, Password: OTP }
+        if (username != "" || password != "") {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("LoginAdmin", "Home")',
+                data: JSON.stringify({ tbladmin}),
+                traditional: true,
+                contentType: 'application/json; charset=utf-8',
+                datatype: 'json',
+                success: function (response) {
+                    debugger
+                    if (!response.message.includes(",")) {
+                        alert(response.message);
+                    }
+                    var data = response.message.split(",");
+                    if (data[0] == "Logged In" && data[1] == "Admin") {
+                        if (data[2] != null && data[2] != "")
+                            window.location.href = "/" + data[2];
+                        else
+                            window.location.href = "/AdminIndex";
+                    }
+                    else if (data[0] == "Logged In" && data[1] == "User") {
+                        if (data[2] != null && data[2] != "")
+                            window.location.href = "/" + data[2];
+                        else
+                            window.location.href = "/Index";
+                    }
+                    else if (response.message == "User Not Found")
+                        alert(response.message)
+                },
+                error: function (error) {
+                    // Handle errors
+                    console.log(error);
+                }
+            });
+        }
+        else {
+            alert('Please Enter Login Details.');
+        }
+    }
+
+    function GenerateOTP() {
+        var randomotp = Math.floor(1000 + Math.random() * 9000);
+        var PhoneNumber = $("#usernametxtbox").val();
+        if (PhoneNumber != "" && PhoneNumber != null) {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("SendOTP", "Home")',
+                data: JSON.stringify({ Phonenum: PhoneNumber, OTP: randomotp }),
+                traditional: true,
+                contentType: 'application/json; charset=utf-8',
+                datatype: 'json',
+                success: function (response) {
+                    debugger
+                    alert(response.message);
+                },
+                error: function (error) {
+                    // Handle errors
+                    console.log(error);
+                }
+            });
         }
     }
 </script>

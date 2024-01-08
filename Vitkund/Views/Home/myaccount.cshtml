@@ -170,6 +170,17 @@
                                     </div>
                                 </div>
                                 <!-- End Profile Row  -->
+                                @if(Model.IsRole == true)
+                                {
+                                    <div class="rbt-profile-row row row--15 mt--15">
+                                        <div class="col-lg-4 col-md-4">
+                                            <div class="rbt-profile-content b2">Plan Validity</div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-8">
+                                            <div class="rbt-profile-content b2">@TempData["leftdays"] days left</div>
+                                        </div>
+                                    </div>
+                                }
                             </div>
                         </div>
 
