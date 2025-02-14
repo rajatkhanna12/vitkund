@@ -9,8 +9,10 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
+using System.Web.Management;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using Vitkund.Models;
@@ -1302,41 +1304,43 @@ namespace Vitkund.Controllers
 
         #region OTP
 
-        public ActionResult SendOTP(string Phonenum, string OTP)
+        public async Task<ActionResult> SendOTP(string Phonenum, string OTP)
         {
-            Session["OTP"] = OTP;
-            VitkundEntities db = new VitkundEntities();
-            tblAdmin tbladmin = db.tblAdmins.FirstOrDefault(x => x.PhoneNumber == Phonenum);
-            if (tbladmin == null)
+            try
             {
-                return Json(new { success = true, message = "This PhoneNumber doesn't exist." });
+                Session["OTP"] = OTP;
+                VitkundEntities db = new VitkundEntities();
+                tblAdmin tbladmin = db.tblAdmins.FirstOrDefault(x => x.PhoneNumber == Phonenum);
+
+                if (tbladmin == null)
+                {
+                    return Json(new { success = true, message = "This PhoneNumber doesn't exist." });
+                }
+                if (tbladmin.Email != null)
+                {
+                    var email = tbladmin.Email;
+                    var emailSender = new EmailService();
+                    var subject = "Your One-Time Password (OTP) for Access";
+                    string Message = "Hi " + tbladmin.Name + ", " + "<br>" + " We are excited to verify your identity for seamless access to your account. Please find your <b>One-Time Password (OTP)</b> below: " + "<br>" +
+                                            "Your OTP : " + OTP + "<br>" +
+                                            "If you did not request this OTP, please ignore this email." + "<br>" + "<br>" + "<br>" + "<br>" + "<br>" +
+                                            "<b>Cheers,</b>" + "<br>" +
+                                            "<b>Vitkund Team</b>";
+                    await emailSender.SendEmailAsync(email, subject, Message);
+                    return Json(new { success = true, message = "OTP sent successfully on email" });
+                }
+                return Json(new { success = true, message = "Email id is not linked with this mobile number!" });
             }
-            else
+            catch (Exception ex)
             {
-                //send otp code here
+                // Log the exception details
+                // Example: Log(ex.Message, ex.StackTrace);
 
-                string Message = "Hi Web Aspiration," + "\n" + " You have received one new inquiry on Web Aspiration from" + "\n" +
-                                 "Your OTP is : " + OTP + "\n";
-                Phonenum = "91" + Phonenum;
-                string apiurl = "http://mysmsshop.in/http-api.php?username=vitkund1&password=%23Vitkund@123&senderid=Mobitq&route=1&unicode=2&number=" + Phonenum + "&message=" + OTP + "" +
-                "%20is%20your%20OTP.%20OTP%20is%20confidential.%20For%20security%20reasons,%20Do%20not%20share%20this%20OTP%20with%20anyone%20Vitkund%20Mobitq";
-
-                try
-                {
-                    using (WebClient client = new WebClient())
-                    {
-                        string s = client.DownloadString(apiurl);
-                        return Json(new { success = true, message = "OTP sent successfully" });
-                    }
-                }
-                catch (Exception ex)
-                {
-                    return Json(new { success = true, message = "Something Error Found" });
-                    ex.ToString();
-                }
+                return Json(new { success = false, message = "Failed to send OTP: " + ex.Message });
             }
-            //return Json(new { success = true, message = "Something Error Found" });
         }
+
+       
 
         #endregion
 
