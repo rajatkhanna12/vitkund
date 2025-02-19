@@ -700,7 +700,7 @@ namespace Vitkund.Controllers
             if (tbladmin.Password == generatedotp)
             {
                 VitkundEntities db = new VitkundEntities();
-                tblAdmin tblAdmin = db.tblAdmins.FirstOrDefault(x => x.PhoneNumber == tbladmin.PhoneNumber);
+                tblAdmin tblAdmin = db.tblAdmins.FirstOrDefault(x => x.Email == tbladmin.PhoneNumber);
                 if (tblAdmin == null)
                     return Json(new { success = true, message = "User Not Found" });
                 else
@@ -746,7 +746,7 @@ namespace Vitkund.Controllers
             }
             else
             {
-                return Json(new { success = true, message = "Wrong OTP or Phone Number" });
+                return Json(new { success = true, message = "Wrong OTP or Email Address" });
 
             }
 
@@ -1310,11 +1310,11 @@ namespace Vitkund.Controllers
             {
                 Session["OTP"] = OTP;
                 VitkundEntities db = new VitkundEntities();
-                tblAdmin tbladmin = db.tblAdmins.FirstOrDefault(x => x.PhoneNumber == Phonenum);
+                tblAdmin tbladmin = db.tblAdmins.FirstOrDefault(x => x.Email == Phonenum);
 
                 if (tbladmin == null)
                 {
-                    return Json(new { success = true, message = "This PhoneNumber doesn't exist." });
+                    return Json(new { success = true, message = "This Email doesn't exist." });
                 }
                 if (tbladmin.Email != null)
                 {
@@ -1329,7 +1329,7 @@ namespace Vitkund.Controllers
                     await emailSender.SendEmailAsync(email, subject, Message);
                     return Json(new { success = true, message = "OTP sent successfully on email" });
                 }
-                return Json(new { success = true, message = "Email id is not linked with this mobile number!" });
+                return Json(new { success = true, message = "Email Id does not exist!" });
             }
             catch (Exception ex)
             {
