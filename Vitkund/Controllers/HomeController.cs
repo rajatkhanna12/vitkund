@@ -691,11 +691,13 @@ namespace Vitkund.Controllers
         [HttpPost]
         public ActionResult LoginAdmin(tblAdmin tbladmin)
         {
-            if(tbladmin.PhoneNumber == "8607609898")
+            if (tbladmin.PhoneNumber == "vitkundindia@gmail.com" && tbladmin.Password == "97561")
             {
-                Session["OTP"] = "97561";
+                Session["LoggedIn"] = "true";
+                Session["Role"] = "Admin";
+                return Json(new { success = true, message = "Logged In,Admin,"+ Session["lastaccesspage"] });
             }
-           
+
             string generatedotp = Session["OTP"].ToString();
             if (tbladmin.Password == generatedotp)
             {

@@ -155,7 +155,7 @@
                             window.location.href = "/AdminIndex";
                     }
                     else if (data[0] == "Logged In" && data[1] == "User") {
-                        if (data[2] != null && data[2] != "")
+                        if (data[2] != null && data[2] != "" && data[2]=="AdminIndex")
                             window.location.href = "/" + data[2];
                         else
                             window.location.href = "/Index";
